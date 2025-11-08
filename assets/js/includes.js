@@ -96,8 +96,18 @@ document.addEventListener('DOMContentLoaded', async () => {
   const pageConfig = PAGE_CONFIGS[currentPage];
 
   if (pageConfig) {
-    console.log(`📄 Carregando seções para: ${currentPage}`);
     await ComponentLoader.loadMultiple(pageConfig);
+    
+    // Inicializar carrossel se a seção de tours foi carregada
+    if (pageConfig.some(config => config.id === 'tours' || config.path.includes('tours.html'))) {
+      // Aguardar um pouco mais para garantir que os elementos estão renderizados
+      setTimeout(() => {
+        if (typeof window.initToursCarousel === 'function') {
+          window.initToursCarousel();
+        }
+      }, 500);
+    }
+    
     // Scroll suave para âncora após carregar seções, se necessário
     if (window.pendingScrollTarget) {
       setTimeout(() => {
