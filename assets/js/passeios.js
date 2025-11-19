@@ -207,6 +207,15 @@ class PasseiosManager {
 
   // Preenche os detalhes do passeio na página
   preencherDetalhes(passeio) {
+    console.log('🔄 Preenchendo detalhes do passeio:', passeio.nome);
+    
+    // Verificar se os elementos principais existem
+    const nomeElement = document.getElementById('passeio-nome');
+    if (!nomeElement) {
+      console.error('❌ Elemento passeio-nome não encontrado. HTML pode não ter sido carregado.');
+      return;
+    }
+    
     // Título da página
     document.title = `${passeio.nome} - VUMBORA`;
 
@@ -219,10 +228,16 @@ class PasseiosManager {
         this.onerror = null;
         this.src = 'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'800\' height=\'600\'%3E%3Crect fill=\'%23e0e0e0\' width=\'800\' height=\'600\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' text-anchor=\'middle\' dy=\'.3em\' fill=\'%23999\' font-family=\'sans-serif\' font-size=\'24\'%3EImagem não disponível%3C/text%3E%3C/svg%3E';
       };
+    } else {
+      console.warn('⚠️ Elemento passeio-imagem-capa não encontrado');
     }
 
     // Informações básicas
     this.setTextContent('passeio-categoria', passeio.categoria);
+    const categoriaBadge = document.getElementById('passeio-categoria-badge');
+    if (categoriaBadge) {
+      categoriaBadge.textContent = passeio.categoria;
+    }
     this.setTextContent('passeio-nome', passeio.nome);
     this.setTextContent('passeio-descricao', passeio.descricao_completa);
     this.setTextContent('passeio-preco', passeio.preco_formatado);

@@ -35,18 +35,61 @@
   <script src="../assets/js/passeios.js"></script>
 
   <script>
+    // Garantir que PAGE_CONFIGS existe
+    if (typeof window.PAGE_CONFIGS === 'undefined') {
+      window.PAGE_CONFIGS = {};
+    }
     // Atualizar configuração de páginas no includes.js
-    PAGE_CONFIGS['passeio.html'] = [
+    window.PAGE_CONFIGS['passeio.html'] = [
       { id: 'passeio-content', path: '../sections/passeio-content.html' }
     ];
 
-    // Inicializar passeio individual após carregar componentes
-    document.addEventListener('DOMContentLoaded', async () => {
-      // Aguardar o carregamento dos componentes
-      setTimeout(async () => {
-        await window.carregarPasseioIndividual();
-        console.log('✅ Detalhes do passeio carregados!');
-      }, 300);
+    // Função para inicializar o passeio individual
+    async function inicializarPasseio() {
+      // Aguardar até que os elementos estejam no DOM
+      let tentativas = 0;
+      const maxTentativas = 50; // 5 segundos no total
+
+      while (tentativas < maxTentativas) {
+        const container = document.getElementById('passeio-content');
+        const nomeElement = document.getElementById('passeio-nome');
+
+        if (container && nomeElement) {
+          // Elementos estão prontos, carregar dados
+          if (typeof window.carregarPasseioIndividual === 'function') {
+            await window.carregarPasseioIndividual();
+            console.log('✅ Detalhes do passeio carregados!');
+            return;
+          } else {
+            console.error('❌ Função carregarPasseioIndividual não encontrada');
+            return;
+          }
+        }
+
+        await new Promise(resolve => setTimeout(resolve, 100));
+        tentativas++;
+      }
+
+      console.error('❌ Timeout ao aguardar elementos do passeio');
+    }
+
+    // Aguardar o evento contentLoaded do includes.js
+    document.addEventListener('contentLoaded', (event) => {
+      // Verificar se é a página de passeio
+      if (event.detail.pageConfig &&
+        event.detail.pageConfig.some(config => config.id === 'passeio-content')) {
+        setTimeout(inicializarPasseio, 200);
+      }
+    });
+
+    // Fallback caso o evento não seja disparado
+    document.addEventListener('DOMContentLoaded', () => {
+      setTimeout(() => {
+        const container = document.getElementById('passeio-content');
+        if (container && container.children.length > 0) {
+          inicializarPasseio();
+        }
+      }, 2000);
     });
   </script>
 </body>
