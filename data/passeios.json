@@ -1,0 +1,264 @@
+{
+    "passeios": [
+        {
+            "id": "praia-de-pipa",
+            "nome": "Praia de Pipa",
+            "slug": "praia-de-pipa",
+            "descricao_curta": "Conheça uma das praias mais famosas do Brasil com suas falésias coloridas e piscinas naturais",
+            "descricao_completa": "A Praia de Pipa é um dos destinos mais procurados do litoral sul do Rio Grande do Norte. Com suas falésias coloridas, piscinas naturais de água cristalina e vida marinha exuberante, Pipa oferece uma experiência única. Durante o passeio, você terá tempo para explorar as principais praias, conhecer o centrinho charmoso com suas lojas e restaurantes, e se encantar com a beleza natural preservada da região.",
+            "preco": "150.00",
+            "preco_formatado": "R$ 150,00",
+            "duracao": "8 horas",
+            "categoria": "Praia",
+            "destaque": false,
+            "ativo": true,
+            "dificuldade": "Fácil",
+            "idade_minima": "0",
+            "max_pessoas": "40",
+            "observacoes": "Recomendamos levar protetor solar, toalha, roupa de banho e dinheiro para alimentação.",
+            "data_atualizacao": "2025-11-19",
+            "data_criacao": "2024-01-15",
+            "imagem_capa": "uploads\/passeios\/praia-de-pipa\/capa.jpg",
+            "galeria": [
+                {
+                    "url": "uploads\/passeios\/praia-de-pipa\/foto1.jpg",
+                    "alt": "Vista das falésias coloridas de Pipa",
+                    "ordem": 1
+                },
+                {
+                    "url": "uploads\/passeios\/praia-de-pipa\/foto2.jpg",
+                    "alt": "Piscinas naturais",
+                    "ordem": 2
+                },
+                {
+                    "url": "uploads\/passeios\/praia-de-pipa\/foto3.jpg",
+                    "alt": "Centro de Pipa",
+                    "ordem": 3
+                },
+                {
+                    "url": "uploads\/passeios\/praia-de-pipa\/foto4.jpg",
+                    "alt": "Pôr do sol em Pipa",
+                    "ordem": 4
+                }
+            ],
+            "horarios": [
+                "08:00",
+                "14:00"
+            ],
+            "inclui": [
+                "Transporte ida e volta",
+                "Guia turístico credenciado",
+                "Seguro viagem",
+                "Paradas para fotos"
+            ],
+            "nao_inclui": [
+                "Alimentação",
+                "Bebidas",
+                "Despesas pessoais"
+            ]
+        },
+        {
+            "id": "dunas-genipabu",
+            "nome": "Passeio de Buggy nas Dunas de Genipabu",
+            "slug": "dunas-genipabu",
+            "descricao_curta": "Aventura emocionante pelas famosas dunas de Genipabu com buggy e esquibunda",
+            "descricao_completa": "Prepare-se para muita adrenalina nas dunas de Genipabu! Este passeio icônico de Natal oferece a emoção de andar de buggy pelas dunas móveis, com direito a escolher entre 'com emoção' ou 'sem emoção'. Você também poderá praticar esquibunda, conhecer a Lagoa de Genipabu e o Dromedário. Uma experiência inesquecível que combina aventura, natureza e diversão para toda a família.",
+            "preco": "200.00",
+            "preco_formatado": "R$ 200,00",
+            "duracao": "4 horas",
+            "categoria": "Aventura",
+            "destaque": true,
+            "ativo": true,
+            "imagem_capa": "uploads\/passeios\/dunas-genipabu\/capa.jpg",
+            "galeria": [
+                {
+                    "url": "uploads\/passeios\/dunas-genipabu\/foto1.jpg",
+                    "alt": "Buggy nas dunas",
+                    "ordem": 1
+                },
+                {
+                    "url": "uploads\/passeios\/dunas-genipabu\/foto2.jpg",
+                    "alt": "Esquibunda nas dunas",
+                    "ordem": 2
+                },
+                {
+                    "url": "uploads\/passeios\/dunas-genipabu\/foto3.jpg",
+                    "alt": "Vista panorâmica de Genipabu",
+                    "ordem": 3
+                },
+                {
+                    "url": "uploads\/passeios\/dunas-genipabu\/foto4.jpg",
+                    "alt": "Lagoa de Genipabu",
+                    "ordem": 4
+                }
+            ],
+            "inclui": [
+                "Passeio de buggy",
+                "Equipamento de segurança",
+                "Guia especializado",
+                "Esquibunda"
+            ],
+            "nao_inclui": [
+                "Passeio de dromedário (opcional - R$ 30)",
+                "Alimentação",
+                "Bebidas"
+            ],
+            "horarios": [
+                "08:00",
+                "14:00"
+            ],
+            "dificuldade": "Moderada",
+            "idade_minima": "5",
+            "max_pessoas": "4",
+            "observacoes": "Não recomendado para gestantes. Levar óculos de sol, protetor solar e câmera protegida contra areia.",
+            "data_criacao": "2024-01-15",
+            "data_atualizacao": "2024-01-15"
+        },
+        {
+            "id": "maracajau",
+            "nome": "Mergulho nos Parrachos de Maracajaú",
+            "slug": "maracajau",
+            "descricao_curta": "Mergulho com snorkel nas piscinas naturais formadas por corais",
+            "descricao_completa": "Os Parrachos de Maracajaú são formações de corais que criam verdadeiras piscinas naturais no meio do mar, a cerca de 7km da costa. Com águas cristalinas e calmas, é o lugar perfeito para mergulhar com snorkel e observar a rica vida marinha. Você verá peixes coloridos, corais e, com sorte, tartarugas marinhas. O passeio inclui transporte até a praia, travessia de barco até os parrachos e todo o equipamento necessário.",
+            "preco": "180.00",
+            "preco_formatado": "R$ 180,00",
+            "duracao": "6 horas",
+            "categoria": "Mergulho",
+            "destaque": true,
+            "ativo": true,
+            "imagem_capa": "uploads\/passeios\/maracajau\/capa.jpg",
+            "galeria": [
+                {
+                    "url": "uploads\/passeios\/maracajau\/foto1.jpg",
+                    "alt": "Águas cristalinas de Maracajaú",
+                    "ordem": 1
+                },
+                {
+                    "url": "uploads\/passeios\/maracajau\/foto2.jpg",
+                    "alt": "Mergulho com peixes",
+                    "ordem": 2
+                },
+                {
+                    "url": "uploads\/passeios\/maracajau\/foto3.jpg",
+                    "alt": "Corais nos parrachos",
+                    "ordem": 3
+                },
+                {
+                    "url": "uploads\/passeios\/maracajau\/foto4.jpg",
+                    "alt": "Tartaruga marinha",
+                    "ordem": 4
+                }
+            ],
+            "inclui": [
+                "Transporte ida e volta",
+                "Travessia de barco",
+                "Equipamento de snorkel",
+                "Colete salva-vidas",
+                "Guia de mergulho"
+            ],
+            "nao_inclui": [
+                "Alimentação",
+                "Bebidas",
+                "Fotos e vídeos subaquáticos"
+            ],
+            "horarios": [
+                "07:00"
+            ],
+            "dificuldade": "Fácil",
+            "idade_minima": "6",
+            "max_pessoas": "30",
+            "observacoes": "Passeio depende das condições climáticas e da maré. Saber nadar é recomendado mas não obrigatório (há coletes). Levar roupa de banho, protetor solar, toalha.",
+            "data_criacao": "2024-01-15",
+            "data_atualizacao": "2024-01-15"
+        },
+        {
+            "id": "litoral-sul",
+            "nome": "Litoral Sul - Praias do Amor, Madeiro e Cacimbinhas",
+            "slug": "litoral-sul-praias-do-amor-madeiro-e-cacimbinhas",
+            "descricao_curta": "Tour pelas praias mais bonitas do litoral sul de Natal",
+            "descricao_completa": "Explore as praias mais paradisíacas do litoral sul potiguar. O passeio inclui visita à Praia do Amor, conhecida por suas ondas perfeitas para o surf; Praia de Madeiro, com suas águas calmas e encontro frequente com golfinhos; e Praia de Cacimbinhas, com suas falésias impressionantes. Cada praia tem sua particularidade e juntas compõem um roteiro inesquecível de belezas naturais, infraestrutura de barracas e piscinas naturais.",
+            "preco": "140.00",
+            "preco_formatado": "R$ 140,00",
+            "duracao": "8 horas",
+            "categoria": "Praia",
+            "destaque": true,
+            "ativo": true,
+            "dificuldade": "Fácil",
+            "idade_minima": "0",
+            "max_pessoas": "40",
+            "observacoes": "Levar protetor solar, roupa de banho, toalha e dinheiro para refeições.",
+            "data_atualizacao": "2025-11-19",
+            "data_criacao": "2024-01-15",
+            "imagem_capa": "uploads\/passeios\/litoral-sul\/capa.jpg",
+            "galeria": [
+                {
+                    "url": "uploads\/passeios\/litoral-sul-praias-do-amor-madeiro-e-cacimbinhas\/691dd341912ef.jpeg",
+                    "alt": "Foto do passeio Litoral Sul - Praias do Amor, Madeiro e Cacimbinhas",
+                    "ordem": 1
+                }
+            ],
+            "horarios": [
+                "08:00"
+            ],
+            "inclui": [
+                "Transporte ida e volta",
+                "Guia turístico",
+                "Paradas para fotos"
+            ],
+            "nao_inclui": [
+                "Alimentação",
+                "Cadeiras e guarda-sol",
+                "Despesas pessoais"
+            ]
+        },
+        {
+            "id": "passeio_691dd2ef2536c",
+            "nome": "teste",
+            "slug": "teste",
+            "descricao_curta": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco l",
+            "descricao_completa": "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?",
+            "preco": "10.00",
+            "preco_formatado": "R$ 10,00",
+            "duracao": "4 horas",
+            "categoria": "Cultural",
+            "destaque": false,
+            "ativo": true,
+            "dificuldade": "Fácil",
+            "idade_minima": "0",
+            "max_pessoas": "40",
+            "observacoes": "",
+            "data_atualizacao": "2025-11-19",
+            "data_criacao": "2025-11-19",
+            "imagem_capa": "uploads\/passeios\/teste\/691ddb17bfad0.png",
+            "galeria": [
+                {
+                    "url": "uploads\/passeios\/teste\/691ddd1e7dda3.png",
+                    "alt": "Foto do passeio teste",
+                    "ordem": 1
+                },
+                {
+                    "url": "uploads\/passeios\/teste\/691ddd1e7e1b9.jpeg",
+                    "alt": "Foto do passeio teste",
+                    "ordem": 2
+                },
+                {
+                    "url": "uploads\/passeios\/teste\/691ddd4d23860.jpeg",
+                    "alt": "Foto do passeio teste",
+                    "ordem": 3
+                }
+            ],
+            "horarios": [
+                "08:00"
+            ],
+            "inclui": [
+                "Transporte ida e volta",
+                "teste1",
+                "teste2",
+                "teste3"
+            ],
+            "nao_inclui": [
+                "Alimentação"
+            ]
+        }
+    ]
+}

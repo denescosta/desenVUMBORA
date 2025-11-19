@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nossos Passeios - VUMBORA</title>
+  <meta name="description" content="Conheça todos os passeios e experiências incríveis que oferecemos em Natal/RN">
+  <link href="../assets/css/style.css" rel="stylesheet">
+  <link href="../assets/css/components.css" rel="stylesheet">
+  <link href="../assets/css/sections.css" rel="stylesheet">
+  <link href="../assets/css/passeios.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <!-- Header/Menu -->
+  <div id="header"></div>
+
+  <main>
+    <div class="site-content">
+      <!-- Seção de Catálogo -->
+      <section id="catalogo-content"></section>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <div id="footer"></div>
+
+  <!-- Scripts -->
+  <script src="../assets/js/includes.js"></script>
+  <script src="../assets/js/main.js"></script>
+  <script src="../assets/js/passeios.js"></script>
+
+  <script>
+    // Atualizar configuração de páginas no includes.js
+    PAGE_CONFIGS['catalogo.html'] = [
+      { id: 'catalogo-content', path: '../sections/catalogo-content.html' }
+    ];
+
+    // Inicializar catálogo após carregar componentes
+    document.addEventListener('DOMContentLoaded', async () => {
+      // Aguardar o carregamento dos componentes
+      setTimeout(async () => {
+        await window.carregarCatalogoPasseios();
+        console.log('✅ Catálogo de passeios carregado!');
+      }, 300);
+    });
+  </script>
+</body>
+
+</html>

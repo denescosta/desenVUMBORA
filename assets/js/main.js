@@ -42,7 +42,7 @@ function animateOnScroll() {
 async function handleFormSubmit(event) {
   event.preventDefault();
   const form = event.target;
-  
+
   // Verificar se é o formulário de contato
   if (form.id === 'contato-form') {
     await handleContactFormSubmit(form);
@@ -50,13 +50,13 @@ async function handleFormSubmit(event) {
     // Comportamento padrão para outros formulários
     const formData = new FormData(form);
     console.log('Formulário enviado:', Object.fromEntries(formData));
-    
+
     const submitButton = form.querySelector('button[type="submit"]');
     const originalText = submitButton.textContent;
-    
+
     submitButton.textContent = 'Enviando...';
     submitButton.disabled = true;
-    
+
     // Simular envio
     setTimeout(() => {
       submitButton.textContent = 'Enviado!';
@@ -74,24 +74,24 @@ async function handleContactFormSubmit(form) {
   const submitButton = form.querySelector('button[type="submit"]');
   const messageDiv = document.getElementById('form-message');
   const originalText = submitButton.textContent;
-  
+
   // Validar campos obrigatórios
   const nome = document.getElementById('nome').value.trim();
   const email = document.getElementById('email').value.trim();
   const telefone = document.getElementById('telefone').value.trim();
   const mensagem = document.getElementById('mensagem').value.trim();
-  
+
   if (!nome || !email || !mensagem) {
     showMessage(messageDiv, 'Por favor, preencha todos os campos obrigatórios.', 'error');
     return;
   }
-  
+
   // Validar email
   if (!isValidEmail(email)) {
     showMessage(messageDiv, 'Por favor, insira um e-mail válido.', 'error');
     return;
   }
-  
+
   // Preparar dados para enviar
   const templateParams = {
     from_name: nome,
@@ -100,11 +100,11 @@ async function handleContactFormSubmit(form) {
     message: mensagem,
     to_email: 'denes_11@hotmail.com'
   };
-  
+
   submitButton.textContent = 'Enviando...';
   submitButton.disabled = true;
   messageDiv.style.display = 'none';
-  
+
   try {
     // Enviar email via EmailJS
     await emailjs.send(
@@ -112,16 +112,16 @@ async function handleContactFormSubmit(form) {
       'template_jcygbvs',     // Substitua pelo Template ID do EmailJS
       templateParams
     );
-    
+
     showMessage(messageDiv, '✅ Mensagem enviada com sucesso! Entraremos em contato em breve.', 'success');
     submitButton.textContent = 'Enviado!';
     form.reset();
-    
+
     setTimeout(() => {
       submitButton.textContent = originalText;
       submitButton.disabled = false;
     }, 3000);
-    
+
   } catch (error) {
     console.error('Erro ao enviar email:', error);
     showMessage(messageDiv, '❌ Erro ao enviar mensagem. Tente novamente ou entre em contato pelo WhatsApp.', 'error');
@@ -137,7 +137,7 @@ function showMessage(element, message, type) {
   element.style.padding = '10px';
   element.style.borderRadius = '6px';
   element.style.marginTop = '10px';
-  
+
   if (type === 'success') {
     element.style.backgroundColor = '#d4edda';
     element.style.color = '#155724';
@@ -326,368 +326,254 @@ function isValidEmail(email) {
   return emailRegex.test(email);
 }
 
-// Variável para armazenar a instância do carrossel
+// Controle de carregamento da seção de tours
+let toursSectionLoading = null;
+let toursSectionInitialized = false;
 let toursCarouselInstance = null;
 
-// Função para inicializar o carrossel de tours
-function initToursCarousel() {
-  console.log('🚀 initToursCarousel chamado');
-  
-  // Buscar elementos de forma mais específica
-  const toursSection = document.querySelector('#tours') || document.querySelector('.tours');
-  if (!toursSection) {
-    console.log('❌ Seção tours não encontrada');
-    return;
-  }
-  
-  const carouselWrapper = toursSection.querySelector('.tours-carousel-wrapper');
-  const toursList = toursSection.querySelector('.tours-list');
+function setToursNavigationState(isActive) {
+  const toursSection = document.querySelector('#tours');
+  if (!toursSection) return;
+
   const prevBtn = toursSection.querySelector('.carousel-btn-prev');
   const nextBtn = toursSection.querySelector('.carousel-btn-next');
+  const indicators = toursSection.querySelector('.carousel-indicators');
+
+  if (prevBtn) prevBtn.disabled = !isActive;
+  if (nextBtn) nextBtn.disabled = !isActive;
+  if (!isActive && indicators) {
+    indicators.innerHTML = '';
+  }
+}
+
+function initToursCarousel(force = false) {
+  const toursSection = document.querySelector('#tours') || document.querySelector('.tours');
+  if (!toursSection) {
+    return;
+  }
+
+  const carouselWrapper = toursSection.querySelector('.tours-carousel-wrapper');
+  const toursList = toursSection.querySelector('#tours-destaques');
+  let prevBtn = toursSection.querySelector('.carousel-btn-prev');
+  let nextBtn = toursSection.querySelector('.carousel-btn-next');
   let indicatorsContainer = toursSection.querySelector('.carousel-indicators');
 
-  console.log('🔍 Elementos encontrados:', {
-    carouselWrapper: !!carouselWrapper,
-    toursList: !!toursList,
-    prevBtn: !!prevBtn,
-    nextBtn: !!nextBtn,
-    indicatorsContainer: !!indicatorsContainer
-  });
-
-  // Verificar se os elementos principais existem
-  if (!carouselWrapper || !toursList) {
-    console.log('❌ Elementos principais do carrossel não encontrados');
+  if (!carouselWrapper || !toursList || !prevBtn || !nextBtn) {
     return;
-  }
-
-  // Verificar se os botões existem
-  if (!prevBtn || !nextBtn) {
-    console.log('❌ Botões de navegação não encontrados');
-    return;
-  }
-
-  // Criar container de indicadores se não existir
-  let finalIndicatorsContainer = indicatorsContainer;
-  if (!finalIndicatorsContainer) {
-    console.log('⚠️ Container de indicadores não encontrado, criando...');
-    // Procurar o container pai (div.container dentro da seção tours)
-    const toursSection = carouselWrapper.closest('.tours') || carouselWrapper.closest('#tours');
-    const container = toursSection ? toursSection.querySelector('.container') : null;
-    
-    if (container) {
-      finalIndicatorsContainer = document.createElement('div');
-      finalIndicatorsContainer.className = 'carousel-indicators';
-      container.appendChild(finalIndicatorsContainer);
-      console.log('✅ Container de indicadores criado');
-    } else {
-      // Se não encontrar o container, criar após o carousel-wrapper
-      finalIndicatorsContainer = document.createElement('div');
-      finalIndicatorsContainer.className = 'carousel-indicators';
-      carouselWrapper.parentNode.appendChild(finalIndicatorsContainer);
-      console.log('✅ Container de indicadores criado após carousel-wrapper');
-    }
   }
 
   const tourCards = toursList.querySelectorAll('.tour-card');
-  const totalCards = tourCards.length;
-  
-  console.log('📦 Cards encontrados:', totalCards);
-  
-  if (totalCards === 0) {
-    console.log('❌ Nenhum card encontrado');
+  if (tourCards.length === 0) {
+    setToursNavigationState(false);
     return;
   }
 
-  // Limpar instância anterior se existir
-  if (toursCarouselInstance) {
-    console.log('🔄 Limpando instância anterior');
-    if (toursCarouselInstance.destroy) {
-      toursCarouselInstance.destroy();
-    }
+  if (toursCarouselInstance && toursCarouselInstance.destroy) {
+    toursCarouselInstance.destroy();
     toursCarouselInstance = null;
   }
 
-  // Clonar e substituir botões ANTES de definir as funções
-  console.log('📌 Clonando botões para remover event listeners antigos');
-  const prevBtnParent = prevBtn.parentNode;
-  const nextBtnParent = nextBtn.parentNode;
-  const newPrevBtn = prevBtn.cloneNode(true);
-  const newNextBtn = nextBtn.cloneNode(true);
-  prevBtnParent.replaceChild(newPrevBtn, prevBtn);
-  nextBtnParent.replaceChild(newNextBtn, nextBtn);
-  
-  // Obter referências dos novos botões
-  const finalPrevBtn = document.querySelector('.carousel-btn-prev');
-  const finalNextBtn = document.querySelector('.carousel-btn-next');
-  
-  console.log('✅ Botões clonados:', {
-    finalPrevBtn: !!finalPrevBtn,
-    finalNextBtn: !!finalNextBtn
-  });
+  if (!indicatorsContainer) {
+    indicatorsContainer = document.createElement('div');
+    indicatorsContainer.className = 'carousel-indicators';
+    carouselWrapper.insertAdjacentElement('afterend', indicatorsContainer);
+  }
+
+  // Remove event listeners antigos clonando os botões
+  const prevParent = prevBtn.parentNode;
+  const nextParent = nextBtn.parentNode;
+  prevBtn = prevBtn.cloneNode(true);
+  nextBtn = nextBtn.cloneNode(true);
+  prevParent.replaceChild(prevBtn, prevParent.querySelector('.carousel-btn-prev'));
+  nextParent.replaceChild(nextBtn, nextParent.querySelector('.carousel-btn-next'));
 
   let currentIndex = 0;
   let cardsToShow = 4;
-  let resizeHandler = null;
-  
-  // Função helper para obter referências atuais dos botões
-  const getButtonRefs = () => {
-    const btnPrev = document.querySelector('.carousel-btn-prev');
-    const btnNext = document.querySelector('.carousel-btn-next');
-    return { prev: btnPrev || finalPrevBtn, next: btnNext || finalNextBtn };
-  };
 
-  // Função para calcular quantos cards mostrar baseado no tamanho da tela
   function getCardsToShow() {
     const width = window.innerWidth;
-    if (width >= 1400) {
-      return 4;
-    } else if (width >= 1024) {
-      return 3;
-    } else if (width >= 768) {
-      return 2;
-    } else {
-      return 1;
-    }
+    if (width >= 1400) return 4;
+    if (width >= 1024) return 3;
+    if (width >= 768) return 2;
+    return 1;
   }
 
-  // Função para calcular o número máximo de slides
   function getMaxSlides() {
     cardsToShow = getCardsToShow();
-    const max = Math.max(0, totalCards - cardsToShow);
-    return max;
+    return Math.max(0, tourCards.length - cardsToShow);
   }
 
-  // Função para criar indicadores
   function createIndicators() {
-    if (!finalIndicatorsContainer) return;
-    
-    finalIndicatorsContainer.innerHTML = '';
-    const maxSlides = getMaxSlides();
-    const btns = getButtonRefs();
-    
-    if (maxSlides <= 0) {
-      if (btns.prev) btns.prev.style.display = 'none';
-      if (btns.next) btns.next.style.display = 'none';
+    if (!indicatorsContainer) return;
+    indicatorsContainer.innerHTML = '';
+    const total = getMaxSlides() + 1;
+    if (total <= 1) {
+      setToursNavigationState(false);
       return;
     }
 
-    if (btns.prev) btns.prev.style.display = 'flex';
-    if (btns.next) btns.next.style.display = 'flex';
+    setToursNavigationState(true);
 
-    const totalIndicators = maxSlides + 1;
-    for (let i = 0; i < totalIndicators; i++) {
+    for (let i = 0; i < total; i++) {
       const indicator = document.createElement('button');
       indicator.className = 'carousel-indicator';
-      if (i === 0) indicator.classList.add('active');
       indicator.setAttribute('aria-label', `Ir para slide ${i + 1}`);
+      if (i === 0) indicator.classList.add('active');
       indicator.addEventListener('click', () => goToSlide(i));
-      finalIndicatorsContainer.appendChild(indicator);
+      indicatorsContainer.appendChild(indicator);
     }
   }
 
-  // Função para atualizar indicadores
   function updateIndicators() {
-    if (!finalIndicatorsContainer) return;
-    
-    const indicators = finalIndicatorsContainer.querySelectorAll('.carousel-indicator');
+    if (!indicatorsContainer) return;
+    const indicators = indicatorsContainer.querySelectorAll('.carousel-indicator');
     indicators.forEach((indicator, index) => {
-      if (index === currentIndex) {
-        indicator.classList.add('active');
-      } else {
-        indicator.classList.remove('active');
-      }
+      indicator.classList.toggle('active', index === currentIndex);
     });
   }
 
-  // Função para atualizar botões de navegação
   function updateButtons() {
     const maxSlides = getMaxSlides();
-    const btns = getButtonRefs();
-    if (btns.prev) btns.prev.disabled = currentIndex === 0;
-    if (btns.next) btns.next.disabled = currentIndex >= maxSlides;
+    prevBtn.disabled = currentIndex === 0;
+    nextBtn.disabled = currentIndex >= maxSlides;
   }
 
-  // Função para obter o gap real do CSS
   function getGap() {
     const computedStyle = window.getComputedStyle(toursList);
-    const gap = computedStyle.gap || computedStyle.columnGap || '32px';
-    return parseInt(gap) || 32;
+    const gap = parseInt(computedStyle.gap || '32', 10);
+    return Number.isNaN(gap) ? 32 : gap;
   }
 
-  // Função para mover o carrossel
   function moveCarousel() {
-    if (tourCards.length === 0) {
-      console.log('Carrossel: moveCarousel - Nenhum card encontrado');
-      return;
-    }
-    
-    cardsToShow = getCardsToShow();
     const firstCard = tourCards[0];
-    
-    if (!firstCard) {
-      console.log('Carrossel: moveCarousel - Primeiro card não encontrado, tentando novamente...');
-      setTimeout(moveCarousel, 100);
+    if (!firstCard) return;
+
+    const cardWidth = firstCard.offsetWidth;
+    if (cardWidth === 0) {
+      setTimeout(moveCarousel, 50);
       return;
     }
 
-    // Aguardar renderização completa
-    if (firstCard.offsetWidth === 0) {
-      console.log('Carrossel: moveCarousel - Largura do card é 0, tentando novamente...');
-      setTimeout(moveCarousel, 100);
-      return;
-    }
-    
-    const cardWidth = firstCard.offsetWidth;
-    const gap = getGap();
-    const translateX = -(currentIndex * (cardWidth + gap));
-    
-    console.log('Carrossel: moveCarousel executado', {
-      currentIndex,
-      cardWidth,
-      gap,
-      translateX,
-      cardsToShow,
-      totalCards
-    });
-    
+    const translateX = -(currentIndex * (cardWidth + getGap()));
     toursList.style.transform = `translateX(${translateX}px)`;
     toursList.style.transition = 'transform 0.5s ease';
     updateIndicators();
     updateButtons();
   }
 
-  // Função para ir para um slide específico
   function goToSlide(index) {
     const maxSlides = getMaxSlides();
     currentIndex = Math.max(0, Math.min(index, maxSlides));
     moveCarousel();
   }
 
-  // Função para próximo slide
   function nextSlide(e) {
-    if (e) {
-      e.preventDefault();
-      e.stopPropagation();
-    }
-    const maxSlides = getMaxSlides();
-    if (currentIndex < maxSlides) {
-      currentIndex++;
-      moveCarousel();
-    }
-    return false;
+    if (e) e.preventDefault();
+    goToSlide(currentIndex + 1);
   }
 
-  // Função para slide anterior
   function prevSlide(e) {
-    if (e) {
-      e.preventDefault();
-      e.stopPropagation();
-    }
-    if (currentIndex > 0) {
-      currentIndex--;
-      moveCarousel();
-    }
-    return false;
+    if (e) e.preventDefault();
+    goToSlide(currentIndex - 1);
   }
 
-  // Adicionar event listeners aos botões
-  console.log('📌 Adicionando event listeners aos botões');
-  
-  if (!finalPrevBtn || !finalNextBtn) {
-    console.error('❌ Erro: Botões não encontrados após clonagem!');
-    return;
-  }
-  
-  // Adicionar event listeners diretamente
-  finalPrevBtn.addEventListener('click', function(e) {
-    e.preventDefault();
-    e.stopPropagation();
-    console.log('⬅️⬅️⬅️ BOTÃO ANTERIOR CLICADO! ⬅️⬅️⬅️');
-    prevSlide(e);
-  }, true); // Usar capture phase para garantir que o evento seja capturado
-  
-  finalNextBtn.addEventListener('click', function(e) {
-    e.preventDefault();
-    e.stopPropagation();
-    console.log('➡️➡️➡️ BOTÃO PRÓXIMO CLICADO! ➡️➡️➡️');
-    nextSlide(e);
-  }, true); // Usar capture phase para garantir que o evento seja capturado
-  
-  // Também adicionar usando onclick como fallback
-  finalPrevBtn.onclick = function(e) {
-    e.preventDefault();
-    e.stopPropagation();
-    console.log('⬅️ onClick - Botão ANTERIOR clicado!');
-    prevSlide(e);
-    return false;
-  };
-  
-  finalNextBtn.onclick = function(e) {
-    e.preventDefault();
-    e.stopPropagation();
-    console.log('➡️ onClick - Botão PRÓXIMO clicado!');
-    nextSlide(e);
-    return false;
-  };
-  
-  console.log('✅ Event listeners adicionados com sucesso!');
+  prevBtn.addEventListener('click', prevSlide);
+  nextBtn.addEventListener('click', nextSlide);
 
-  // Função para recalcular e reajustar quando a janela for redimensionada
-  let resizeTimeout;
-  resizeHandler = function() {
+  const keyHandler = (e) => {
+    if (e.key === 'ArrowLeft') {
+      prevSlide();
+    } else if (e.key === 'ArrowRight') {
+      nextSlide();
+    }
+  };
+
+  carouselWrapper.setAttribute('role', 'region');
+  carouselWrapper.setAttribute('aria-label', 'Carrossel de passeios em destaque');
+  carouselWrapper.addEventListener('keydown', keyHandler);
+
+  let resizeTimeout = null;
+  const resizeHandler = () => {
     clearTimeout(resizeTimeout);
     resizeTimeout = setTimeout(() => {
-      const newMaxSlides = getMaxSlides();
-      if (currentIndex > newMaxSlides) {
-        currentIndex = Math.max(0, newMaxSlides);
+      const maxSlides = getMaxSlides();
+      if (currentIndex > maxSlides) {
+        currentIndex = maxSlides;
       }
       createIndicators();
       moveCarousel();
-    }, 250);
+    }, 150);
   };
 
   window.addEventListener('resize', resizeHandler);
 
-  // Suporte para navegação por teclado
-  carouselWrapper.addEventListener('keydown', (e) => {
-    if (e.key === 'ArrowLeft') {
-      prevSlide(e);
-    } else if (e.key === 'ArrowRight') {
-      nextSlide(e);
-    }
-  });
-
-  // Tornar o carrossel acessível
-  carouselWrapper.setAttribute('role', 'region');
-  carouselWrapper.setAttribute('aria-label', 'Carrossel de passeios');
-  finalPrevBtn.setAttribute('aria-label', 'Slide anterior');
-  finalNextBtn.setAttribute('aria-label', 'Próximo slide');
-  
-  console.log('🎯 Carrossel inicializado com sucesso!');
-
-  // Inicialização
   createIndicators();
-  updateButtons();
-  
-  // Aguardar um pouco antes de mover para garantir que os elementos estão renderizados
-  // Usar requestAnimationFrame para garantir que o DOM está atualizado
   requestAnimationFrame(() => {
     setTimeout(() => {
       moveCarousel();
     }, 50);
   });
 
-  // Marcar como inicializado e armazenar referências
   toursCarouselInstance = {
-    initialized: true,
-    resizeHandler: resizeHandler,
-    destroy: function() {
-      if (this.resizeHandler) {
-        window.removeEventListener('resize', this.resizeHandler);
-      }
-      toursCarouselInstance = null;
+    destroy: () => {
+      window.removeEventListener('resize', resizeHandler);
+      carouselWrapper.removeEventListener('keydown', keyHandler);
+      prevBtn.removeEventListener('click', prevSlide);
+      nextBtn.removeEventListener('click', nextSlide);
     }
   };
+}
+
+// Função para inicializar os passeios em destaque
+async function initToursSection(force = false) {
+  const toursSection = document.querySelector('#tours') || document.querySelector('.tours');
+  const destaquesGrid = document.getElementById('tours-destaques');
+
+  if (!toursSection || !destaquesGrid) {
+    return;
+  }
+
+  if (typeof window.passeiosManager === 'undefined') {
+    console.warn('⚠️ passeiosManager não disponível para renderizar destaques');
+    return;
+  }
+
+  if (toursSectionInitialized && !force) {
+    return;
+  }
+
+  if (toursSectionLoading && !force) {
+    return toursSectionLoading;
+  }
+
+  destaquesGrid.innerHTML = `
+    <div class="loading-container">
+      <div class="loading-spinner"></div>
+      <p>Carregando passeios...</p>
+    </div>
+  `;
+
+  toursSectionLoading = window.passeiosManager.renderizarDestaques('tours-destaques', 8, { linkPrefix: 'pages/' })
+    .then((total) => {
+      toursSectionInitialized = true;
+      if (total > 0) {
+        requestAnimationFrame(() => {
+          setTimeout(() => initToursCarousel(true), 50);
+        });
+      } else {
+        setToursNavigationState(false);
+      }
+    })
+    .catch((error) => {
+      console.error('❌ Erro ao renderizar os passeios em destaque:', error);
+      destaquesGrid.innerHTML = '<p class="no-results">Não foi possível carregar os passeios agora.</p>';
+      setToursNavigationState(false);
+    })
+    .finally(() => {
+      toursSectionLoading = null;
+    });
+
+  return toursSectionLoading;
 }
 
 // Inicialização quando o DOM estiver pronto
@@ -701,7 +587,7 @@ document.addEventListener('DOMContentLoaded', () => {
     toggleMobileMenu();
     toggleSidebar(); // <-- Adiciona inicialização do sidebar
     initPageSpecificFeatures();
-    initToursCarousel(); // <-- Inicializa o carrossel de tours
+    initToursSection(); // <-- Inicializa os destaques de passeios
 
     // Scroll suave para hash na URL após carregamento
     if (window.location.hash) {
@@ -714,14 +600,16 @@ document.addEventListener('DOMContentLoaded', () => {
   }, 200);
 });
 
-// Re-inicializar carrossel após carregar componentes dinâmicos
+// Re-inicializar destaques após carregar componentes dinâmicos
 if (window.loadComponent) {
   const originalLoad = window.loadComponent;
-  window.loadComponent = async function(containerId, componentPath) {
+  window.loadComponent = async function (containerId, componentPath) {
     await originalLoad(containerId, componentPath);
-    // Se o componente carregado contém a seção de tours, re-inicializa o carrossel
+    // Se o componente carregado contém a seção de tours, re-inicializa os destaques
     if (containerId === 'tours' || componentPath.includes('tours.html')) {
-      setTimeout(initToursCarousel, 100);
+      setTimeout(() => {
+        initToursSection(true);
+      }, 100);
     }
   };
 }
@@ -729,4 +617,5 @@ if (window.loadComponent) {
 // Funcionalidades globais
 window.smoothScroll = smoothScroll;
 window.validateField = validateField;
+window.initToursSection = initToursSection;
 window.initToursCarousel = initToursCarousel;

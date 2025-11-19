@@ -1,0 +1,52 @@
+<section class="catalogo-passeios">
+  <div class="container">
+    <!-- Cabeçalho do Catálogo -->
+    <div class="catalogo-header">
+      <h1 class="catalogo-title">Nossos Passeios</h1>
+      <p class="catalogo-subtitle">Descubra as melhores experiências em Natal e região</p>
+    </div>
+
+    <!-- Filtros (opcional - você pode expandir depois) -->
+    <div class="catalogo-filtros">
+      <button class="filtro-btn active" data-categoria="todas" onclick="filtrarPasseios(event, 'todas')">
+        Todos os Passeios
+      </button>
+      <button class="filtro-btn" data-categoria="Praia" onclick="filtrarPasseios(event, 'Praia')">
+        🏖️ Praias
+      </button>
+      <button class="filtro-btn" data-categoria="Aventura" onclick="filtrarPasseios(event, 'Aventura')">
+        🚙 Aventura
+      </button>
+      <button class="filtro-btn" data-categoria="Mergulho" onclick="filtrarPasseios(event, 'Mergulho')">
+        🤿 Mergulho
+      </button>
+    </div>
+
+    <!-- Grid de Passeios -->
+    <div class="catalogo-grid" id="catalogo-lista">
+      <!-- Os cards serão inseridos aqui via JavaScript -->
+      <div class="loading-container">
+        <div class="loading-spinner"></div>
+        <p>Carregando passeios...</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Função para filtrar passeios por categoria
+  async function filtrarPasseios(evt, categoria) {
+    const eventObj = evt || window.event;
+    // Atualiza botões ativos
+    document.querySelectorAll('.filtro-btn').forEach(btn => {
+      btn.classList.remove('active');
+    });
+    if (eventObj && eventObj.currentTarget) {
+      eventObj.currentTarget.classList.add('active');
+    }
+
+    // Recarrega catálogo com filtro
+    const filtro = categoria === 'todas' ? null : categoria;
+    await window.carregarCatalogoPasseios(filtro);
+  }
+</script>

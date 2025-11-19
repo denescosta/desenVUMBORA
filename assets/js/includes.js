@@ -45,6 +45,12 @@ const PAGE_CONFIGS = {
     // { id: 'blog', path: '../sections/blog.html' },
     // { id: 'contact', path: '../sections/contact.html' }
   ],
+  'catalogo.html': [
+    { id: 'catalogo-content', path: '../sections/catalogo-content.html' }
+  ],
+  'passeio.html': [
+    { id: 'passeio-content', path: '../sections/passeio-content.html' }
+  ],
   'conheca.html': [
     { id: 'conheca-page', path: '../sections/conheca.html' }
   ],
@@ -97,17 +103,17 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   if (pageConfig) {
     await ComponentLoader.loadMultiple(pageConfig);
-    
+
     // Inicializar carrossel se a seção de tours foi carregada
     if (pageConfig.some(config => config.id === 'tours' || config.path.includes('tours.html'))) {
       // Aguardar um pouco mais para garantir que os elementos estão renderizados
       setTimeout(() => {
-        if (typeof window.initToursCarousel === 'function') {
-          window.initToursCarousel();
+        if (typeof window.initToursSection === 'function') {
+          window.initToursSection();
         }
       }, 500);
     }
-    
+
     // Scroll suave para âncora após carregar seções, se necessário
     if (window.pendingScrollTarget) {
       setTimeout(() => {

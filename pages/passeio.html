@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Passeio - VUMBORA</title>
+  <meta name="description" content="Detalhes do passeio">
+  <link href="../assets/css/style.css" rel="stylesheet">
+  <link href="../assets/css/components.css" rel="stylesheet">
+  <link href="../assets/css/sections.css" rel="stylesheet">
+  <link href="../assets/css/passeios.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <!-- Header/Menu -->
+  <div id="header"></div>
+
+  <main>
+    <div class="site-content">
+      <!-- Seção de Detalhes do Passeio -->
+      <section id="passeio-content"></section>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <div id="footer"></div>
+
+  <!-- Scripts -->
+  <script src="../assets/js/includes.js"></script>
+  <script src="../assets/js/main.js"></script>
+  <script src="../assets/js/passeios.js"></script>
+
+  <script>
+    // Atualizar configuração de páginas no includes.js
+    PAGE_CONFIGS['passeio.html'] = [
+      { id: 'passeio-content', path: '../sections/passeio-content.html' }
+    ];
+
+    // Inicializar passeio individual após carregar componentes
+    document.addEventListener('DOMContentLoaded', async () => {
+      // Aguardar o carregamento dos componentes
+      setTimeout(async () => {
+        await window.carregarPasseioIndividual();
+        console.log('✅ Detalhes do passeio carregados!');
+      }, 300);
+    });
+  </script>
+</body>
+
+</html>
