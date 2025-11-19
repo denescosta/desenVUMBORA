@@ -11,9 +11,15 @@ if (strpos($path, '/admin') === 0) {
     // Remove /admin do caminho
     $adminPath = substr($path, 6); // Remove '/admin'
     
-    // Se não tiver nada depois, redireciona para /admin/
+    // Se não tiver nada depois ou for só barra, serve index.php
     if (empty($adminPath) || $adminPath === '/') {
         $adminPath = '/index.php';
+    }
+    
+    // Se for /admin.php, redireciona para /admin/
+    if ($path === '/admin.php') {
+        header('Location: /admin/');
+        exit;
     }
     
     // Serve arquivo da pasta admin
@@ -39,6 +45,19 @@ if (strpos($path, '/admin') === 0) {
             require $indexPath;
             return true;
         }
+    }
+}
+
+// Verifica se é um arquivo PHP do admin (sem /admin no path)
+$adminFiles = ['login.php', 'painel.php', 'formulario-passeio.php', 'salvar-passeio.php', 
+               'deletar-passeio.php', 'logout.php', 'config.php', 'index.php'];
+$fileName = basename($path);
+if (in_array($fileName, $adminFiles)) {
+    $adminFilePath = __DIR__ . '/admin/' . $fileName;
+    if (is_file($adminFilePath)) {
+        chdir(__DIR__ . '/admin');
+        require $adminFilePath;
+        return true;
     }
 }
 
