@@ -87,7 +87,8 @@ class PasseiosManager {
     return `
       <article class="tour-card">
         <div class="tour-image">
-          <img src="../${passeio.imagem_capa}" alt="${passeio.nome}" loading="lazy">
+          <img src="../${passeio.imagem_capa}" alt="${passeio.nome}" loading="lazy" 
+               onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=\\'http://www.w3.org/2000/svg\\' width=\\'400\\' height=\\'300\\'%3E%3Crect fill=\\'%23e0e0e0\\' width=\\'400\\' height=\\'300\\'/%3E%3Ctext x=\\'50%25\\' y=\\'50%25\\' text-anchor=\\'middle\\' dy=\\'.3em\\' fill=\\'%23999\\' font-family=\\'sans-serif\\' font-size=\\'16\\'%3EImagem não disponível%3C/text%3E%3C/svg%3E';">
           ${passeio.destaque ? '<span class="tour-badge">Destaque</span>' : ''}
         </div>
         <div class="tour-content">
@@ -214,6 +215,10 @@ class PasseiosManager {
     if (imgCapa) {
       imgCapa.src = `../${passeio.imagem_capa}`;
       imgCapa.alt = passeio.nome;
+      imgCapa.onerror = function() {
+        this.onerror = null;
+        this.src = 'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'800\' height=\'600\'%3E%3Crect fill=\'%23e0e0e0\' width=\'800\' height=\'600\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' text-anchor=\'middle\' dy=\'.3em\' fill=\'%23999\' font-family=\'sans-serif\' font-size=\'24\'%3EImagem não disponível%3C/text%3E%3C/svg%3E';
+      };
     }
 
     // Informações básicas
@@ -271,7 +276,8 @@ class PasseiosManager {
            data-pswp-src="../${foto.url}"
            target="_blank"
            rel="noopener noreferrer">
-          <img src="../${foto.url}" alt="${foto.alt}" loading="lazy">
+          <img src="../${foto.url}" alt="${foto.alt}" loading="lazy" 
+               onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=\\'http://www.w3.org/2000/svg\\' width=\\'400\\' height=\\'300\\'%3E%3Crect fill=\\'%23e0e0e0\\' width=\\'400\\' height=\\'300\\'/%3E%3Ctext x=\\'50%25\\' y=\\'50%25\\' text-anchor=\\'middle\\' dy=\\'.3em\\' fill=\\'%23999\\' font-family=\\'sans-serif\\' font-size=\\'14\\'%3EImagem não disponível%3C/text%3E%3C/svg%3E';">
           <div class="gallery-overlay">
             <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
               <circle cx="11" cy="11" r="8"/>

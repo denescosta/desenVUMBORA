@@ -176,24 +176,27 @@ function toggleSidebar() {
   const sidebar = document.querySelector('header .sidebar');
   const sidebarButton = document.getElementById('botao-sidebar');
   if (sidebar && sidebarButton) {
-    sidebarButton.addEventListener('click', (e) => {
+    // Remover listeners antigos se existirem
+    const newButton = sidebarButton.cloneNode(true);
+    sidebarButton.parentNode.replaceChild(newButton, sidebarButton);
+    
+    // Adicionar novo listener
+    const finalButton = document.getElementById('botao-sidebar');
+    finalButton.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
       sidebar.classList.toggle('aberta');
       document.body.classList.toggle('sidebar-aberta', sidebar.classList.contains('aberta'));
-      document.getElementById('header').classList.toggle('sidebar-aberta', sidebar.classList.contains('aberta'));
-      e.stopPropagation();
     });
-    // Fecha a sidebar ao clicar fora
-    document.addEventListener('click', (e) => {
-      if (
-        sidebar.classList.contains('aberta') &&
-        !sidebar.contains(e.target) &&
-        e.target !== sidebarButton
-      ) {
+    
+    // Fecha a sidebar ao clicar no overlay
+    const overlay = document.querySelector('.sidebar-overlay');
+    if (overlay) {
+      overlay.addEventListener('click', () => {
         sidebar.classList.remove('aberta');
         document.body.classList.remove('sidebar-aberta');
-        document.getElementById('header').classList.remove('sidebar-aberta');
-      }
-    });
+      });
+    }
     // Fecha a sidebar ao clicar em qualquer link da sidebar
     const sidebarLinks = sidebar.querySelectorAll('a');
     sidebarLinks.forEach(link => {
@@ -206,7 +209,6 @@ function toggleSidebar() {
         }
         sidebar.classList.remove('aberta');
         document.body.classList.remove('sidebar-aberta');
-        document.getElementById('header').classList.remove('sidebar-aberta');
         // Força o navegador a processar o fechamento antes do scroll
         void sidebar.offsetWidth;
         if (isAnchor) {
@@ -368,27 +370,22 @@ function initToursCarousel(force = false) {
     return;
   }
 
-  if (toursCarouselInstance && toursCarouselInstance.destroy) {
-    toursCarouselInstance.destroy();
-    toursCarouselInstance = null;
-  }
-
   if (!indicatorsContainer) {
     indicatorsContainer = document.createElement('div');
     indicatorsContainer.className = 'carousel-indicators';
     carouselWrapper.insertAdjacentElement('afterend', indicatorsContainer);
   }
 
-  // Remove event listeners antigos clonando os botões
-  const prevParent = prevBtn.parentNode;
-  const nextParent = nextBtn.parentNode;
-  prevBtn = prevBtn.cloneNode(true);
-  nextBtn = nextBtn.cloneNode(true);
-  prevParent.replaceChild(prevBtn, prevParent.querySelector('.carousel-btn-prev'));
-  nextParent.replaceChild(nextBtn, nextParent.querySelector('.carousel-btn-next'));
-
+  // Armazenar referências para remover listeners depois
+  // Não precisamos clonar os botões, apenas garantir que os listeners sejam únicos
   let currentIndex = 0;
   let cardsToShow = 4;
+  
+  // Handlers que serão armazenados para remoção posterior
+  let prevSlideHandler = null;
+  let nextSlideHandler = null;
+  let keyHandler = null;
+  let resizeHandler = null;
 
   function getCardsToShow() {
     const width = window.innerWidth;
@@ -467,6 +464,11 @@ function initToursCarousel(force = false) {
     moveCarousel();
   }
 
+  // Remover listeners antigos se existirem
+  if (toursCarouselInstance && toursCarouselInstance.destroy) {
+    toursCarouselInstance.destroy();
+  }
+
   function nextSlide(e) {
     if (e) e.preventDefault();
     goToSlide(currentIndex + 1);
@@ -477,10 +479,14 @@ function initToursCarousel(force = false) {
     goToSlide(currentIndex - 1);
   }
 
-  prevBtn.addEventListener('click', prevSlide);
-  nextBtn.addEventListener('click', nextSlide);
+  // Armazenar referências dos handlers
+  prevSlideHandler = prevSlide;
+  nextSlideHandler = nextSlide;
 
-  const keyHandler = (e) => {
+  prevBtn.addEventListener('click', prevSlideHandler);
+  nextBtn.addEventListener('click', nextSlideHandler);
+
+  keyHandler = (e) => {
     if (e.key === 'ArrowLeft') {
       prevSlide();
     } else if (e.key === 'ArrowRight') {
@@ -493,7 +499,7 @@ function initToursCarousel(force = false) {
   carouselWrapper.addEventListener('keydown', keyHandler);
 
   let resizeTimeout = null;
-  const resizeHandler = () => {
+  resizeHandler = () => {
     clearTimeout(resizeTimeout);
     resizeTimeout = setTimeout(() => {
       const maxSlides = getMaxSlides();
@@ -516,10 +522,18 @@ function initToursCarousel(force = false) {
 
   toursCarouselInstance = {
     destroy: () => {
-      window.removeEventListener('resize', resizeHandler);
-      carouselWrapper.removeEventListener('keydown', keyHandler);
-      prevBtn.removeEventListener('click', prevSlide);
-      nextBtn.removeEventListener('click', nextSlide);
+      if (resizeHandler) {
+        window.removeEventListener('resize', resizeHandler);
+      }
+      if (keyHandler) {
+        carouselWrapper.removeEventListener('keydown', keyHandler);
+      }
+      if (prevSlideHandler && prevBtn) {
+        prevBtn.removeEventListener('click', prevSlideHandler);
+      }
+      if (nextSlideHandler && nextBtn) {
+        nextBtn.removeEventListener('click', nextSlideHandler);
+      }
     }
   };
 }
@@ -619,3 +633,4 @@ window.smoothScroll = smoothScroll;
 window.validateField = validateField;
 window.initToursSection = initToursSection;
 window.initToursCarousel = initToursCarousel;
+window.toggleSidebar = toggleSidebar;

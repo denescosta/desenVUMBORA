@@ -35,7 +35,7 @@ const COMPONENTS = {
 };
 
 // Configuração específica para cada página
-const PAGE_CONFIGS = {
+window.PAGE_CONFIGS = {
   'index.html': [
     { id: 'hero', path: '../sections/hero.html' },
     { id: 'about', path: '../sections/about.html' },
@@ -96,6 +96,15 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // Destacar link ativo após carregar header
   setTimeout(setActiveNavLink, 100);
+
+  // Inicializar sidebar após carregar header
+  setTimeout(() => {
+    if (typeof window.toggleSidebar === 'function') {
+      window.toggleSidebar();
+    } else if (typeof toggleSidebar === 'function') {
+      toggleSidebar();
+    }
+  }, 150);
 
   // Carregar seções específicas da página
   const currentPage = getCurrentPage();

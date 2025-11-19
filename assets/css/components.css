@@ -270,11 +270,38 @@ footer p {
     /* Transição suave */
     padding: 20px;
     display: block;
+    z-index: 1001;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
   }
 
   .sidebar.aberta {
-    left: -250px;
+    left: 0;
     /* Move para a esquerda para exibir */
+  }
+
+  /* Overlay escuro quando sidebar está aberta */
+  .sidebar-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  body.sidebar-aberta .sidebar-overlay {
+    display: block;
+    opacity: 1;
+  }
+
+  /* Garantir que header fique acima do overlay mas abaixo da sidebar */
+  header {
+    position: relative;
+    z-index: 1002;
   }
 
   .sidebar ul li {
@@ -308,33 +335,12 @@ footer p {
     display: block;
   }
 
-  body.sidebar-aberta .site-content {
-    transform: translateX(250px);
-    transition: transform 0.3s ease;
-  }
-
-  .site-content {
-    transition: transform 0.3s ease;
-  }
-
-  #header.sidebar-aberta {
-    transform: translateX(250px);
-    transition: transform 0.3s ease;
-  }
-
   .txt-whatsapp {
     display: none;
   }
 
+  /* Quando sidebar está aberta, apenas bloqueia scroll do body */
   body.sidebar-aberta {
-    overflow-y: hidden !important;
-    height: 100vh;
-    position: relative;
-    width: 100vw;
-    touch-action: none;
-  }
-
-  body.sidebar-aberta .site-content {
     overflow: hidden;
   }
 }

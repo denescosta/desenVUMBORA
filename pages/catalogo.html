@@ -35,18 +35,17 @@
   <script src="../assets/js/main.js"></script>
 
   <script>
-    // Atualizar configuração de páginas no includes.js
-    if (typeof PAGE_CONFIGS === 'undefined') {
+    // Garantir que PAGE_CONFIGS existe (caso includes.js ainda não tenha carregado)
+    if (typeof window.PAGE_CONFIGS === 'undefined') {
       window.PAGE_CONFIGS = {};
     }
-    PAGE_CONFIGS['catalogo.html'] = [
+    // Atualizar configuração de páginas (já está no includes.js, mas garantir)
+    window.PAGE_CONFIGS['catalogo.html'] = [
       { id: 'catalogo-content', path: '../sections/catalogo-content.html' }
     ];
 
     // Função para inicializar catálogo quando o conteúdo estiver pronto
     async function inicializarCatalogo() {
-      console.log('🔄 Iniciando carregamento do catálogo...');
-
       // Aguardar até que o container exista (includes.js carregou o conteúdo)
       let container = document.getElementById('catalogo-lista');
       let tentativas = 0;
@@ -56,18 +55,13 @@
         await new Promise(resolve => setTimeout(resolve, 100));
         container = document.getElementById('catalogo-lista');
         tentativas++;
-        if (tentativas % 10 === 0) {
-          console.log('⏳ Aguardando container catalogo-lista...', tentativas);
-        }
       }
 
       // Verificar se o container foi encontrado
       if (!container) {
-        console.error('❌ Container catalogo-lista não encontrado após', tentativas, 'tentativas');
+        console.error('❌ Container catalogo-lista não encontrado');
         return;
       }
-
-      console.log('✅ Container encontrado!');
 
       // Aguardar até que a função esteja disponível
       tentativas = 0;
@@ -77,17 +71,14 @@
       }
 
       if (typeof window.carregarCatalogoPasseios !== 'function') {
-        console.error('❌ Função carregarCatalogoPasseios não encontrada após', tentativas, 'tentativas');
+        console.error('❌ Função carregarCatalogoPasseios não encontrada');
         container.innerHTML = '<p class="no-results">Erro: Função de carregamento não disponível. Verifique se passeios.js foi carregado.</p>';
         return;
       }
 
-      console.log('✅ Função encontrada! Carregando passeios...');
-
       // Carregar catálogo SEM filtro (todos os passeios)
       try {
         await window.carregarCatalogoPasseios(null);
-        console.log('✅ Catálogo de passeios carregado!');
       } catch (error) {
         console.error('❌ Erro ao carregar catálogo:', error);
         container.innerHTML = '<p class="no-results">Erro ao carregar passeios. Tente recarregar a página.</p>';
@@ -96,59 +87,40 @@
 
     // Ouvir evento de conteúdo carregado
     document.addEventListener('contentLoaded', (event) => {
-      console.log('📦 Evento contentLoaded disparado!', event.detail);
       // Verificar se é a página de catálogo
       if (event.detail.pageConfig &&
         event.detail.pageConfig.some(config => config.id === 'catalogo-content')) {
-        console.log('✅ Conteúdo do catálogo carregado, iniciando...');
         setTimeout(inicializarCatalogo, 200);
       }
     });
 
     // Função fallback caso o evento não seja disparado
     function iniciarQuandoPronto() {
-      console.log('🔍 Verificando se scripts estão prontos...');
-
-      // Verificar se todos os scripts necessários estão carregados
-      if (typeof window.PAGE_CONFIGS === 'undefined') {
-        console.log('⏳ Aguardando PAGE_CONFIGS...');
-        setTimeout(iniciarQuandoPronto, 100);
-        return;
-      }
-
+      // Verificar se os scripts necessários estão carregados
       if (typeof window.passeiosManager === 'undefined') {
-        console.log('⏳ Aguardando passeiosManager...');
         setTimeout(iniciarQuandoPronto, 100);
         return;
       }
 
       if (typeof window.carregarCatalogoPasseios !== 'function') {
-        console.log('⏳ Aguardando carregarCatalogoPasseios...');
         setTimeout(iniciarQuandoPronto, 100);
         return;
       }
-
-      console.log('✅ Todos os scripts estão prontos!');
 
       // Aguardar um pouco para includes.js carregar o conteúdo HTML
       // Se após 2 segundos o evento não disparou, tenta mesmo assim
       setTimeout(() => {
         const container = document.getElementById('catalogo-lista');
         if (container) {
-          console.log('🔄 Fallback: Container encontrado, iniciando carregamento...');
           inicializarCatalogo();
         }
       }, 2000);
     }
 
-    // Iniciar quando DOM estiver pronto
+    // Iniciar quando DOM estiver pronto (apenas como fallback)
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', () => {
-        console.log('📄 DOM carregado, iniciando verificação...');
-        iniciarQuandoPronto();
-      });
+      document.addEventListener('DOMContentLoaded', iniciarQuandoPronto);
     } else {
-      console.log('📄 DOM já carregado, iniciando verificação...');
       iniciarQuandoPronto();
     }
   </script>
