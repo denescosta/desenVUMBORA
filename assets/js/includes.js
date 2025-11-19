@@ -104,6 +104,12 @@ document.addEventListener('DOMContentLoaded', async () => {
   if (pageConfig) {
     await ComponentLoader.loadMultiple(pageConfig);
 
+    // Disparar evento customizado quando conteúdo for carregado
+    const contentLoadedEvent = new CustomEvent('contentLoaded', {
+      detail: { pageConfig }
+    });
+    document.dispatchEvent(contentLoadedEvent);
+
     // Inicializar carrossel se a seção de tours foi carregada
     if (pageConfig.some(config => config.id === 'tours' || config.path.includes('tours.html'))) {
       // Aguardar um pouco mais para garantir que os elementos estão renderizados
