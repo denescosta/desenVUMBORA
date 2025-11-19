@@ -1,9 +1,7 @@
-    <?php
+<?php
 // ============================================
 // ARQUIVO 3: formulario-passeio.php
 // ============================================
-?>
-<?php
 require_once 'config.php';
 verificarLogin();
 

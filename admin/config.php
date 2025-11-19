@@ -1,7 +1,15 @@
 <?php
 // config.php - Configurações do painel
 
-session_start();
+// Iniciar output buffering para evitar problemas com headers
+if (!ob_get_level()) {
+    ob_start();
+}
+
+// Verificar se a sessão já foi iniciada
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 // IMPORTANTE: Altere estas credenciais!
 define('ADMIN_USER', 'admin'); // MUDE ISSO
@@ -87,4 +95,3 @@ function removerArquivoSeExistir($caminhoRelativo) {
         @unlink($caminhoAbsoluto);
     }
 }
-?>
