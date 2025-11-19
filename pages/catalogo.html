@@ -36,18 +36,46 @@
 
   <script>
     // Atualizar configuração de páginas no includes.js
+    if (typeof PAGE_CONFIGS === 'undefined') {
+      window.PAGE_CONFIGS = {};
+    }
     PAGE_CONFIGS['catalogo.html'] = [
       { id: 'catalogo-content', path: '../sections/catalogo-content.html' }
     ];
 
-    // Inicializar catálogo após carregar componentes
-    document.addEventListener('DOMContentLoaded', async () => {
-      // Aguardar o carregamento dos componentes
-      setTimeout(async () => {
-        await window.carregarCatalogoPasseios();
-        console.log('✅ Catálogo de passeios carregado!');
-      }, 300);
-    });
+    // Função para inicializar catálogo quando o conteúdo estiver pronto
+    async function inicializarCatalogo() {
+      const container = document.getElementById('catalogo-lista');
+
+      // Aguardar até que o container exista (includes.js carregou o conteúdo)
+      let tentativas = 0;
+      while (!container && tentativas < 50) {
+        await new Promise(resolve => setTimeout(resolve, 100));
+        tentativas++;
+      }
+
+      if (container && typeof window.carregarCatalogoPasseios === 'function') {
+        try {
+          await window.carregarCatalogoPasseios();
+          console.log('✅ Catálogo de passeios carregado!');
+        } catch (error) {
+          console.error('❌ Erro ao carregar catálogo:', error);
+          if (container) {
+            container.innerHTML = '<p class="no-results">Erro ao carregar passeios. Tente recarregar a página.</p>';
+          }
+        }
+      } else {
+        console.warn('⚠️ Container ou função de carregamento não encontrados');
+      }
+    }
+
+    // Aguardar DOMContentLoaded e depois inicializar
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', inicializarCatalogo);
+    } else {
+      // DOM já carregado, aguardar um pouco para includes.js carregar
+      setTimeout(inicializarCatalogo, 100);
+    }
   </script>
 </body>
 

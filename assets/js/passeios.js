@@ -4,21 +4,55 @@ class PasseiosManager {
   constructor() {
     this.passeios = [];
     this.passeioAtual = null;
-    this.dataPath = '../data/passeios.json';
+    // Detectar caminho correto do JSON baseado na URL atual
+    this.dataPath = this.detectarCaminhoData();
+  }
+
+  // Detecta o caminho correto do JSON baseado na localização atual
+  detectarCaminhoData() {
+    const path = window.location.pathname;
+    // Se estiver em pages/, precisa de ../data/
+    // Se estiver na raiz, precisa de data/
+    if (path.includes('/pages/')) {
+      return '../data/passeios.json';
+    }
+    return 'data/passeios.json';
   }
 
   // Carrega todos os passeios do JSON
   async carregarPasseios() {
     try {
-      const response = await fetch(this.dataPath);
+      // Adicionar timeout de 10 segundos
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 10000);
+      
+      const response = await fetch(this.dataPath, {
+        signal: controller.signal,
+        cache: 'no-cache' // Evitar cache em desenvolvimento
+      });
+      
+      clearTimeout(timeoutId);
+      
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        throw new Error(`HTTP error! status: ${response.status} - ${response.statusText}`);
       }
+      
       const data = await response.json();
+      
+      if (!data || !Array.isArray(data.passeios)) {
+        throw new Error('Formato de dados inválido');
+      }
+      
       this.passeios = data.passeios.filter(p => p.ativo);
+      console.log(`✅ ${this.passeios.length} passeio(s) carregado(s)`);
       return this.passeios;
     } catch (error) {
-      console.error('❌ Erro ao carregar passeios:', error);
+      if (error.name === 'AbortError') {
+        console.error('❌ Timeout ao carregar passeios (10s)');
+      } else {
+        console.error('❌ Erro ao carregar passeios:', error);
+        console.error('   Caminho tentado:', this.dataPath);
+      }
       return [];
     }
   }
@@ -84,7 +118,14 @@ class PasseiosManager {
       return;
     }
 
+    // Mostrar loading enquanto carrega
     if (this.passeios.length === 0) {
+      container.innerHTML = `
+        <div class="loading-container">
+          <div class="loading-spinner"></div>
+          <p>Carregando passeios...</p>
+        </div>
+      `;
       await this.carregarPasseios();
     }
 
@@ -98,6 +139,7 @@ class PasseiosManager {
       return;
     }
 
+    // Renderizar cards
     container.innerHTML = passeiosFiltrados.map(p => this.criarCard(p, options)).join('');
   }
 
