@@ -31,8 +31,8 @@
 
   <!-- Scripts -->
   <script src="../assets/js/includes.js"></script>
-  <script src="../assets/js/main.js"></script>
   <script src="../assets/js/passeios.js"></script>
+  <script src="../assets/js/main.js"></script>
 
   <script>
     // Atualizar configuração de páginas no includes.js
@@ -45,36 +45,65 @@
 
     // Função para inicializar catálogo quando o conteúdo estiver pronto
     async function inicializarCatalogo() {
-      const container = document.getElementById('catalogo-lista');
-
       // Aguardar até que o container exista (includes.js carregou o conteúdo)
+      let container = document.getElementById('catalogo-lista');
       let tentativas = 0;
-      while (!container && tentativas < 50) {
+      const maxTentativas = 100; // 10 segundos no total
+
+      while (!container && tentativas < maxTentativas) {
+        await new Promise(resolve => setTimeout(resolve, 100));
+        container = document.getElementById('catalogo-lista');
+        tentativas++;
+      }
+
+      // Verificar se o container foi encontrado
+      if (!container) {
+        console.error('❌ Container catalogo-lista não encontrado após', tentativas, 'tentativas');
+        return;
+      }
+
+      // Aguardar até que a função esteja disponível
+      tentativas = 0;
+      while (typeof window.carregarCatalogoPasseios !== 'function' && tentativas < maxTentativas) {
         await new Promise(resolve => setTimeout(resolve, 100));
         tentativas++;
       }
 
-      if (container && typeof window.carregarCatalogoPasseios === 'function') {
-        try {
-          await window.carregarCatalogoPasseios();
-          console.log('✅ Catálogo de passeios carregado!');
-        } catch (error) {
-          console.error('❌ Erro ao carregar catálogo:', error);
-          if (container) {
-            container.innerHTML = '<p class="no-results">Erro ao carregar passeios. Tente recarregar a página.</p>';
-          }
-        }
-      } else {
-        console.warn('⚠️ Container ou função de carregamento não encontrados');
+      if (typeof window.carregarCatalogoPasseios !== 'function') {
+        console.error('❌ Função carregarCatalogoPasseios não encontrada após', tentativas, 'tentativas');
+        container.innerHTML = '<p class="no-results">Erro: Função de carregamento não disponível. Verifique se passeios.js foi carregado.</p>';
+        return;
+      }
+
+      // Carregar catálogo
+      try {
+        await window.carregarCatalogoPasseios();
+        console.log('✅ Catálogo de passeios carregado!');
+      } catch (error) {
+        console.error('❌ Erro ao carregar catálogo:', error);
+        container.innerHTML = '<p class="no-results">Erro ao carregar passeios. Tente recarregar a página.</p>';
       }
     }
 
-    // Aguardar DOMContentLoaded e depois inicializar
+    // Aguardar todos os scripts carregarem e depois inicializar
+    function iniciarQuandoPronto() {
+      // Verificar se todos os scripts necessários estão carregados
+      if (typeof window.PAGE_CONFIGS === 'undefined' ||
+        typeof window.passeiosManager === 'undefined' ||
+        typeof window.carregarCatalogoPasseios !== 'function') {
+        // Aguardar mais um pouco
+        setTimeout(iniciarQuandoPronto, 100);
+        return;
+      }
+
+      // Aguardar um pouco para includes.js carregar o conteúdo HTML
+      setTimeout(inicializarCatalogo, 300);
+    }
+
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', inicializarCatalogo);
+      document.addEventListener('DOMContentLoaded', iniciarQuandoPronto);
     } else {
-      // DOM já carregado, aguardar um pouco para includes.js carregar
-      setTimeout(inicializarCatalogo, 100);
+      iniciarQuandoPronto();
     }
   </script>
 </body>
