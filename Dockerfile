@@ -16,9 +16,12 @@ RUN mkdir -p /app/uploads/passeios && \
     chmod -R 755 /app/uploads && \
     chmod -R 755 /app/data
 
+# Tornar script de inicialização executável
+RUN chmod +x /app/start.sh
+
 # Expor porta (Railway injeta $PORT)
 EXPOSE 8080
 
 # Comando para iniciar o servidor PHP na pasta admin
-CMD php -S 0.0.0.0:${PORT:-8080} -t admin
+CMD ["/app/start.sh"]
 
