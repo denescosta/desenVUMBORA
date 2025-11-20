@@ -12,9 +12,8 @@ $passeio = [
     'slug' => '',
     'descricao_curta' => '',
     'descricao_completa' => '',
-    'preco' => '',
     'duracao' => '',
-    'categoria' => 'Praia',
+    'categoria' => ['Praia'],
     'destaque' => false,
     'ativo' => true,
     'imagem_capa' => '',
@@ -307,14 +306,32 @@ if ($modoEdicao) {
                 </div>
 
                 <div class="form-group">
-                    <label for="categoria">Categoria *</label>
-                    <select id="categoria" name="categoria" required>
-                        <option value="Praia" <?= $passeio['categoria'] === 'Praia' ? 'selected' : '' ?>>🏖️ Praia</option>
-                        <option value="Aventura" <?= $passeio['categoria'] === 'Aventura' ? 'selected' : '' ?>>🚙 Aventura</option>
-                        <option value="Mergulho" <?= $passeio['categoria'] === 'Mergulho' ? 'selected' : '' ?>>🤿 Mergulho</option>
-                        <option value="Cultural" <?= $passeio['categoria'] === 'Cultural' ? 'selected' : '' ?>>🏛️ Cultural</option>
-                        <option value="Ecoturismo" <?= $passeio['categoria'] === 'Ecoturismo' ? 'selected' : '' ?>>🌿 Ecoturismo</option>
-                    </select>
+                    <label>Categorias *</label>
+                    <div class="checkbox-group" style="flex-direction: column; align-items: flex-start; gap: 12px;">
+                        <?php 
+                        $categoriasDisponiveis = ['Praia', 'Aventura', 'Mergulho', 'Cultural', 'Ecoturismo'];
+                        $categoriasPasseio = is_array($passeio['categoria'] ?? null) ? $passeio['categoria'] : (isset($passeio['categoria']) ? [$passeio['categoria']] : []);
+                        foreach ($categoriasDisponiveis as $cat): 
+                        ?>
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="categoria_<?= strtolower($cat) ?>" name="categorias[]" value="<?= htmlspecialchars($cat) ?>" 
+                                       <?= in_array($cat, $categoriasPasseio) ? 'checked' : '' ?>>
+                                <label for="categoria_<?= strtolower($cat) ?>" style="margin-bottom: 0; font-weight: normal;">
+                                    <?php
+                                    $icones = [
+                                        'Praia' => '🏖️',
+                                        'Aventura' => '🚙',
+                                        'Mergulho' => '🤿',
+                                        'Cultural' => '🏛️',
+                                        'Ecoturismo' => '🌿'
+                                    ];
+                                    echo ($icones[$cat] ?? '') . ' ' . $cat;
+                                    ?>
+                                </label>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                    <p class="help-text">Selecione uma ou mais categorias</p>
                 </div>
 
                 <div class="form-group">
@@ -329,16 +346,9 @@ if ($modoEdicao) {
                     <p class="help-text">Descrição detalhada do passeio</p>
                 </div>
 
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="preco">Preço (R$) *</label>
-                        <input type="number" id="preco" name="preco" step="0.01" value="<?= htmlspecialchars($passeio['preco']) ?>" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="duracao">Duração *</label>
-                        <input type="text" id="duracao" name="duracao" value="<?= htmlspecialchars($passeio['duracao']) ?>" placeholder="Ex: 8 horas" required>
-                    </div>
+                <div class="form-group">
+                    <label for="duracao">Duração *</label>
+                    <input type="text" id="duracao" name="duracao" value="<?= htmlspecialchars($passeio['duracao']) ?>" placeholder="Ex: 8 horas" required>
                 </div>
 
                 <div class="checkbox-group">

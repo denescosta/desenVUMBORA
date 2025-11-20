@@ -243,12 +243,32 @@ function initHomePage() {
   // Adicionar listeners para botões CTA e navegação âncora
   const anchorButtons = document.querySelectorAll('.btn, .cta-button, .tour-btn, .secondary-button, .hero-btn, nav a');
   anchorButtons.forEach(btn => {
-    if (btn.getAttribute('href') && btn.getAttribute('href').startsWith('#')) {
+    const href = btn.getAttribute('href');
+    // Tratar links que começam com # ou que apontam para index.html#ancora
+    if (href && (href.startsWith('#') || href.includes('#testimonials') || href.includes('#about') || href.includes('#tours'))) {
       btn.addEventListener('click', (e) => {
         e.preventDefault();
-        const href = btn.getAttribute('href');
-        history.replaceState(null, '', href); // Atualiza o hash sem scroll automático do navegador
-        smoothScroll(href);
+        let targetHash = href;
+        
+        // Se o link aponta para index.html#ancora, extrair apenas o hash
+        if (href.includes('#')) {
+          targetHash = '#' + href.split('#')[1];
+        }
+        
+        // Se estiver em outra página, redirecionar para index.html com o hash
+        const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+        if (currentPage !== 'index.html' && targetHash) {
+          window.location.href = '../index.html' + targetHash;
+          return;
+        }
+        
+        // Se já estiver na home, fazer scroll
+        if (currentPage === 'index.html') {
+          history.replaceState(null, '', targetHash); // Atualiza o hash sem scroll automático do navegador
+          setTimeout(() => {
+            smoothScroll(targetHash);
+          }, 100);
+        }
       });
     }
   });
@@ -443,7 +463,8 @@ function initToursCarousel(force = false) {
 
   function moveCarousel() {
     const firstCard = tourCards[0];
-    if (!firstCard) return;
+    const carousel = toursSection.querySelector('.tours-carousel');
+    if (!firstCard || !carousel) return;
 
     const cardWidth = firstCard.offsetWidth;
     if (cardWidth === 0) {
@@ -451,8 +472,22 @@ function initToursCarousel(force = false) {
       return;
     }
 
-    const translateX = -(currentIndex * (cardWidth + getGap()));
-    toursList.style.transform = `translateX(${translateX}px)`;
+    const gap = getGap();
+    const carouselWidth = carousel.offsetWidth;
+    
+    // Em mobile, o card ocupa 100% da viewport e o gap fica fora
+    if (window.innerWidth <= 768) {
+      // O card ocupa 100% da largura do carrossel
+      // O gap fica entre os cards, mas fora da viewport
+      // Calcula o translateX para alinhar o card à esquerda da viewport
+      const translateX = -(currentIndex * (carouselWidth + gap));
+      toursList.style.transform = `translateX(${translateX}px)`;
+    } else {
+      // Em desktop, comportamento normal (alinhado à esquerda)
+      const translateX = -(currentIndex * (cardWidth + gap));
+      toursList.style.transform = `translateX(${translateX}px)`;
+    }
+    
     toursList.style.transition = 'transform 0.5s ease';
     updateIndicators();
     updateButtons();
@@ -602,6 +637,31 @@ document.addEventListener('DOMContentLoaded', () => {
     toggleSidebar(); // <-- Adiciona inicialização do sidebar
     initPageSpecificFeatures();
     initToursSection(); // <-- Inicializa os destaques de passeios
+
+    // Handler para links do nav que apontam para âncoras (ex: Feedbacks -> #testimonials)
+    const navLinks = document.querySelectorAll('nav.main-nav a, .sidebar a');
+    navLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        const href = link.getAttribute('href');
+        // Verificar se o link aponta para index.html#ancora
+        if (href && href.includes('#testimonials')) {
+          e.preventDefault();
+          const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+          
+          // Se não estiver na home, redirecionar
+          if (currentPage !== 'index.html') {
+            window.location.href = '../index.html#testimonials';
+            return;
+          }
+          
+          // Se já estiver na home, fazer scroll
+          history.replaceState(null, '', '#testimonials');
+          setTimeout(() => {
+            smoothScroll('#testimonials');
+          }, 100);
+        }
+      });
+    });
 
     // Scroll suave para hash na URL após carregamento
     if (window.location.hash) {

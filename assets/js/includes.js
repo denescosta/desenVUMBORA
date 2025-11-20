@@ -59,6 +59,9 @@ window.PAGE_CONFIGS = {
   ],
   'contato.html': [
     { id: 'contact-form', path: '../sections/contact.html' }
+  ],
+  'about-us.html': [
+    { id: 'about-us-content', path: '../sections/about-us-content.html' }
   ]
 };
 
@@ -106,6 +109,25 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   }, 150);
 
+  // Configurar links do WhatsApp após carregar componentes
+  setTimeout(() => {
+    if (typeof window.configurarLinksWhatsApp === 'function') {
+      window.configurarLinksWhatsApp();
+    }
+    if (typeof window.configurarInformacoesContato === 'function') {
+      window.configurarInformacoesContato();
+    }
+  }, 200);
+
+  // Reconfigurar links do WhatsApp quando conteúdo for carregado (hero, etc)
+  document.addEventListener('contentLoaded', () => {
+    setTimeout(() => {
+      if (typeof window.configurarLinksWhatsApp === 'function') {
+        window.configurarLinksWhatsApp();
+      }
+    }, 100);
+  });
+
   // Carregar seções específicas da página
   const currentPage = getCurrentPage();
   const pageConfig = PAGE_CONFIGS[currentPage];
@@ -127,6 +149,15 @@ document.addEventListener('DOMContentLoaded', async () => {
           window.initToursSection();
         }
       }, 500);
+    }
+
+    // Configurar links do WhatsApp se o hero foi carregado
+    if (pageConfig.some(config => config.id === 'hero' || config.path.includes('hero.html'))) {
+      setTimeout(() => {
+        if (typeof window.configurarLinksWhatsApp === 'function') {
+          window.configurarLinksWhatsApp();
+        }
+      }, 300);
     }
 
     // Scroll suave para âncora após carregar seções, se necessário

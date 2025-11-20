@@ -34,6 +34,22 @@ if (!is_dir($pastaPasseio)) {
     mkdir($pastaPasseio, 0755, true);
 }
 
+// Processar categorias (pode ser array ou string única para compatibilidade)
+$categorias = [];
+if (isset($_POST['categorias']) && is_array($_POST['categorias'])) {
+    $categorias = array_map('trim', $_POST['categorias']);
+    $categorias = array_filter($categorias); // Remove valores vazios
+} elseif (isset($_POST['categoria'])) {
+    // Compatibilidade: se vier como string única, converte para array
+    $categorias = [trim($_POST['categoria'])];
+}
+
+// Validar que pelo menos uma categoria foi selecionada
+if (empty($categorias)) {
+    header('Location: formulario-passeio.php?erro=' . urlencode('Selecione pelo menos uma categoria.'));
+    exit;
+}
+
 // Preparar dados do passeio
 $passeio = [
     'id' => $id,
@@ -41,10 +57,8 @@ $passeio = [
     'slug' => $slug,
     'descricao_curta' => trim($_POST['descricao_curta']),
     'descricao_completa' => trim($_POST['descricao_completa']),
-    'preco' => number_format((float)$_POST['preco'], 2, '.', ''),
-    'preco_formatado' => 'R$ ' . number_format((float)$_POST['preco'], 2, ',', '.'),
     'duracao' => trim($_POST['duracao']),
-    'categoria' => $_POST['categoria'],
+    'categoria' => $categorias, // Agora é um array
     'destaque' => isset($_POST['destaque']),
     'ativo' => isset($_POST['ativo']),
     'dificuldade' => $_POST['dificuldade'],

@@ -202,7 +202,11 @@ usort($passeios, function($a, $b) {
                             </span>
                             <h3 class="card-title"><?= htmlspecialchars($passeio['nome']) ?></h3>
                             <div class="card-info">
-                                💰 <?= htmlspecialchars($passeio['preco_formatado']) ?> | 
+                                <?php 
+                                $categorias = is_array($passeio['categoria'] ?? null) ? $passeio['categoria'] : (isset($passeio['categoria']) ? [$passeio['categoria']] : []);
+                                $categoriasTexto = !empty($categorias) ? implode(', ', $categorias) : 'Sem categoria';
+                                ?>
+                                🏷️ <?= htmlspecialchars($categoriasTexto) ?> | 
                                 ⏱️ <?= htmlspecialchars($passeio['duracao']) ?>
                             </div>
                             <div class="card-actions">

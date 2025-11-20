@@ -6,10 +6,12 @@
             "slug": "praia-de-pipa",
             "descricao_curta": "Conheça uma das praias mais famosas do Brasil com suas falésias coloridas e piscinas naturais",
             "descricao_completa": "A Praia de Pipa é um dos destinos mais procurados do litoral sul do Rio Grande do Norte. Com suas falésias coloridas, piscinas naturais de água cristalina e vida marinha exuberante, Pipa oferece uma experiência única. Durante o passeio, você terá tempo para explorar as principais praias, conhecer o centrinho charmoso com suas lojas e restaurantes, e se encantar com a beleza natural preservada da região.",
-            "preco": "150.00",
-            "preco_formatado": "R$ 150,00",
             "duracao": "8 horas",
-            "categoria": "Praia",
+            "categoria": [
+                "Praia",
+                "Aventura",
+                "Mergulho"
+            ],
             "destaque": false,
             "ativo": true,
             "dificuldade": "Fácil",
@@ -212,39 +214,302 @@
             ]
         },
         {
-            "id": "passeio_691dd2ef2536c",
-            "nome": "teste",
-            "slug": "teste",
-            "descricao_curta": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco l",
-            "descricao_completa": "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?",
-            "preco": "10.00",
-            "preco_formatado": "R$ 10,00",
+            "id": "centro-historico-natal",
+            "nome": "Centro Histórico de Natal",
+            "slug": "centro-historico-natal",
+            "descricao_curta": "Conheça a história e cultura de Natal visitando os principais pontos históricos da cidade",
+            "descricao_completa": "Um passeio cultural pelo coração de Natal, visitando os principais pontos históricos da cidade. Você conhecerá o Forte dos Reis Magos, a Catedral de Natal, o Teatro Alberto Maranhão, o Palácio Felipe Camarão e outros monumentos importantes. O passeio inclui guia especializado que conta a rica história da capital potiguar, desde sua fundação até os dias atuais.",
             "duracao": "4 horas",
-            "categoria": "Cultural",
+            "categoria": [
+                "Cultural"
+            ],
             "destaque": false,
             "ativo": true,
             "dificuldade": "Fácil",
             "idade_minima": "0",
-            "max_pessoas": "40",
-            "observacoes": "",
+            "max_pessoas": "30",
+            "observacoes": "Recomendamos usar calçados confortáveis e protetor solar. O passeio é feito a pé e de transporte.",
             "data_atualizacao": "2025-11-19",
             "data_criacao": "2025-11-19",
-            "imagem_capa": "uploads\/passeios\/teste\/691ddb17bfad0.png",
+            "imagem_capa": "uploads\/passeios\/centro-historico-natal\/capa.jpg",
+            "galeria": [],
+            "horarios": [
+                "09:00",
+                "14:00"
+            ],
+            "inclui": [
+                "Transporte ida e volta",
+                "Guia turístico especializado",
+                "Entrada nos monumentos",
+                "Paradas para fotos"
+            ],
+            "nao_inclui": [
+                "Alimentação",
+                "Bebidas",
+                "Despesas pessoais"
+            ]
+        },
+        {
+            "id": "lagoa-do-carcara",
+            "nome": "Lagoa do Carcará",
+            "slug": "lagoa-do-carcara",
+            "descricao_curta": "Passeio ecológico pela Lagoa do Carcará com observação de aves e natureza",
+            "descricao_completa": "A Lagoa do Carcará é um refúgio ecológico localizado próximo a Natal, conhecida por sua rica biodiversidade e tranquilidade. Durante o passeio, você poderá observar diversas espécies de aves, fazer trilhas ecológicas, conhecer a flora local e relaxar em um ambiente natural preservado. Ideal para quem busca contato com a natureza e momentos de paz longe da agitação urbana.",
+            "duracao": "5 horas",
+            "categoria": [
+                "Ecoturismo",
+                "Praia"
+            ],
+            "destaque": false,
+            "ativo": true,
+            "dificuldade": "Fácil",
+            "idade_minima": "0",
+            "max_pessoas": "25",
+            "observacoes": "Levar repelente, protetor solar, boné e água. Recomendado para amantes da natureza.",
+            "data_atualizacao": "2025-11-19",
+            "data_criacao": "2025-11-19",
+            "imagem_capa": "uploads\/passeios\/lagoa-do-carcara\/capa.jpg",
+            "galeria": [],
+            "horarios": [
+                "08:00"
+            ],
+            "inclui": [
+                "Transporte ida e volta",
+                "Guia ambiental",
+                "Trilha ecológica",
+                "Observação de aves"
+            ],
+            "nao_inclui": [
+                "Alimentação",
+                "Bebidas",
+                "Equipamentos de observação"
+            ]
+        },
+        {
+            "id": "praia-ponta-negra",
+            "nome": "Praia de Ponta Negra",
+            "slug": "praia-ponta-negra",
+            "descricao_curta": "A praia mais famosa de Natal com o icônico Morro do Careca",
+            "descricao_completa": "Ponta Negra é a praia mais conhecida e movimentada de Natal, famosa pelo Morro do Careca, um dos cartões-postais da cidade. O passeio inclui tempo livre para aproveitar a praia, fazer atividades aquáticas, conhecer o calçadão com suas barracas e restaurantes, e claro, fotografar o famoso Morro do Careca. À noite, a região se transforma com bares e vida noturna animada.",
+            "duracao": "6 horas",
+            "categoria": [
+                "Praia",
+                "Aventura"
+            ],
+            "destaque": true,
+            "ativo": true,
+            "dificuldade": "Fácil",
+            "idade_minima": "0",
+            "max_pessoas": "40",
+            "observacoes": "Levar protetor solar, roupa de banho, toalha e dinheiro para alimentação e atividades opcionais.",
+            "data_atualizacao": "2025-11-19",
+            "data_criacao": "2025-11-19",
+            "imagem_capa": "uploads\/passeios\/praia-ponta-negra\/capa.jpg",
+            "galeria": [],
+            "horarios": [
+                "08:00",
+                "14:00"
+            ],
+            "inclui": [
+                "Transporte ida e volta",
+                "Guia turístico",
+                "Tempo livre na praia",
+                "Paradas para fotos"
+            ],
+            "nao_inclui": [
+                "Alimentação",
+                "Atividades aquáticas",
+                "Cadeiras e guarda-sol",
+                "Despesas pessoais"
+            ]
+        },
+        {
+            "id": "forte-dos-reis-magos",
+            "nome": "Forte dos Reis Magos",
+            "slug": "forte-dos-reis-magos",
+            "descricao_curta": "Visita ao histórico Forte dos Reis Magos, marco da fundação de Natal",
+            "descricao_completa": "O Forte dos Reis Magos é um dos principais monumentos históricos do Rio Grande do Norte e marco da fundação de Natal em 1599. Construído em formato de estrela, o forte oferece uma viagem no tempo com suas muralhas, canhões e exposições sobre a história colonial. O passeio inclui visita guiada ao forte, explicações históricas e uma vista privilegiada do mar e da cidade.",
+            "duracao": "3 horas",
+            "categoria": [
+                "Cultural",
+                "Ecoturismo"
+            ],
+            "destaque": false,
+            "ativo": true,
+            "dificuldade": "Fácil",
+            "idade_minima": "0",
+            "max_pessoas": "35",
+            "observacoes": "Recomendamos usar calçados confortáveis. O forte tem escadas e áreas abertas.",
+            "data_atualizacao": "2025-11-19",
+            "data_criacao": "2025-11-19",
+            "imagem_capa": "uploads\/passeios\/forte-dos-reis-magos\/capa.jpg",
+            "galeria": [],
+            "horarios": [
+                "09:00",
+                "15:00"
+            ],
+            "inclui": [
+                "Transporte ida e volta",
+                "Guia histórico",
+                "Entrada no forte",
+                "Visita guiada completa"
+            ],
+            "nao_inclui": [
+                "Alimentação",
+                "Bebidas",
+                "Despesas pessoais"
+            ]
+        },
+        {
+            "id": "barra-do-cunhau",
+            "nome": "Barra do Cunhaú",
+            "slug": "barra-do-cunha",
+            "descricao_curta": "Passeio completo pela Barra do Cunhaú com praia, mergulho e aventura",
+            "descricao_completa": "A Barra do Cunhaú é um destino completo que combina praia paradisíaca, mergulho em águas cristalinas e aventura. O passeio inclui tempo na praia, mergulho com snorkel para observar a vida marinha, passeio de barco e atividades de aventura. É um dos destinos mais completos do litoral sul, perfeito para quem quer experimentar tudo em um só dia.",
+            "duracao": "8 horas",
+            "categoria": [
+                "Praia",
+                "Aventura",
+                "Mergulho"
+            ],
+            "destaque": true,
+            "ativo": false,
+            "dificuldade": "Moderada",
+            "idade_minima": "8",
+            "max_pessoas": "30",
+            "observacoes": "Levar roupa de banho, protetor solar, toalha e equipamento de mergulho (ou alugar no local). Saber nadar é recomendado.",
+            "data_atualizacao": "2025-11-19",
+            "data_criacao": "2025-11-19",
+            "imagem_capa": "uploads\/passeios\/barra-do-cunhau\/capa.jpg",
+            "galeria": [],
+            "horarios": [
+                "07:00"
+            ],
+            "inclui": [
+                "Transporte ida e volta",
+                "Passeio de barco",
+                "Equipamento de snorkel",
+                "Guia especializado",
+                "Colete salva-vidas"
+            ],
+            "nao_inclui": [
+                "Alimentação",
+                "Bebidas",
+                "Fotos e vídeos subaquáticos",
+                "Atividades extras"
+            ]
+        },
+        {
+            "id": "passeio_691e666a7166c",
+            "nome": "Litoral Sul - teste",
+            "slug": "litoral-sul-teste",
+            "descricao_curta": "Passeio nas praias mais bonitas do litoral sul",
+            "descricao_completa": "Os Parrachos de Maracajaú são formações de corais que criam verdadeiras piscinas naturais no meio do mar, a cerca de 7km da costa. Com águas cristalinas e calmas, é o lugar perfeito para mergulhar com snorkel e observar a rica vida marinha. Você verá peixes coloridos, corais e, com sorte, tartarugas marinhas. O passeio inclui transporte até a praia, travessia de barco até os parrachos e todo o equipamento necessário.",
+            "duracao": "5 horas",
+            "categoria": [
+                "Praia",
+                "Aventura",
+                "Mergulho"
+            ],
+            "destaque": true,
+            "ativo": true,
+            "dificuldade": "Fácil",
+            "idade_minima": "0",
+            "max_pessoas": "40",
+            "observacoes": "Política de Crianças\r\n0 e 1 ano: gratuito (no colo)\r\n2 e 3 anos: R$ 115,00\r\n4 a 8 anos: R$ 160,00",
+            "data_atualizacao": "2025-11-20",
+            "data_criacao": "2025-11-20",
+            "imagem_capa": "uploads\/passeios\/litoral-sul-teste\/691e666a7182f.png",
             "galeria": [
                 {
-                    "url": "uploads\/passeios\/teste\/691ddd1e7dda3.png",
-                    "alt": "Foto do passeio teste",
+                    "url": "uploads\/passeios\/litoral-sul-teste\/691e66c64c5d7.jpeg",
+                    "alt": "Foto do passeio Litoral Sul - teste",
                     "ordem": 1
                 },
                 {
-                    "url": "uploads\/passeios\/teste\/691ddd1e7e1b9.jpeg",
-                    "alt": "Foto do passeio teste",
+                    "url": "uploads\/passeios\/litoral-sul-teste\/691e66c64c728.jpeg",
+                    "alt": "Foto do passeio Litoral Sul - teste",
                     "ordem": 2
                 },
                 {
-                    "url": "uploads\/passeios\/teste\/691ddd4d23860.jpeg",
-                    "alt": "Foto do passeio teste",
+                    "url": "uploads\/passeios\/litoral-sul-teste\/691e66c64c87d.jpeg",
+                    "alt": "Foto do passeio Litoral Sul - teste",
                     "ordem": 3
+                },
+                {
+                    "url": "uploads\/passeios\/litoral-sul-teste\/691e66c64c9bc.jpeg",
+                    "alt": "Foto do passeio Litoral Sul - teste",
+                    "ordem": 4
+                },
+                {
+                    "url": "uploads\/passeios\/litoral-sul-teste\/691e66c64cb08.jpeg",
+                    "alt": "Foto do passeio Litoral Sul - teste",
+                    "ordem": 5
+                },
+                {
+                    "url": "uploads\/passeios\/litoral-sul-teste\/691e66c64cc55.jpeg",
+                    "alt": "Foto do passeio Litoral Sul - teste",
+                    "ordem": 6
+                },
+                {
+                    "url": "uploads\/passeios\/litoral-sul-teste\/691e66c64cd72.jpeg",
+                    "alt": "Foto do passeio Litoral Sul - teste",
+                    "ordem": 7
+                },
+                {
+                    "url": "uploads\/passeios\/litoral-sul-teste\/691e66c64ceaf.jpeg",
+                    "alt": "Foto do passeio Litoral Sul - teste",
+                    "ordem": 8
+                },
+                {
+                    "url": "uploads\/passeios\/litoral-sul-teste\/691e66c64d034.jpeg",
+                    "alt": "Foto do passeio Litoral Sul - teste",
+                    "ordem": 9
+                },
+                {
+                    "url": "uploads\/passeios\/litoral-sul-teste\/691e66c64d159.jpeg",
+                    "alt": "Foto do passeio Litoral Sul - teste",
+                    "ordem": 10
+                },
+                {
+                    "url": "uploads\/passeios\/litoral-sul-teste\/691e66c64d2c3.jpeg",
+                    "alt": "Foto do passeio Litoral Sul - teste",
+                    "ordem": 11
+                },
+                {
+                    "url": "uploads\/passeios\/litoral-sul-teste\/691e66c64d400.png",
+                    "alt": "Foto do passeio Litoral Sul - teste",
+                    "ordem": 12
+                },
+                {
+                    "url": "uploads\/passeios\/litoral-sul-teste\/691e66c64d50e.png",
+                    "alt": "Foto do passeio Litoral Sul - teste",
+                    "ordem": 13
+                },
+                {
+                    "url": "uploads\/passeios\/litoral-sul-teste\/691e66c64d618.png",
+                    "alt": "Foto do passeio Litoral Sul - teste",
+                    "ordem": 14
+                },
+                {
+                    "url": "uploads\/passeios\/litoral-sul-teste\/691e66c64d73d.png",
+                    "alt": "Foto do passeio Litoral Sul - teste",
+                    "ordem": 15
+                },
+                {
+                    "url": "uploads\/passeios\/litoral-sul-teste\/691e66c64d875.png",
+                    "alt": "Foto do passeio Litoral Sul - teste",
+                    "ordem": 16
+                },
+                {
+                    "url": "uploads\/passeios\/litoral-sul-teste\/691e66c64d9b3.png",
+                    "alt": "Foto do passeio Litoral Sul - teste",
+                    "ordem": 17
+                },
+                {
+                    "url": "uploads\/passeios\/litoral-sul-teste\/691e66c64dbad.png",
+                    "alt": "Foto do passeio Litoral Sul - teste",
+                    "ordem": 18
                 }
             ],
             "horarios": [
@@ -252,12 +517,13 @@
             ],
             "inclui": [
                 "Transporte ida e volta",
-                "teste1",
-                "teste2",
-                "teste3"
+                "Ar condicionado",
+                "Bagagem de mão"
             ],
             "nao_inclui": [
-                "Alimentação"
+                "Alimentação",
+                "Quadriciclo",
+                "Tirolesa"
             ]
         }
     ]

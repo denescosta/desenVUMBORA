@@ -43,7 +43,18 @@ class PasseiosManager {
         throw new Error('Formato de dados inválido');
       }
       
-      this.passeios = data.passeios.filter(p => p.ativo);
+      // Normalizar categorias (converter string para array se necessário) e remover preços
+      this.passeios = data.passeios.filter(p => p.ativo).map(p => {
+        // Normalizar categoria: se for string, converte para array
+        if (!Array.isArray(p.categoria)) {
+          p.categoria = p.categoria ? [p.categoria] : [];
+        }
+        // Remover campos de preço se existirem
+        delete p.preco;
+        delete p.preco_formatado;
+        return p;
+      });
+      
       console.log(`✅ ${this.passeios.length} passeio(s) carregado(s)`);
       return this.passeios;
     } catch (error) {
@@ -64,9 +75,12 @@ class PasseiosManager {
     );
   }
 
-  // Busca passeios por categoria
+  // Busca passeios por categoria (suporta categorias como array ou string)
   buscarPorCategoria(categoria) {
-    return this.passeios.filter(p => p.categoria === categoria);
+    return this.passeios.filter(p => {
+      const categoriasPasseio = Array.isArray(p.categoria) ? p.categoria : [p.categoria];
+      return categoriasPasseio.includes(categoria);
+    });
   }
 
   // Busca passeios em destaque
@@ -74,15 +88,19 @@ class PasseiosManager {
     return this.passeios.filter(p => p.destaque);
   }
 
-  // Formata preço
-  formatarPreco(preco) {
-    return `R$ ${parseFloat(preco).toFixed(2).replace('.', ',')}`;
+  // Formata categorias para exibição (suporta array ou string)
+  formatarCategorias(categoria) {
+    if (Array.isArray(categoria)) {
+      return categoria.join(', ');
+    }
+    return categoria || '';
   }
 
   // Cria card de passeio para o catálogo
   criarCard(passeio, options = {}) {
     const linkPrefix = options.linkPrefix || '';
     const detailsUrl = `${linkPrefix}passeio.html?id=${passeio.slug}`;
+    const categoriasTexto = this.formatarCategorias(passeio.categoria);
 
     return `
       <article class="tour-card">
@@ -92,7 +110,7 @@ class PasseiosManager {
           ${passeio.destaque ? '<span class="tour-badge">Destaque</span>' : ''}
         </div>
         <div class="tour-content">
-          <div class="tour-category">${passeio.categoria}</div>
+          <div class="tour-category">${categoriasTexto}</div>
           <h3 class="tour-title">${passeio.nome}</h3>
           <p class="tour-description">${passeio.descricao_curta}</p>
           <div class="tour-info">
@@ -103,7 +121,6 @@ class PasseiosManager {
               </svg>
               ${passeio.duracao}
             </span>
-            <span class="tour-price">${passeio.preco_formatado}</span>
           </div>
           <a href="${detailsUrl}" class="tour-btn">Ver Detalhes</a>
         </div>
@@ -168,9 +185,6 @@ class PasseiosManager {
     }
 
     const cards = destaques.map(passeio => {
-      if (!passeio.preco_formatado && passeio.preco) {
-        passeio.preco_formatado = this.formatarPreco(passeio.preco);
-      }
       return this.criarCard(passeio, options);
     }).join('');
 
@@ -233,14 +247,14 @@ class PasseiosManager {
     }
 
     // Informações básicas
-    this.setTextContent('passeio-categoria', passeio.categoria);
+    const categoriasTexto = this.formatarCategorias(passeio.categoria);
+    this.setTextContent('passeio-categoria', categoriasTexto);
     const categoriaBadge = document.getElementById('passeio-categoria-badge');
     if (categoriaBadge) {
-      categoriaBadge.textContent = passeio.categoria;
+      categoriaBadge.textContent = categoriasTexto;
     }
     this.setTextContent('passeio-nome', passeio.nome);
     this.setTextContent('passeio-descricao', passeio.descricao_completa);
-    this.setTextContent('passeio-preco', passeio.preco_formatado);
     this.setTextContent('passeio-duracao', passeio.duracao);
     this.setTextContent('passeio-dificuldade', passeio.dificuldade);
     this.setTextContent('passeio-idade-minima', `${passeio.idade_minima} anos`);
@@ -414,15 +428,19 @@ class PasseiosManager {
     const botaoWhatsApp = document.getElementById('btn-reservar-whatsapp');
     if (!botaoWhatsApp) return;
 
-    const telefone = '5511977100066'; // SUBSTITUA pelo número real
-    const mensagem = encodeURIComponent(
-      `Olá! Gostaria de mais informações sobre o passeio:\n\n` +
-      `📍 ${passeio.nome}\n` +
-      `💰 ${passeio.preco_formatado}\n` +
-      `⏱️ ${passeio.duracao}`
-    );
-
-    botaoWhatsApp.href = `https://wa.me/${telefone}?text=${mensagem}`;
+    // Usa a constante global do WhatsApp
+    if (typeof window.getWhatsAppLinkPasseio === 'function') {
+      botaoWhatsApp.href = window.getWhatsAppLinkPasseio(passeio);
+    } else {
+      // Fallback caso config.js não tenha carregado
+      const telefone = window.WHATSAPP_NUMBER || '558491274782';
+      const mensagem = encodeURIComponent(
+        `Olá! Gostaria de mais informações sobre o passeio:\n\n` +
+        `📍 ${passeio.nome}\n` +
+        `⏱️ ${passeio.duracao}`
+      );
+      botaoWhatsApp.href = `https://wa.me/${telefone}?text=${mensagem}`;
+    }
   }
 
   // Utilitário para definir conteúdo de texto
