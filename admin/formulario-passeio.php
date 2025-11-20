@@ -21,9 +21,8 @@ $passeio = [
     'inclui' => [],
     'nao_inclui' => [],
     'horarios' => [],
-    'dificuldade' => 'Fácil',
-    'idade_minima' => '0',
-    'max_pessoas' => '40',
+    'tipo_passeio' => '',
+    'min_pessoas' => '1',
     'observacoes' => ''
 ];
 
@@ -341,13 +340,13 @@ if ($modoEdicao) {
                 </div>
 
                 <div class="form-group">
-                    <label for="descricao_completa">Descrição Completa *</label>
+                    <label for="descricao_completa">Roteiro do Passeio *</label>
                     <textarea id="descricao_completa" name="descricao_completa" required><?= htmlspecialchars($passeio['descricao_completa']) ?></textarea>
-                    <p class="help-text">Descrição detalhada do passeio</p>
+                    <p class="help-text">Roteiro detalhado do passeio</p>
                 </div>
 
                 <div class="form-group">
-                    <label for="duracao">Duração *</label>
+                    <label for="duracao">Duração média *</label>
                     <input type="text" id="duracao" name="duracao" value="<?= htmlspecialchars($passeio['duracao']) ?>" placeholder="Ex: 8 horas" required>
                 </div>
 
@@ -422,27 +421,21 @@ if ($modoEdicao) {
                 
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="dificuldade">Dificuldade *</label>
-                        <select id="dificuldade" name="dificuldade" required>
-                            <option value="Fácil" <?= $passeio['dificuldade'] === 'Fácil' ? 'selected' : '' ?>>Fácil</option>
-                            <option value="Moderada" <?= $passeio['dificuldade'] === 'Moderada' ? 'selected' : '' ?>>Moderada</option>
-                            <option value="Difícil" <?= $passeio['dificuldade'] === 'Difícil' ? 'selected' : '' ?>>Difícil</option>
-                        </select>
+                        <label for="tipo_passeio">Tipo de Passeio *</label>
+                        <input type="text" id="tipo_passeio" name="tipo_passeio" value="<?= htmlspecialchars($passeio['tipo_passeio'] ?? $passeio['dificuldade'] ?? '') ?>" placeholder="Ex: Passeio de barco, Tour guiado, Aventura" required>
+                        <p class="help-text">Descreva o tipo de passeio (Ex: Passeio de barco, Tour guiado, Aventura, etc.)</p>
                     </div>
 
-                    <div class="form-group">
-                        <label for="idade_minima">Idade Mínima (anos) *</label>
-                        <input type="number" id="idade_minima" name="idade_minima" value="<?= htmlspecialchars($passeio['idade_minima']) ?>" required>
-                    </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="max_pessoas">Máximo de Pessoas *</label>
-                    <input type="number" id="max_pessoas" name="max_pessoas" value="<?= htmlspecialchars($passeio['max_pessoas']) ?>" required>
+                    <label for="min_pessoas">Mínimo de Pessoas *</label>
+                    <input type="number" id="min_pessoas" name="min_pessoas" value="<?= htmlspecialchars($passeio['min_pessoas'] ?? $passeio['max_pessoas'] ?? '1') ?>" required>
+                    <p class="help-text">Número mínimo de pessoas necessárias para realizar o passeio</p>
                 </div>
 
                 <div class="form-group">
-                    <label>Horários Disponíveis</label>
+                    <label>Horários de Saída</label>
                     <div id="horarios-list" class="dynamic-list">
                         <?php 
                         $horarios = $passeio['horarios'] ?: ['08:00'];
@@ -456,7 +449,7 @@ if ($modoEdicao) {
                             </div>
                         <?php endforeach; ?>
                     </div>
-                    <button type="button" class="btn-add" onclick="adicionarHorario()">+ Adicionar Horário</button>
+                    <button type="button" class="btn-add" onclick="adicionarHorario()">+ Adicionar Horário de Saída</button>
                 </div>
 
                 <div class="form-group">

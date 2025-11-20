@@ -256,9 +256,12 @@ class PasseiosManager {
     this.setTextContent('passeio-nome', passeio.nome);
     this.setTextContent('passeio-descricao', passeio.descricao_completa);
     this.setTextContent('passeio-duracao', passeio.duracao);
-    this.setTextContent('passeio-dificuldade', passeio.dificuldade);
-    this.setTextContent('passeio-idade-minima', `${passeio.idade_minima} anos`);
-    this.setTextContent('passeio-max-pessoas', `${passeio.max_pessoas} pessoas`);
+    // Tipo de passeio (compatibilidade: usa tipo_passeio ou dificuldade)
+    const tipoPasseio = passeio.tipo_passeio || passeio.dificuldade || '-';
+    this.setTextContent('passeio-tipo-passeio', tipoPasseio);
+    // Mínimo de pessoas (compatibilidade: usa min_pessoas ou max_pessoas)
+    const minPessoas = passeio.min_pessoas || passeio.max_pessoas || '1';
+    this.setTextContent('passeio-min-pessoas', `${minPessoas} pessoa${minPessoas !== '1' ? 's' : ''}`);
 
     // O que está incluído
     const incluiLista = document.getElementById('passeio-inclui');
@@ -276,7 +279,7 @@ class PasseiosManager {
         .join('');
     }
 
-    // Horários disponíveis
+    // Horários de Saída
     const horariosLista = document.getElementById('passeio-horarios');
     if (horariosLista && passeio.horarios) {
       horariosLista.innerHTML = passeio.horarios

@@ -50,6 +50,12 @@ if (empty($categorias)) {
     exit;
 }
 
+// Validar tipo de passeio
+if (empty(trim($_POST['tipo_passeio'] ?? ''))) {
+    header('Location: formulario-passeio.php?erro=' . urlencode('O tipo de passeio é obrigatório.'));
+    exit;
+}
+
 // Preparar dados do passeio
 $passeio = [
     'id' => $id,
@@ -61,9 +67,8 @@ $passeio = [
     'categoria' => $categorias, // Agora é um array
     'destaque' => isset($_POST['destaque']),
     'ativo' => isset($_POST['ativo']),
-    'dificuldade' => $_POST['dificuldade'],
-    'idade_minima' => (string)(int)$_POST['idade_minima'],
-    'max_pessoas' => (string)(int)$_POST['max_pessoas'],
+    'tipo_passeio' => trim($_POST['tipo_passeio'] ?? ''),
+    'min_pessoas' => (string)(int)$_POST['min_pessoas'],
     'observacoes' => trim($_POST['observacoes']),
     'data_atualizacao' => date('Y-m-d')
 ];
