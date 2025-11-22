@@ -23,7 +23,8 @@ $passeio = [
     'horarios' => [],
     'tipo_passeio' => '',
     'min_pessoas' => '1',
-    'observacoes' => ''
+    'observacoes' => '',
+    'politica_criancas' => ''
 ];
 
 if ($modoEdicao) {
@@ -491,6 +492,12 @@ if ($modoEdicao) {
                 <div class="form-group">
                     <label for="observacoes">Observações Importantes</label>
                     <textarea id="observacoes" name="observacoes"><?= htmlspecialchars($passeio['observacoes']) ?></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="politica_criancas">Política de Crianças</label>
+                    <textarea id="politica_criancas" name="politica_criancas" placeholder="Ex: Crianças até 5 anos não pagam. Crianças de 6 a 12 anos pagam 50% do valor..."><?= htmlspecialchars($passeio['politica_criancas'] ?? '') ?></textarea>
+                    <p class="help-text">Informações sobre políticas de preços e regras para crianças neste passeio</p>
                 </div>
             </div>
 

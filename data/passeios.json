@@ -406,8 +406,9 @@
             "ativo": true,
             "tipo_passeio": "Tour guiado",
             "min_pessoas": "1",
-            "observacoes": "Política de Crianças\r\n0 e 1 ano: gratuito (no colo)\r\n2 e 3 anos: R$ 115,00\r\n4 a 8 anos: R$ 160,00",
-            "data_atualizacao": "2025-11-20",
+            "observacoes": "Não esqueça o protetor solar",
+            "politica_criancas": "0 e 1 ano: gratuito (no colo)\r\n2 e 3 anos: R$ 115,00\r\n4 a 8 anos: R$ 160,00",
+            "data_atualizacao": "2025-11-22",
             "data_criacao": "2025-11-20",
             "imagem_capa": "uploads\/passeios\/litoral-sul-teste\/691e666a7182f.png",
             "galeria": [
@@ -508,7 +509,10 @@
             "inclui": [
                 "Transporte ida e volta",
                 "Ar condicionado",
-                "Bagagem de mão"
+                "Bagagem de mão",
+                "lancha",
+                "bote",
+                "barco"
             ],
             "nao_inclui": [
                 "Alimentação",

@@ -29,6 +29,9 @@
   <!-- Footer -->
   <div id="footer"></div>
 
+  <!-- Modal de Política de Cancelamento -->
+  <div id="modal-politica-container"></div>
+
   <!-- Scripts -->
   <script src="../assets/js/config.js"></script>
   <script src="../assets/js/includes.js"></script>
@@ -42,7 +45,8 @@
     }
     // Atualizar configuração de páginas no includes.js
     window.PAGE_CONFIGS['passeio.html'] = [
-      { id: 'passeio-content', path: '../sections/passeio-content.html' }
+      { id: 'passeio-content', path: '../sections/passeio-content.html' },
+      { id: 'modal-politica-container', path: '../sections/modal-politica-cancelamento.html' }
     ];
 
     // Função para inicializar o passeio individual

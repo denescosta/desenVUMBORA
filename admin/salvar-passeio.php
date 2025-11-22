@@ -70,6 +70,7 @@ $passeio = [
     'tipo_passeio' => trim($_POST['tipo_passeio'] ?? ''),
     'min_pessoas' => (string)(int)$_POST['min_pessoas'],
     'observacoes' => trim($_POST['observacoes']),
+    'politica_criancas' => trim($_POST['politica_criancas'] ?? ''),
     'data_atualizacao' => date('Y-m-d')
 ];
 

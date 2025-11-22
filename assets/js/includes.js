@@ -62,6 +62,9 @@ window.PAGE_CONFIGS = {
   ],
   'about-us.html': [
     { id: 'about-us-content', path: '../sections/about-us-content.html' }
+  ],
+  'como-funciona.html': [
+    { id: 'como-funciona-content', path: '../sections/como-funciona-content.html' }
   ]
 };
 

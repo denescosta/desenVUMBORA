@@ -401,11 +401,20 @@ function initToursCarousel(force = false) {
   let currentIndex = 0;
   let cardsToShow = 4;
   
+  // Constantes para autoplay
+  const AUTOPLAY_DELAY = 4000; // 4 segundos entre slides
+  const AUTOPLAY_PAUSE_ON_INTERACTION = 10000; // Pausa por 10s após interação
+  
   // Handlers que serão armazenados para remoção posterior
   let prevSlideHandler = null;
   let nextSlideHandler = null;
   let keyHandler = null;
   let resizeHandler = null;
+  
+  // Variáveis para autoplay
+  let autoplayInterval = null;
+  let autoplayPaused = false;
+  let autoplayResumeTimeout = null;
 
   function getCardsToShow() {
     const width = window.innerWidth;
@@ -497,8 +506,16 @@ function initToursCarousel(force = false) {
     const maxSlides = getMaxSlides();
     currentIndex = Math.max(0, Math.min(index, maxSlides));
     moveCarousel();
+    // Pausa autoplay temporariamente ao navegar manualmente
+    if (autoplayInterval || autoplayPaused) {
+      pauseOnInteraction();
+    }
   }
 
+  // Variáveis para armazenar referências dos handlers de swipe (mobile)
+  let swipeHandlers = null;
+  let swipeCarousel = null;
+  
   // Remover listeners antigos se existirem
   if (toursCarouselInstance && toursCarouselInstance.destroy) {
     toursCarouselInstance.destroy();
@@ -533,6 +550,257 @@ function initToursCarousel(force = false) {
   carouselWrapper.setAttribute('aria-label', 'Carrossel de passeios em destaque');
   carouselWrapper.addEventListener('keydown', keyHandler);
 
+  // ========== AUTOPLAY ==========
+  function startAutoplay() {
+    if (autoplayInterval) return; // Já está rodando
+    
+    autoplayInterval = setInterval(() => {
+      if (!autoplayPaused) {
+        const maxSlides = getMaxSlides();
+        if (currentIndex >= maxSlides) {
+          // Volta para o início quando chega no fim
+          goToSlide(0);
+        } else {
+          // Vai para o próximo slide
+          nextSlide();
+        }
+      }
+    }, AUTOPLAY_DELAY);
+  }
+
+  function stopAutoplay() {
+    if (autoplayInterval) {
+      clearInterval(autoplayInterval);
+      autoplayInterval = null;
+    }
+    if (autoplayResumeTimeout) {
+      clearTimeout(autoplayResumeTimeout);
+      autoplayResumeTimeout = null;
+    }
+  }
+
+  function pauseAutoplay() {
+    autoplayPaused = true;
+    stopAutoplay();
+  }
+
+  function resumeAutoplay() {
+    autoplayPaused = false;
+    // Cancela qualquer timeout de retomada pendente
+    if (autoplayResumeTimeout) {
+      clearTimeout(autoplayResumeTimeout);
+      autoplayResumeTimeout = null;
+    }
+    startAutoplay();
+  }
+
+  // Pausa quando o usuário interage e agenda retomada
+  function pauseOnInteraction() {
+    pauseAutoplay();
+    // Cancela qualquer timeout anterior e agenda um novo
+    if (autoplayResumeTimeout) {
+      clearTimeout(autoplayResumeTimeout);
+    }
+    autoplayResumeTimeout = setTimeout(() => {
+      resumeAutoplay();
+      autoplayResumeTimeout = null;
+    }, AUTOPLAY_PAUSE_ON_INTERACTION);
+  }
+
+  // Pausa no hover
+  carouselWrapper.addEventListener('mouseenter', pauseAutoplay);
+  carouselWrapper.addEventListener('mouseleave', resumeAutoplay);
+  
+  // Pausa ao clicar nos indicadores (goToSlide já pausa automaticamente)
+  // Os botões prev/next também já chamam goToSlide, então não precisamos adicionar listeners extras
+
+  // ========== SWIPE APENAS PARA MOBILE (TOUCH) ==========
+  // Detecta se é dispositivo touch
+  const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+  
+  if (isTouchDevice) {
+    const carousel = toursSection.querySelector('.tours-carousel');
+    let isDragging = false;
+    let dragStartX = 0;
+    let dragStartTime = 0;
+    let startElement = null;
+    const MIN_SWIPE_DISTANCE = 50; // Distância mínima em pixels para considerar um swipe
+    const MIN_SWIPE_SPEED = 0.3; // Velocidade mínima em pixels/ms para considerar um swipe rápido
+
+    // Função para verificar se o elemento é clicável (link, botão, etc)
+    function isClickableElement(element) {
+      if (!element) return false;
+      
+      // Verifica se é um link, botão ou elemento com evento de clique
+      const tagName = element.tagName.toLowerCase();
+      if (tagName === 'a' || tagName === 'button') {
+        return true;
+      }
+      
+      // Verifica se tem role de botão ou link
+      const role = element.getAttribute('role');
+      if (role === 'button' || role === 'link') {
+        return true;
+      }
+      
+      // Verifica se tem classe de botão
+      if (element.classList.contains('tour-btn') || 
+          element.classList.contains('btn') ||
+          element.closest('.tour-btn') ||
+          element.closest('a')) {
+        return true;
+      }
+      
+      return false;
+    }
+
+    // Função para calcular a posição base do carrossel
+    function getBaseTranslateX() {
+      const firstCard = tourCards[0];
+      if (!firstCard || !carousel) return 0;
+      
+      const cardWidth = firstCard.offsetWidth;
+      if (cardWidth === 0) {
+        // Tenta ler a posição atual do transform
+        const currentTransform = window.getComputedStyle(toursList).transform;
+        if (currentTransform && currentTransform !== 'none') {
+          const matrix = currentTransform.match(/matrix\(([^)]+)\)/);
+          if (matrix && matrix[1]) {
+            const values = matrix[1].split(',').map(v => parseFloat(v.trim()));
+            return values[4] || 0; // translateX está na posição 4 da matrix
+          }
+        }
+        return 0;
+      }
+      
+      const gap = getGap();
+      const carouselWidth = carousel.offsetWidth;
+      
+      if (window.innerWidth <= 768) {
+        return -(currentIndex * (carouselWidth + gap));
+      } else {
+        return -(currentIndex * (cardWidth + gap));
+      }
+    }
+
+    // Inicia o swipe
+    function startSwipe(e) {
+      const touch = e.touches[0];
+      startElement = document.elementFromPoint(touch.clientX, touch.clientY);
+      
+      // Se tocou em um elemento clicável, não inicia o swipe
+      if (isClickableElement(startElement)) {
+        return;
+      }
+      
+      isDragging = true;
+      dragStartX = touch.clientX;
+      dragStartTime = Date.now();
+      
+      // Remove transição durante o swipe para feedback visual melhor
+      toursList.style.transition = 'none';
+      
+      // Pausa autoplay durante swipe
+      pauseAutoplay();
+      
+      // Previne scroll apenas se não for um elemento clicável
+      if (!isClickableElement(startElement)) {
+        e.preventDefault();
+      }
+    }
+
+    // Atualiza o swipe
+    function updateSwipe(e) {
+      if (!isDragging) return;
+      
+      const touch = e.touches[0];
+      const diff = dragStartX - touch.clientX;
+      
+      // Calcula a posição base do carrossel
+      const baseTranslateX = getBaseTranslateX();
+      
+      // Aplica o swipe em tempo real
+      toursList.style.transform = `translateX(${baseTranslateX - diff}px)`;
+    }
+
+    // Finaliza o swipe
+    function endSwipe(e) {
+      if (!isDragging) return;
+      
+      isDragging = false;
+      const touch = e.changedTouches[0];
+      const dragEndX = touch.clientX;
+      const dragDistance = dragStartX - dragEndX;
+      const dragTime = Date.now() - dragStartTime;
+      const dragSpeed = dragTime > 0 ? Math.abs(dragDistance) / dragTime : 0;
+      
+      // Verifica se soltou sobre um elemento clicável
+      const endElement = document.elementFromPoint(touch.clientX, touch.clientY);
+      if (isClickableElement(endElement) || isClickableElement(startElement)) {
+        // Se foi um clique em elemento interativo, restaura posição e não processa swipe
+        toursList.style.transition = 'transform 0.5s ease';
+        moveCarousel();
+        return;
+      }
+      
+      // Restaura a transição
+      toursList.style.transition = 'transform 0.5s ease';
+      
+      // Determina se deve mudar de slide
+      const shouldChangeSlide = Math.abs(dragDistance) > MIN_SWIPE_DISTANCE || 
+                                (dragSpeed > MIN_SWIPE_SPEED && Math.abs(dragDistance) > 20);
+      
+      if (shouldChangeSlide) {
+        if (dragDistance > 0) {
+          // Deslizou para a esquerda - próximo slide
+          nextSlide();
+        } else {
+          // Deslizou para a direita - slide anterior
+          prevSlide();
+        }
+      } else {
+        // Não mudou de slide, volta para a posição atual
+        moveCarousel();
+      }
+      
+      // Retoma autoplay após um tempo
+      setTimeout(() => {
+        resumeAutoplay();
+      }, AUTOPLAY_PAUSE_ON_INTERACTION);
+      
+      startElement = null;
+    }
+
+    // Event listeners para touch (apenas mobile)
+    // touchstart precisa ser passive: false para permitir preventDefault quando necessário
+    carousel.addEventListener('touchstart', startSwipe, { passive: false });
+    carousel.addEventListener('touchmove', updateSwipe, { passive: true });
+    carousel.addEventListener('touchend', endSwipe, { passive: true });
+    carousel.addEventListener('touchcancel', endSwipe, { passive: true });
+
+    // Armazenar referências dos handlers para remoção posterior
+    swipeHandlers = {
+      touchstart: startSwipe,
+      touchmove: updateSwipe,
+      touchend: endSwipe,
+      touchcancel: endSwipe
+    };
+    swipeCarousel = carousel;
+  }
+
+  // Inicia o autoplay após inicializar tudo
+  createIndicators();
+  requestAnimationFrame(() => {
+    setTimeout(() => {
+      moveCarousel();
+      // Inicia autoplay apenas se houver mais de um slide
+      const maxSlides = getMaxSlides();
+      if (maxSlides > 0) {
+        startAutoplay();
+      }
+    }, 50);
+  });
+
   let resizeTimeout = null;
   resizeHandler = () => {
     clearTimeout(resizeTimeout);
@@ -543,20 +811,20 @@ function initToursCarousel(force = false) {
       }
       createIndicators();
       moveCarousel();
+      // Reinicia autoplay após resize se necessário
+      if (maxSlides > 0 && !autoplayInterval) {
+        startAutoplay();
+      } else if (maxSlides === 0) {
+        stopAutoplay();
+      }
     }, 150);
   };
 
   window.addEventListener('resize', resizeHandler);
 
-  createIndicators();
-  requestAnimationFrame(() => {
-    setTimeout(() => {
-      moveCarousel();
-    }, 50);
-  });
-
   toursCarouselInstance = {
     destroy: () => {
+      stopAutoplay();
       if (resizeHandler) {
         window.removeEventListener('resize', resizeHandler);
       }
@@ -568,6 +836,16 @@ function initToursCarousel(force = false) {
       }
       if (nextSlideHandler && nextBtn) {
         nextBtn.removeEventListener('click', nextSlideHandler);
+      }
+      carouselWrapper.removeEventListener('mouseenter', pauseAutoplay);
+      carouselWrapper.removeEventListener('mouseleave', resumeAutoplay);
+      
+      // Remove handlers de swipe se existirem (apenas mobile)
+      if (swipeHandlers && swipeCarousel) {
+        swipeCarousel.removeEventListener('touchstart', swipeHandlers.touchstart);
+        swipeCarousel.removeEventListener('touchmove', swipeHandlers.touchmove);
+        swipeCarousel.removeEventListener('touchend', swipeHandlers.touchend);
+        swipeCarousel.removeEventListener('touchcancel', swipeHandlers.touchcancel);
       }
     }
   };

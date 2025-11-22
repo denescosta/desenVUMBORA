@@ -27,7 +27,7 @@ window.getWhatsAppLink = function(mensagem = '') {
 window.getWhatsAppLinkPasseio = function(passeio) {
   if (!passeio) return window.getWhatsAppLink();
   
-  const mensagem = `Olá! Gostaria de mais informações sobre o passeio:\n\n` +
+  const mensagem = `Olá! Vim através do VUMBORA e quero agendar um passeio:\n\n` +
     `📍 ${passeio.nome}\n` +
     `⏱️ ${passeio.duracao}`;
   
@@ -83,6 +83,25 @@ window.configurarLinksWhatsApp = function() {
     if (!whatsappContactCta.hasAttribute('target')) {
       whatsappContactCta.setAttribute('target', '_blank');
       whatsappContactCta.setAttribute('rel', 'noopener noreferrer');
+    }
+  }
+
+  // Página Como Funciona - Links do WhatsApp
+  const whatsappComoFunciona = document.getElementById('whatsapp-como-funciona-link');
+  if (whatsappComoFunciona) {
+    whatsappComoFunciona.href = window.getWhatsAppLink(window.WHATSAPP_MENSAGEM_GERAL);
+    if (!whatsappComoFunciona.hasAttribute('target')) {
+      whatsappComoFunciona.setAttribute('target', '_blank');
+      whatsappComoFunciona.setAttribute('rel', 'noopener noreferrer');
+    }
+  }
+
+  const whatsappCtaComoFunciona = document.getElementById('whatsapp-cta-como-funciona-link');
+  if (whatsappCtaComoFunciona) {
+    whatsappCtaComoFunciona.href = window.getWhatsAppLink(window.WHATSAPP_MENSAGEM_GERAL);
+    if (!whatsappCtaComoFunciona.hasAttribute('target')) {
+      whatsappCtaComoFunciona.setAttribute('target', '_blank');
+      whatsappCtaComoFunciona.setAttribute('rel', 'noopener noreferrer');
     }
   }
 

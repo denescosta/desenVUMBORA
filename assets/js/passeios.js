@@ -19,6 +19,17 @@ class PasseiosManager {
     return 'data/passeios.json';
   }
 
+  // Detecta o caminho correto para seções HTML baseado na localização atual
+  detectarCaminhoSections() {
+    const path = window.location.pathname;
+    // Se estiver em pages/, precisa de ../sections/
+    // Se estiver na raiz, precisa de sections/
+    if (path.includes('/pages/')) {
+      return '../sections/';
+    }
+    return 'sections/';
+  }
+
   // Carrega todos os passeios do JSON
   async carregarPasseios() {
     try {
@@ -101,6 +112,21 @@ class PasseiosManager {
     const linkPrefix = options.linkPrefix || '';
     const detailsUrl = `${linkPrefix}passeio.html?id=${passeio.slug}`;
     const categoriasTexto = this.formatarCategorias(passeio.categoria);
+    
+    // Gera link do WhatsApp para agendamento
+    let whatsappLink = '#';
+    if (typeof window.getWhatsAppLinkPasseio === 'function') {
+      whatsappLink = window.getWhatsAppLinkPasseio(passeio);
+    } else {
+      // Fallback caso config.js não tenha carregado
+      const telefone = window.WHATSAPP_NUMBER || '558491274782';
+      const mensagem = encodeURIComponent(
+        `Olá! Vim através do VUMBORA e quero agendar um passeio:\n\n` +
+        `📍 ${passeio.nome}\n` +
+        `⏱️ ${passeio.duracao}`
+      );
+      whatsappLink = `https://wa.me/${telefone}?text=${mensagem}`;
+    }
 
     return `
       <article class="tour-card">
@@ -122,7 +148,15 @@ class PasseiosManager {
               ${passeio.duracao}
             </span>
           </div>
-          <a href="${detailsUrl}" class="tour-btn">Ver Detalhes</a>
+          <div class="tour-buttons">
+            <a href="${whatsappLink}" class="tour-btn tour-btn-whatsapp" target="_blank" rel="noopener noreferrer">
+              <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+              </svg>
+              Agende agora
+            </a>
+            <a href="${detailsUrl}" class="tour-btn tour-btn-details">Ver Detalhes</a>
+          </div>
         </div>
       </article>
     `;
@@ -279,6 +313,24 @@ class PasseiosManager {
         .join('');
     }
 
+    // Política de Crianças
+    const politicaCriancasCard = document.getElementById('passeio-politica-criancas-card');
+    const politicaCriancasContent = document.getElementById('passeio-politica-criancas');
+    if (politicaCriancasCard && politicaCriancasContent) {
+      if (passeio.politica_criancas && passeio.politica_criancas.trim()) {
+        // Se o conteúdo tiver quebras de linha, preservar formatação
+        const textoFormatado = passeio.politica_criancas
+          .split('\n')
+          .filter(linha => linha.trim())
+          .map(linha => `<p>${linha.trim()}</p>`)
+          .join('');
+        politicaCriancasContent.innerHTML = textoFormatado;
+        politicaCriancasCard.style.display = 'block';
+      } else {
+        politicaCriancasCard.style.display = 'none';
+      }
+    }
+
     // Horários de Saída
     const horariosLista = document.getElementById('passeio-horarios');
     if (horariosLista && passeio.horarios) {
@@ -295,9 +347,35 @@ class PasseiosManager {
   }
 
   // Renderiza galeria de fotos usando PhotoSwipe
-  renderizarGaleria(galeria) {
+  async renderizarGaleria(galeria) {
+    const carouselContainer = document.getElementById('galeria-carousel-container');
+    if (!carouselContainer || !galeria || galeria.length === 0) return;
+
+    // Carrega o HTML do carrossel
+    try {
+      const sectionsPath = this.detectarCaminhoSections();
+      const carouselPath = `${sectionsPath}galeria-carousel.html`;
+      
+      const response = await fetch(carouselPath);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const carouselHTML = await response.text();
+      carouselContainer.innerHTML = carouselHTML;
+    } catch (error) {
+      console.error('❌ Erro ao carregar carrossel da galeria:', error);
+      return;
+    }
+
+    // Aguarda um pouco para garantir que o DOM foi atualizado
+    await new Promise(resolve => setTimeout(resolve, 50));
+
+    // Agora busca o container de fotos dentro do carrossel carregado
     const container = document.getElementById('passeio-galeria');
-    if (!container || !galeria || galeria.length === 0) return;
+    if (!container) {
+      console.error('❌ Container passeio-galeria não encontrado após carregar carrossel');
+      return;
+    }
 
     // Ordena galeria pela ordem definida
     const galeriaOrdenada = [...galeria].sort((a, b) => a.ordem - b.ordem);
@@ -321,8 +399,14 @@ class PasseiosManager {
       </div>
     `).join('');
 
+    // Aguarda mais um pouco para garantir que as imagens foram renderizadas
+    await new Promise(resolve => setTimeout(resolve, 100));
+
     // Inicializa PhotoSwipe
     this.inicializarPhotoSwipe(galeriaOrdenada);
+    
+    // Inicializa o carrossel da galeria
+    this.inicializarCarrosselGaleria();
   }
 
   // Inicializa PhotoSwipe (galeria de fotos)
@@ -424,6 +508,34 @@ class PasseiosManager {
         mostrarImagem(currentIndex + 1);
       }
     });
+
+    // Navegação por swipe (toque)
+    let touchStartX = 0;
+    let touchEndX = 0;
+    const minSwipeDistance = 50; // Distância mínima em pixels para considerar um swipe
+
+    overlay.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    overlay.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      handleSwipe();
+    }, { passive: true });
+
+    function handleSwipe() {
+      const swipeDistance = touchStartX - touchEndX;
+      
+      // Swipe para a esquerda (foto anterior)
+      if (swipeDistance < -minSwipeDistance && currentIndex > 0) {
+        mostrarImagem(currentIndex - 1);
+      }
+      
+      // Swipe para a direita (próxima foto)
+      if (swipeDistance > minSwipeDistance && currentIndex < galeria.length - 1) {
+        mostrarImagem(currentIndex + 1);
+      }
+    }
   }
 
   // Configura botão de WhatsApp com mensagem personalizada
@@ -438,7 +550,7 @@ class PasseiosManager {
       // Fallback caso config.js não tenha carregado
       const telefone = window.WHATSAPP_NUMBER || '558491274782';
       const mensagem = encodeURIComponent(
-        `Olá! Gostaria de mais informações sobre o passeio:\n\n` +
+        `Olá! Vim através do VUMBORA e quero agendar um passeio:\n\n` +
         `📍 ${passeio.nome}\n` +
         `⏱️ ${passeio.duracao}`
       );
@@ -469,6 +581,286 @@ class PasseiosManager {
         </div>
       `;
     }
+  }
+
+  // Inicializa o carrossel da galeria de fotos
+  inicializarCarrosselGaleria() {
+    const galeriaContainer = document.querySelector('.passeio-galeria-container');
+    if (!galeriaContainer) return;
+
+    const carouselWrapper = galeriaContainer.querySelector('.passeio-galeria-carousel-wrapper');
+    const galeriaList = document.getElementById('passeio-galeria');
+    const prevBtn = galeriaContainer.querySelector('.galeria-carousel-btn-prev');
+    const nextBtn = galeriaContainer.querySelector('.galeria-carousel-btn-next');
+    let indicatorsContainer = galeriaContainer.querySelector('.galeria-carousel-indicators');
+
+    if (!carouselWrapper || !galeriaList || !prevBtn || !nextBtn) return;
+
+    const galleryItems = galeriaList.querySelectorAll('.gallery-item');
+    if (galleryItems.length === 0) {
+      if (prevBtn) prevBtn.style.display = 'none';
+      if (nextBtn) nextBtn.style.display = 'none';
+      if (indicatorsContainer) indicatorsContainer.style.display = 'none';
+      return;
+    }
+
+    if (!indicatorsContainer) {
+      indicatorsContainer = document.createElement('div');
+      indicatorsContainer.className = 'galeria-carousel-indicators';
+      carouselWrapper.insertAdjacentElement('afterend', indicatorsContainer);
+    }
+
+    let currentIndex = 0;
+    let itemsToShow = 4;
+
+    function getItemsToShow() {
+      const width = window.innerWidth;
+      if (width >= 1024) return 4;
+      if (width >= 768) return 3;
+      if (width >= 480) return 2;
+      return 1;
+    }
+
+    function getMaxSlides() {
+      // Não atualiza itemsToShow aqui, deve ser atualizado antes de chamar
+      // Calcula quantos slides completos podemos ter
+      // Se temos 10 fotos e mostramos 4, podemos ter slides até a foto 6 (10 - 4 = 6)
+      // Mas se passamos de 4 em 4, o último slide válido é quando ainda temos pelo menos 1 foto
+      // Então: se temos 10 fotos, último slide começa na foto 6 (mostra 6-9, 4 fotos)
+      // Mas se passamos de 4 em 4, o último slide válido seria índice 1 (mostra 4-7)
+      // E o penúltimo seria índice 0 (mostra 0-3)
+      
+      // Ajuste: calcula quantos "pulos" de itemsToShow podemos fazer
+      // Se temos 10 fotos e itemsToShow = 4:
+      // - Podemos pular: 0, 4, 8 (3 posições)
+      // - Mas a última posição (8) só tem 2 fotos, então não é válida se queremos 4
+      // - Então maxSlides = Math.floor((10 - 4) / 4) = Math.floor(6/4) = 1
+      
+      if (galleryItems.length <= itemsToShow) {
+        return 0; // Todas as fotos cabem em um slide
+      }
+      
+      // Calcula quantos slides podemos ter passando itemsToShow por vez
+      // Exemplo: 10 fotos, itemsToShow = 4
+      // - Slide 0: fotos 0-3
+      // - Slide 1: fotos 4-7  
+      // - Slide 2: fotos 8-9 (incompleto, mas válido)
+      // 
+      // Fórmula: quantos "pulos" de itemsToShow podemos fazer até chegar no final
+      // (galleryItems.length - itemsToShow) / itemsToShow = quantos slides adicionais além do primeiro
+      // Usa Math.ceil para incluir o último slide mesmo que tenha menos fotos
+      const slidesAdicionais = Math.ceil((galleryItems.length - itemsToShow) / itemsToShow);
+      return Math.max(0, slidesAdicionais);
+    }
+
+    function createIndicators() {
+      if (!indicatorsContainer) return;
+      
+      // Recalcula itemsToShow antes de calcular indicadores
+      itemsToShow = getItemsToShow();
+      const maxSlides = getMaxSlides();
+      const total = maxSlides + 1;
+      
+      // Ajusta currentIndex se estiver fora do range válido
+      if (currentIndex > maxSlides) {
+        currentIndex = maxSlides;
+      }
+      
+      // Limpa indicadores existentes
+      indicatorsContainer.innerHTML = '';
+      
+      // Se não há necessidade de carrossel (todas as fotos cabem na tela)
+      if (total <= 1 || galleryItems.length <= itemsToShow) {
+        prevBtn.style.display = 'none';
+        nextBtn.style.display = 'none';
+        indicatorsContainer.style.display = 'none';
+        return;
+      }
+
+      prevBtn.style.display = 'flex';
+      nextBtn.style.display = 'flex';
+      indicatorsContainer.style.display = 'flex';
+
+      // Cria os indicadores baseado no número correto de slides
+      for (let i = 0; i < total; i++) {
+        const indicator = document.createElement('button');
+        indicator.className = 'galeria-carousel-indicator';
+        indicator.setAttribute('aria-label', `Ir para slide ${i + 1} de ${total}`);
+        if (i === currentIndex) indicator.classList.add('active');
+        indicator.addEventListener('click', () => goToSlide(i));
+        indicatorsContainer.appendChild(indicator);
+      }
+    }
+
+    function updateIndicators() {
+      if (!indicatorsContainer) return;
+      const indicators = indicatorsContainer.querySelectorAll('.galeria-carousel-indicator');
+      indicators.forEach((indicator, index) => {
+        indicator.classList.toggle('active', index === currentIndex);
+      });
+    }
+
+    function updateButtons() {
+      itemsToShow = getItemsToShow();
+      const maxSlides = getMaxSlides();
+      prevBtn.disabled = currentIndex === 0;
+      nextBtn.disabled = currentIndex >= maxSlides;
+    }
+
+    function getGap() {
+      const computedStyle = window.getComputedStyle(galeriaList);
+      const gap = parseInt(computedStyle.gap || '15', 10);
+      return Number.isNaN(gap) ? 15 : gap;
+    }
+
+    function moveCarousel() {
+      const firstItem = galleryItems[0];
+      const carousel = galeriaContainer.querySelector('.passeio-galeria-carousel');
+      if (!firstItem || !carousel) return;
+
+      const itemWidth = firstItem.offsetWidth;
+      if (itemWidth === 0) {
+        setTimeout(moveCarousel, 50);
+        return;
+      }
+
+      // Atualiza itemsToShow antes de calcular
+      itemsToShow = getItemsToShow();
+      const gap = getGap();
+
+      // Calcula o translateX baseado na quantidade de itens visíveis
+      // Sempre passa exatamente itemsToShow itens por vez, independente do tamanho da tela
+      // currentIndex * itemsToShow itens * (largura do item + gap)
+      const translateX = -(currentIndex * itemsToShow * (itemWidth + gap));
+      galeriaList.style.transform = `translateX(${translateX}px)`;
+
+      galeriaList.style.transition = 'transform 0.5s ease';
+      updateIndicators();
+      updateButtons();
+    }
+
+    function goToSlide(index) {
+      itemsToShow = getItemsToShow();
+      const maxSlides = getMaxSlides();
+      currentIndex = Math.max(0, Math.min(index, maxSlides));
+      moveCarousel();
+    }
+
+    function nextSlide(e) {
+      if (e) e.preventDefault();
+      goToSlide(currentIndex + 1);
+    }
+
+    function prevSlide(e) {
+      if (e) e.preventDefault();
+      goToSlide(currentIndex - 1);
+    }
+
+    prevBtn.addEventListener('click', prevSlide);
+    nextBtn.addEventListener('click', nextSlide);
+
+    const keyHandler = (e) => {
+      const carouselWrapperFocused = carouselWrapper.contains(document.activeElement) || 
+                                     carouselWrapper === document.activeElement;
+      if (!carouselWrapperFocused) return;
+      
+      if (e.key === 'ArrowLeft') {
+        prevSlide();
+      } else if (e.key === 'ArrowRight') {
+        nextSlide();
+      }
+    };
+
+    carouselWrapper.setAttribute('role', 'region');
+    carouselWrapper.setAttribute('aria-label', 'Carrossel de galeria de fotos');
+    carouselWrapper.addEventListener('keydown', keyHandler);
+
+    // Navegação por swipe (toque) no carrossel
+    let carouselTouchStartX = 0;
+    let carouselTouchEndX = 0;
+    let isDragging = false;
+    const minSwipeDistance = 50; // Distância mínima em pixels para considerar um swipe
+
+    const carousel = galeriaContainer.querySelector('.passeio-galeria-carousel');
+    
+    carousel.addEventListener('touchstart', (e) => {
+      carouselTouchStartX = e.changedTouches[0].screenX;
+      isDragging = true;
+      // Remove transição durante o arraste para melhor feedback visual
+      galeriaList.style.transition = 'none';
+    }, { passive: true });
+
+    carousel.addEventListener('touchmove', (e) => {
+      if (!isDragging) return;
+      
+      const currentX = e.changedTouches[0].screenX;
+      const diff = carouselTouchStartX - currentX;
+      
+      // Calcula a posição atual do carrossel
+      itemsToShow = getItemsToShow();
+      const itemWidth = galleryItems[0]?.offsetWidth || 0;
+      const gap = getGap();
+      const baseTranslateX = -(currentIndex * itemsToShow * (itemWidth + gap));
+      
+      // Aplica o arraste em tempo real (subtrai diff para acompanhar o dedo)
+      // Quando arrasta para a esquerda (diff positivo), move para a esquerda (mais negativo)
+      // Quando arrasta para a direita (diff negativo), move para a direita (menos negativo)
+      galeriaList.style.transform = `translateX(${baseTranslateX - diff}px)`;
+    }, { passive: true });
+
+    carousel.addEventListener('touchend', (e) => {
+      if (!isDragging) return;
+      isDragging = false;
+      
+      carouselTouchEndX = e.changedTouches[0].screenX;
+      const swipeDistance = carouselTouchStartX - carouselTouchEndX;
+      
+      // Restaura a transição
+      galeriaList.style.transition = 'transform 0.5s ease';
+      
+      // Swipe para a esquerda (slide anterior)
+      if (swipeDistance < -minSwipeDistance) {
+        prevSlide();
+      }
+      // Swipe para a direita (próximo slide)
+      else if (swipeDistance > minSwipeDistance) {
+        nextSlide();
+      }
+      // Se não foi um swipe válido, volta para a posição atual
+      else {
+        moveCarousel();
+      }
+    }, { passive: true });
+
+    let resizeTimeout = null;
+    const resizeHandler = () => {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(() => {
+        // Recalcula itemsToShow
+        itemsToShow = getItemsToShow();
+        const maxSlides = getMaxSlides();
+        
+        // Ajusta currentIndex se necessário
+        if (currentIndex > maxSlides) {
+          currentIndex = maxSlides;
+        }
+        
+        // Recria os indicadores com a quantidade correta
+        createIndicators();
+        
+        // Move o carrossel para a posição correta
+        moveCarousel();
+      }, 150);
+    };
+
+    window.addEventListener('resize', resizeHandler);
+
+    createIndicators();
+    requestAnimationFrame(() => {
+      setTimeout(() => {
+        moveCarousel();
+      }, 50);
+    });
   }
 }
 
@@ -502,3 +894,67 @@ window.filtrarPasseios = async (evt, categoria) => {
 
 // Exportar para uso global
 window.passeiosManager = passeiosManager;
+
+// ========== MODAL DE POLÍTICA DE CANCELAMENTO ==========
+function inicializarModalPoliticaCancelamento() {
+  const modal = document.getElementById('modal-politica-cancelamento');
+  const btnAbrir = document.getElementById('btn-abrir-politica-cancelamento');
+  const btnFechar = document.getElementById('btn-fechar-modal');
+  const btnFecharX = document.getElementById('modal-politica-close');
+  const overlay = modal?.querySelector('.modal-politica-overlay');
+
+  if (!modal) {
+    console.warn('⚠️ Modal de política de cancelamento não encontrado');
+    return;
+  }
+
+  // Função para abrir modal
+  function abrirModal() {
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  // Função para fechar modal
+  function fecharModal() {
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  // Event listeners
+  if (btnAbrir) {
+    btnAbrir.addEventListener('click', abrirModal);
+  }
+
+  if (btnFechar) {
+    btnFechar.addEventListener('click', fecharModal);
+  }
+
+  if (btnFecharX) {
+    btnFecharX.addEventListener('click', fecharModal);
+  }
+
+  if (overlay) {
+    overlay.addEventListener('click', fecharModal);
+  }
+
+  // Fechar com ESC
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.classList.contains('active')) {
+      fecharModal();
+    }
+  });
+}
+
+// Inicializar modal quando o conteúdo for carregado
+document.addEventListener('contentLoaded', () => {
+  setTimeout(() => {
+    inicializarModalPoliticaCancelamento();
+  }, 300);
+});
+
+// Fallback para inicialização
+document.addEventListener('DOMContentLoaded', () => {
+  setTimeout(() => {
+    inicializarModalPoliticaCancelamento();
+  }, 1000);
+});

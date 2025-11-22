@@ -300,20 +300,48 @@
   color: #27ae60;
 }
 
+.tour-buttons {
+  display: flex;
+  gap: 12px;
+  flex-direction: column;
+}
+
 .tour-btn {
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
   text-align: center;
   background: #58371b;
-  ;
   color: white;
   padding: 12px 20px;
   border-radius: 8px;
   text-decoration: none;
   font-weight: 600;
-  transition: background 0.3s ease;
+  transition: background 0.3s ease, transform 0.2s ease;
+  border: none;
+  cursor: pointer;
 }
 
 .tour-btn:hover {
+  background: #222;
+  transform: translateY(-2px);
+}
+
+.tour-btn-whatsapp {
+  background: #25D366;
+  color: white;
+}
+
+.tour-btn-whatsapp:hover {
+  background: #20BA5A;
+}
+
+.tour-btn-details {
+  background: #58371b;
+}
+
+.tour-btn-details:hover {
   background: #222;
 }
 
@@ -443,6 +471,30 @@
     height: 32px;
     z-index: 10;
   }
+
+  /* Carrossel da Galeria - Mobile */
+  .passeio-galeria-carousel-wrapper {
+    gap: 8px;
+  }
+
+  .passeio-galeria-list {
+    gap: 10px;
+  }
+
+  .passeio-galeria-list .gallery-item {
+    flex: 0 0 100%;
+    max-width: 100%;
+    min-width: 100%;
+  }
+
+  .gallery-item {
+    height: 280px;
+  }
+
+  .galeria-carousel-btn {
+    width: 36px;
+    height: 36px;
+  }
 }
 
 /* ========== PÁGINA DE DETALHES DO PASSEIO ========== */
@@ -534,15 +586,37 @@
   margin-bottom: 25px;
 }
 
-.passeio-galeria {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+/* Carrossel da Galeria */
+.passeio-galeria-carousel-wrapper {
+  display: flex;
+  align-items: center;
   gap: 15px;
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.passeio-galeria-carousel {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+}
+
+.passeio-galeria-list {
+  display: flex;
+  gap: 15px;
+  transition: transform 0.5s ease;
+  will-change: transform;
+}
+
+.passeio-galeria-list .gallery-item {
+  flex: 0 0 calc((100% - 45px) / 4);
+  max-width: calc((100% - 45px) / 4);
+  min-width: 0;
 }
 
 .gallery-item {
   position: relative;
-  height: 150px;
+  height: 200px;
   border-radius: 12px;
   overflow: hidden;
   cursor: pointer;
@@ -580,6 +654,64 @@
 
 .gallery-overlay svg {
   color: white;
+}
+
+/* Botões do Carrossel da Galeria */
+.galeria-carousel-btn {
+  background: #333;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 8px 16px rgba(51, 51, 51, 0.15);
+  flex-shrink: 0;
+  z-index: 10;
+}
+
+.galeria-carousel-btn:hover:not(:disabled) {
+  transform: scale(1.08);
+  background: #58371b;
+}
+
+.galeria-carousel-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* Indicadores do Carrossel da Galeria */
+.galeria-carousel-indicators {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 15px;
+  flex-wrap: wrap;
+}
+
+.galeria-carousel-indicator {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: none;
+  background: #d5dde5;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+}
+
+.galeria-carousel-indicator.active {
+  width: 24px;
+  border-radius: 999px;
+  background: #58371b;
+}
+
+.galeria-carousel-indicator:hover {
+  background: #a8b5c3;
 }
 
 /* Card de Informações */
@@ -710,10 +842,10 @@
   color: #555;
 }
 
-/* Grid Incluído/Não Incluído */
+/* Grid - O que está incluído / não incluído / Política de Crianças */
 .passeio-inclui-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 30px;
   margin-bottom: 40px;
 }
@@ -760,6 +892,22 @@
 .inclui-card.nao-inclui li::before {
   content: "✗";
   color: #e74c3c;
+}
+
+/* Estilos para Política de Crianças */
+.inclui-card.politica-criancas h3 {
+  color: #f39c12;
+}
+
+.inclui-card.politica-criancas p {
+  padding: 10px 0;
+  color: #555;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.inclui-card.politica-criancas p:not(:last-child) {
+  margin-bottom: 10px;
 }
 
 /* Observações */
@@ -906,8 +1054,9 @@
     position: static;
   }
 
+  /* Em tablets, 2 colunas */
   .passeio-inclui-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
@@ -928,8 +1077,31 @@
     height: 300px;
   }
 
-  .passeio-galeria {
-    grid-template-columns: repeat(2, 1fr);
+  .passeio-galeria-carousel-wrapper {
+    gap: 10px;
+  }
+
+  .passeio-galeria-list {
+    gap: 12px;
+  }
+
+  .passeio-galeria-list .gallery-item {
+    flex: 0 0 calc((100% - 12px) / 2);
+    max-width: calc((100% - 12px) / 2);
+  }
+
+  .gallery-item {
+    height: 240px;
+  }
+
+  .galeria-carousel-btn {
+    width: 40px;
+    height: 40px;
+  }
+
+  /* No mobile, os cards ficam empilhados */
+  .passeio-inclui-grid {
+    grid-template-columns: 1fr;
   }
 
   .lightbox-prev,
@@ -944,5 +1116,276 @@
 
   .lightbox-next {
     right: 10px;
+  }
+}
+
+/* ========== BOTÃO E MODAL DE POLÍTICA DE CANCELAMENTO ========== */
+.passeio-politica-cancelamento {
+  margin: 40px 0 30px;
+  text-align: center;
+}
+
+.passeio-botoes-info {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn-politica-cancelamento {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background: linear-gradient(135deg, #58371b 0%, #e08e2b 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(88, 55, 27, 0.3);
+}
+
+.btn-politica-cancelamento:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(88, 55, 27, 0.4);
+  background: linear-gradient(135deg, #e08e2b 0%, #58371b 100%);
+}
+
+.btn-politica-cancelamento:active {
+  transform: translateY(0);
+}
+
+.btn-como-funciona-passeio {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background: linear-gradient(135deg, #0c454e 0%, #1a7a8c 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(12, 69, 78, 0.3);
+}
+
+.btn-como-funciona-passeio:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(12, 69, 78, 0.4);
+  background: linear-gradient(135deg, #1a7a8c 0%, #0c454e 100%);
+}
+
+.btn-como-funciona-passeio:active {
+  transform: translateY(0);
+}
+
+/* Modal de Política de Cancelamento */
+.modal-politica {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10000;
+  animation: fadeIn 0.3s ease;
+}
+
+.modal-politica.active {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-politica-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
+}
+
+.modal-politica-content {
+  position: relative;
+  background: white;
+  border-radius: 16px;
+  max-width: 800px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  z-index: 10001;
+  animation: slideUp 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.modal-politica-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: rgba(0, 0, 0, 0.05);
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 10002;
+  color: #333;
+}
+
+.modal-politica-close:hover {
+  background: rgba(0, 0, 0, 0.1);
+  transform: rotate(90deg);
+}
+
+.modal-politica-header {
+  padding: 24px 24px 16px;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.modal-politica-header h2 {
+  margin: 0;
+  font-size: 1.75rem;
+  color: #2c3e50;
+  font-weight: 700;
+}
+
+.modal-politica-body {
+  padding: 24px;
+}
+
+.politica-section {
+  margin-bottom: 24px;
+}
+
+.politica-section:last-child {
+  margin-bottom: 0;
+}
+
+.politica-section h3 {
+  margin: 0 0 12px;
+  font-size: 1.25rem;
+  color: #34495e;
+  font-weight: 600;
+}
+
+.politica-section p {
+  margin: 0 0 12px;
+  line-height: 1.7;
+  color: #555;
+}
+
+.politica-section ul {
+  margin: 12px 0;
+  padding-left: 24px;
+}
+
+.politica-section li {
+  margin-bottom: 8px;
+  line-height: 1.7;
+  color: #555;
+}
+
+.politica-section li strong {
+  color: #2c3e50;
+  font-weight: 600;
+}
+
+.modal-politica-footer {
+  padding: 16px 24px;
+  border-top: 2px solid #f0f0f0;
+  text-align: right;
+}
+
+.btn-fechar-modal {
+  padding: 10px 24px;
+  background: linear-gradient(135deg, #58371b 0%, #e08e2b 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-fechar-modal:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(88, 55, 27, 0.3);
+  background: linear-gradient(135deg, #e08e2b 0%, #58371b 100%);
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+  .modal-politica-content {
+    width: 95%;
+    max-height: 95vh;
+    border-radius: 12px;
+  }
+
+  .modal-politica-header {
+    padding: 20px 20px 12px;
+  }
+
+  .modal-politica-header h2 {
+    font-size: 1.5rem;
+  }
+
+  .modal-politica-body {
+    padding: 20px;
+  }
+
+  .modal-politica-footer {
+    padding: 12px 20px;
+  }
+
+  .btn-politica-cancelamento {
+    padding: 10px 20px;
+    font-size: 0.95rem;
+  }
+
+  .passeio-botoes-info {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .btn-como-funciona-passeio {
+    padding: 10px 20px;
+    font-size: 0.95rem;
+    width: 100%;
+    justify-content: center;
   }
 }
