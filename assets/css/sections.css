@@ -29,7 +29,7 @@ h2 {
   color: white;
   box-shadow: inset 0px -20px 20px 5px #f1e3ca;
   transition: box-shadow 0.3s ease;
-  background-image: url('/assets/img/5138HWMJ04218084Z24v.jpg');
+  background-image: url('/assets/img/Genipabu.png');
   background-size: cover;
   background-position: center top;
   background-repeat: no-repeat;
@@ -46,16 +46,13 @@ h2 {
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(255, 255, 255, 0.05);
   z-index: 0;
   pointer-events: none;
 }
 
 /* Em telas menores, overlay mais forte para melhor legibilidade */
 @media (max-width: 600px) {
-  .hero::before {
-    background: rgba(255, 255, 255, 0.15);
-  }
+  .hero::before {}
 }
 
 .hero-content {
@@ -76,7 +73,8 @@ h2 {
   animation: fadeInUp 1s ease;
   line-height: 1.1;
   text-align: justify;
-  color: #58371b;
+  color: #ffffff;
+  text-shadow: 0px 0px 20px #000000;
 
 }
 
@@ -85,7 +83,8 @@ h2 {
   margin-bottom: 2rem;
   opacity: 0.9;
   animation: fadeInUp 1s ease 0.3s both;
-  color: #58371b;
+  color: #ffffff;
+  text-shadow: 0px 0px 20px #000000;
   text-align: left;
 }
 
