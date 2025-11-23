@@ -11,7 +11,6 @@ class ComponentLoader {
       const container = document.getElementById(containerId);
       if (container) {
         container.innerHTML = content;
-        // console.log(`✅ Carregado: ${componentPath}`);
       } else {
         // console.warn(`⚠️ Container '${containerId}' não encontrado`);
       }
@@ -100,8 +99,6 @@ function setActiveNavLink() {
 
 // Auto-carregamento quando a página carregar
 document.addEventListener('DOMContentLoaded', async () => {
-  // console.log('🚀 Iniciando carregamento de componentes...');
-
   // Carregar componentes comuns (header, footer)
   await ComponentLoader.loadMultiple([
     { id: 'header', path: COMPONENTS.header },
@@ -181,8 +178,6 @@ document.addEventListener('DOMContentLoaded', async () => {
       }, 50);
     }
   }
-
-  // console.log('✨ Carregamento completo!');
 });
 
 // Função utilitária para carregar componente individual

@@ -49,7 +49,6 @@ async function handleFormSubmit(event) {
   } else {
     // Comportamento padrão para outros formulários
     const formData = new FormData(form);
-    console.log('Formulário enviado:', Object.fromEntries(formData));
 
     const submitButton = form.querySelector('button[type="submit"]');
     const originalText = submitButton.textContent;
@@ -238,8 +237,6 @@ function initPageSpecificFeatures() {
 
 // Inicialização da página inicial
 function initHomePage() {
-  // console.log('🏠 Inicializando página inicial...');
-
   // Adicionar listeners para botões CTA e navegação âncora
   const anchorButtons = document.querySelectorAll('.btn, .cta-button, .tour-btn, .secondary-button, .hero-btn, nav a');
   anchorButtons.forEach(btn => {
@@ -276,8 +273,6 @@ function initHomePage() {
 
 // Inicialização da página sobre
 function initAboutPage() {
-  // console.log('👤 Inicializando página sobre...');
-
   // Adicionar efeitos específicos da página sobre
   const skills = document.querySelectorAll('.skill');
   skills.forEach((skill, index) => {
@@ -287,8 +282,6 @@ function initAboutPage() {
 
 // Inicialização da página contato
 function initContactPage() {
-  // console.log('📞 Inicializando página contato...');
-
   // Adicionar validação e handlers para formulários
   const forms = document.querySelectorAll('form');
   forms.forEach(form => {
@@ -861,7 +854,7 @@ async function initToursSection(force = false) {
   }
 
   if (typeof window.passeiosManager === 'undefined') {
-    console.warn('⚠️ passeiosManager não disponível para renderizar destaques');
+    //console.warn('⚠️ passeiosManager não disponível para renderizar destaques');
     return;
   }
 
@@ -905,8 +898,6 @@ async function initToursSection(force = false) {
 
 // Inicialização quando o DOM estiver pronto
 document.addEventListener('DOMContentLoaded', () => {
-  // console.log('🎯 Inicializando scripts principais...');
-
   // Aguardar carregamento dos componentes
   setTimeout(() => {
     animateOnScroll();
@@ -947,8 +938,6 @@ document.addEventListener('DOMContentLoaded', () => {
         smoothScroll(window.location.hash);
       }, 200);
     }
-
-    // console.log('✅ Scripts principais inicializados!');
   }, 200);
 });
 
