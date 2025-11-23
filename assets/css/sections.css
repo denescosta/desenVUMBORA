@@ -638,18 +638,23 @@ h2 {
   gap: 24px;
   height: 100%;
   width: fit-content;
-  animation: scrollTestimonials 40s linear infinite;
+  /* Animação será iniciada via JavaScript após renderização completa */
+  animation: none;
   will-change: transform;
-  animation-fill-mode: both;
   /* Otimizações para performance no mobile */
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
   transform: translateZ(0);
   -webkit-transform: translateZ(0);
-  /* Garantir que a animação não seja interrompida */
-  animation-play-state: running;
   /* Garantir que os cards duplicados estejam sempre visíveis */
   min-width: 200%;
+}
+
+/* Classe para iniciar a animação quando estiver pronta */
+.testimonials-scroll.animation-ready {
+  animation: scrollTestimonials 40s linear infinite;
+  animation-fill-mode: both;
+  animation-play-state: running;
 }
 
 /* Animação do scroll infinito */
@@ -672,7 +677,7 @@ h2 {
 
 /* Garantir que a animação não seja interrompida no mobile */
 @media (max-width: 768px) {
-  .testimonials-scroll {
+  .testimonials-scroll.animation-ready {
     /* Forçar a animação a continuar mesmo em caso de interrupção */
     animation-iteration-count: infinite !important;
     animation-timing-function: linear !important;
@@ -787,11 +792,12 @@ h2 {
     padding: 0 20px;
   }
 
+  .testimonials-scroll.animation-ready {
+    animation-duration: 50s;
+  }
+
   .testimonials-scroll {
     gap: 20px;
-    animation-duration: 50s;
-    /* Garantir que a animação continue no mobile */
-    animation-play-state: running !important;
   }
 
   .testimonial-card {
@@ -826,11 +832,12 @@ h2 {
     padding: 0 20px;
   }
 
+  .testimonials-scroll.animation-ready {
+    animation-duration: 60s;
+  }
+
   .testimonials-scroll {
     gap: 18px;
-    animation-duration: 60s;
-    /* Garantir que a animação continue no mobile */
-    animation-play-state: running !important;
   }
 
   .testimonial-card {
@@ -869,11 +876,12 @@ h2 {
     padding: 0 20px;
   }
 
+  .testimonials-scroll.animation-ready {
+    animation-duration: 70s;
+  }
+
   .testimonials-scroll {
     gap: 16px;
-    animation-duration: 70s;
-    /* Garantir que a animação continue no mobile */
-    animation-play-state: running !important;
   }
 
   .testimonial-card {
@@ -911,11 +919,12 @@ h2 {
     padding: 0 20px;
   }
 
+  .testimonials-scroll.animation-ready {
+    animation-duration: 80s;
+  }
+
   .testimonials-scroll {
     gap: 14px;
-    animation-duration: 80s;
-    /* Garantir que a animação continue no mobile */
-    animation-play-state: running !important;
   }
 
   .testimonial-card {

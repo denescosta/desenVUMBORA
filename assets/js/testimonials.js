@@ -98,28 +98,56 @@ class TestimonialsManager {
     // Renderizar tudo junto para garantir continuidade
     container.innerHTML = cardsHTML + duplicatedCardsHTML;
     
-    // Garantir que a animação CSS seja aplicada corretamente
-    // Força o navegador a recalcular o layout
-    void container.offsetWidth;
-    
-    // Garantir que a animação não seja interrompida no mobile
-    requestAnimationFrame(() => {
-      const scrollElement = container;
-      if (scrollElement) {
-        // Remove qualquer estilo inline que possa estar interferindo
-        scrollElement.style.animation = '';
-        scrollElement.style.transform = '';
-        // Força o navegador a aplicar a animação CSS novamente
-        scrollElement.offsetHeight;
+    // AGUARDAR que os cards sejam totalmente renderizados e suas dimensões calculadas
+    // antes de iniciar a animação
+    const initAnimation = () => {
+      // Forçar o navegador a calcular as dimensões finais
+      void container.offsetWidth;
+      void container.offsetHeight;
+      
+      // Verificar se os cards têm dimensões válidas
+      const firstCard = container.querySelector('.testimonial-card');
+      if (firstCard) {
+        const cardWidth = firstCard.offsetWidth;
+        const containerWidth = container.scrollWidth || container.offsetWidth;
         
-        // No mobile, garantir que a animação continue rodando
-        if (window.innerWidth <= 768) {
-          scrollElement.style.animationPlayState = 'running';
-          // Forçar reflow para garantir que a animação seja aplicada
-          void scrollElement.offsetWidth;
+        // Só iniciar a animação se os cards tiverem dimensões válidas
+        // e se o container tiver largura suficiente (pelo menos 2x a largura de um card)
+        if (cardWidth > 0 && containerWidth >= cardWidth * 2) {
+          // Aguardar mais frames para garantir que tudo está totalmente renderizado
+          requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+              requestAnimationFrame(() => {
+                // Verificar novamente as dimensões antes de iniciar
+                const finalCardWidth = firstCard.offsetWidth;
+                const finalContainerWidth = container.scrollWidth || container.offsetWidth;
+                
+                if (finalCardWidth > 0 && finalContainerWidth >= finalCardWidth * 2) {
+                  // Adicionar a classe que inicia a animação
+                  container.classList.add('animation-ready');
+                  
+                  // Forçar reflow final para garantir que a animação seja aplicada
+                  void container.offsetWidth;
+                } else {
+                  // Se as dimensões ainda não estiverem corretas, tentar novamente
+                  setTimeout(initAnimation, 150);
+                }
+              });
+            });
+          });
+        } else {
+          // Se ainda não tiver dimensões válidas, tentar novamente após um delay
+          setTimeout(initAnimation, 150);
         }
+      } else {
+        // Se não houver cards, tentar novamente após um delay
+        setTimeout(initAnimation, 150);
       }
-    });
+    };
+    
+    // Iniciar o processo de verificação após um pequeno delay
+    // para garantir que o DOM foi atualizado
+    setTimeout(initAnimation, 100);
   }
 }
 
