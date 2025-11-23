@@ -10,6 +10,9 @@ WORKDIR /app
 # Copiar todos os arquivos do projeto
 COPY . /app
 
+# Garantir que o php.ini customizado esteja disponível
+# O start.sh irá usá-lo se existir
+
 # Criar diretórios necessários com permissões
 RUN mkdir -p /app/uploads/passeios && \
     mkdir -p /app/data && \
