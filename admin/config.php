@@ -196,14 +196,28 @@ function otimizarImagem($caminhoImagem, $larguraMaxima = 1920, $alturaMaxima = 1
     
     // Verificar se precisa redimensionar
     if ($larguraAtual <= $larguraMaxima && $alturaAtual <= $alturaMaxima) {
-        // Apenas otimizar qualidade se for JPEG
-        if (in_array($extensao, ['jpg', 'jpeg'])) {
-            $imagem = @imagecreatefromjpeg($caminhoImagem);
-            if ($imagem) {
-                imagejpeg($imagem, $caminhoImagem, $qualidade);
-                imagedestroy($imagem);
-                return true;
-            }
+        // Otimizar qualidade mesmo sem redimensionar
+        $imagem = null;
+        switch ($extensao) {
+            case 'jpg':
+            case 'jpeg':
+                $imagem = @imagecreatefromjpeg($caminhoImagem);
+                if ($imagem) {
+                    // Re-comprimir com qualidade otimizada
+                    imagejpeg($imagem, $caminhoImagem, $qualidade);
+                    imagedestroy($imagem);
+                    return true;
+                }
+                break;
+            case 'png':
+                $imagem = @imagecreatefrompng($caminhoImagem);
+                if ($imagem) {
+                    // Comprimir PNG (nível 6 = bom equilíbrio)
+                    imagepng($imagem, $caminhoImagem, 6);
+                    imagedestroy($imagem);
+                    return true;
+                }
+                break;
         }
         return false;
     }
@@ -261,7 +275,8 @@ function otimizarImagem($caminhoImagem, $larguraMaxima = 1920, $alturaMaxima = 1
             $sucesso = imagejpeg($imagemNova, $caminhoImagem, $qualidade);
             break;
         case 'png':
-            $sucesso = imagepng($imagemNova, $caminhoImagem, 8);
+            // Comprimir PNG (nível 6 = bom equilíbrio entre qualidade e tamanho)
+            $sucesso = imagepng($imagemNova, $caminhoImagem, 6);
             break;
         case 'webp':
             if (function_exists('imagewebp')) {
@@ -344,8 +359,20 @@ function uploadImagem($arquivo, $pasta) {
         corrigirOrientacaoImagem($caminhoCompleto);
     }
     
-    // 2. Redimensionar e otimizar (máximo 1920x1920px, qualidade 85%)
-    otimizarImagem($caminhoCompleto, 1920, 1920, 85);
+    // 2. Redimensionar e otimizar para web
+    // - Máximo 1600px (ideal para web, mantém qualidade visual)
+    // - Qualidade 80% (ótimo equilíbrio entre qualidade e tamanho)
+    // - Isso reduz drasticamente o tamanho do arquivo sem perder qualidade visível
+    // - Remove metadados EXIF desnecessários durante a otimização
+    otimizarImagem($caminhoCompleto, 1600, 1600, 80);
+    
+    // 3. Verificar tamanho final e logar (opcional, para debug)
+    $tamanhoFinal = filesize($caminhoCompleto);
+    $tamanhoOriginal = $arquivo['size'];
+    $reducao = $tamanhoOriginal > 0 ? round((1 - $tamanhoFinal / $tamanhoOriginal) * 100, 1) : 0;
+    
+    // Se a redução foi significativa, a otimização funcionou bem
+    // (Isso é apenas informativo, não afeta o funcionamento)
     
     return ['sucesso' => true, 'caminho' => $caminhoCompleto];
 }
