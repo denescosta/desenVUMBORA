@@ -90,9 +90,12 @@ class TestimonialsManager {
     });
 
     // Renderizar cards (duplicar para loop infinito)
+    // Criar os cards originais
     const cardsHTML = this.testimonials.map(t => this.criarCardHTML(t)).join('');
+    // Criar os cards duplicados (sem gap adicional)
     const duplicatedCardsHTML = this.testimonials.map(t => this.criarCardHTML(t)).join('');
 
+    // Renderizar tudo junto para garantir continuidade
     container.innerHTML = cardsHTML + duplicatedCardsHTML;
     
     // Garantir que a animação CSS seja aplicada corretamente
@@ -108,6 +111,13 @@ class TestimonialsManager {
         scrollElement.style.transform = '';
         // Força o navegador a aplicar a animação CSS novamente
         scrollElement.offsetHeight;
+        
+        // No mobile, garantir que a animação continue rodando
+        if (window.innerWidth <= 768) {
+          scrollElement.style.animationPlayState = 'running';
+          // Forçar reflow para garantir que a animação seja aplicada
+          void scrollElement.offsetWidth;
+        }
       }
     });
   }

@@ -641,9 +641,18 @@ h2 {
   animation: scrollTestimonials 40s linear infinite;
   will-change: transform;
   animation-fill-mode: both;
+  /* Otimizações para performance no mobile */
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  /* Garantir que a animação não seja interrompida */
+  animation-play-state: running;
+  /* Garantir que os cards duplicados estejam sempre visíveis */
+  min-width: 200%;
 }
 
-/* Animação do letreiro */
+/* Animação do scroll infinito */
 @keyframes scrollTestimonials {
   0% {
     transform: translateX(0);
@@ -658,6 +667,16 @@ h2 {
 @media (hover: hover) and (pointer: fine) {
   .testimonials-scroll-wrapper:hover .testimonials-scroll {
     animation-play-state: paused;
+  }
+}
+
+/* Garantir que a animação não seja interrompida no mobile */
+@media (max-width: 768px) {
+  .testimonials-scroll {
+    /* Forçar a animação a continuar mesmo em caso de interrupção */
+    animation-iteration-count: infinite !important;
+    animation-timing-function: linear !important;
+    animation-play-state: running !important;
   }
 }
 
@@ -770,7 +789,9 @@ h2 {
 
   .testimonials-scroll {
     gap: 20px;
-    animation-duration: 35s;
+    animation-duration: 50s;
+    /* Garantir que a animação continue no mobile */
+    animation-play-state: running !important;
   }
 
   .testimonial-card {
@@ -807,7 +828,9 @@ h2 {
 
   .testimonials-scroll {
     gap: 18px;
-    animation-duration: 30s;
+    animation-duration: 60s;
+    /* Garantir que a animação continue no mobile */
+    animation-play-state: running !important;
   }
 
   .testimonial-card {
@@ -848,7 +871,9 @@ h2 {
 
   .testimonials-scroll {
     gap: 16px;
-    animation-duration: 28s;
+    animation-duration: 70s;
+    /* Garantir que a animação continue no mobile */
+    animation-play-state: running !important;
   }
 
   .testimonial-card {
@@ -888,7 +913,9 @@ h2 {
 
   .testimonials-scroll {
     gap: 14px;
-    animation-duration: 25s;
+    animation-duration: 80s;
+    /* Garantir que a animação continue no mobile */
+    animation-play-state: running !important;
   }
 
   .testimonial-card {
