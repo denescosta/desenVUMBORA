@@ -8,6 +8,25 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
+// Verificar se o POST foi truncado (arquivo muito grande)
+if (empty($_POST) && !empty($_SERVER['CONTENT_LENGTH']) && $_SERVER['REQUEST_METHOD'] === 'POST') {
+    $contentLength = (int)$_SERVER['CONTENT_LENGTH'];
+    $postMaxSize = ini_get('post_max_size');
+    $postMaxSizeBytes = (int)$postMaxSize;
+    if (preg_match('/[0-9]+([KMGT])?/i', $postMaxSize, $matches)) {
+        $multiplier = 1;
+        if (isset($matches[1])) {
+            $multiplier = strtoupper($matches[1]) === 'K' ? 1024 : (strtoupper($matches[1]) === 'M' ? 1048576 : (strtoupper($matches[1]) === 'G' ? 1073741824 : 1));
+        }
+        $postMaxSizeBytes = (int)$postMaxSize * $multiplier;
+    }
+    
+    if ($contentLength > $postMaxSizeBytes) {
+        header('Location: formulario-passeio.php?erro=' . urlencode('Arquivo muito grande! O tamanho total excede o limite de ' . $postMaxSize . '. Tente enviar menos fotos por vez ou reduza o tamanho das imagens.'));
+        exit;
+    }
+}
+
 $modoEdicao = isset($_POST['modo_edicao']) && $_POST['modo_edicao'] == '1';
 $dados = carregarPasseios();
 $passeios = $dados['passeios'] ?? [];
@@ -131,25 +150,46 @@ if (is_array($galeriaAtual)) {
 }
 
 $ordem = count($galeria) + 1;
+$errosUpload = [];
 if (isset($_FILES['galeria']) && is_array($_FILES['galeria']['tmp_name'])) {
     foreach ($_FILES['galeria']['tmp_name'] as $key => $tmpName) {
-        if ($_FILES['galeria']['error'][$key] === UPLOAD_ERR_OK) {
-            $arquivo = [
-                'name' => $_FILES['galeria']['name'][$key],
-                'type' => $_FILES['galeria']['type'][$key],
-                'tmp_name' => $tmpName,
-                'error' => $_FILES['galeria']['error'][$key],
-                'size' => $_FILES['galeria']['size'][$key]
+        // Verificar erros de upload do PHP
+        $erroUpload = $_FILES['galeria']['error'][$key];
+        if ($erroUpload !== UPLOAD_ERR_OK) {
+            $nomeArquivo = $_FILES['galeria']['name'][$key] ?? 'arquivo desconhecido';
+            $mensagensErro = [
+                UPLOAD_ERR_INI_SIZE => 'Arquivo excede upload_max_filesize',
+                UPLOAD_ERR_FORM_SIZE => 'Arquivo excede MAX_FILE_SIZE do formulário',
+                UPLOAD_ERR_PARTIAL => 'Upload parcial',
+                UPLOAD_ERR_NO_FILE => 'Nenhum arquivo enviado',
+                UPLOAD_ERR_NO_TMP_DIR => 'Pasta temporária não encontrada',
+                UPLOAD_ERR_CANT_WRITE => 'Falha ao escrever arquivo',
+                UPLOAD_ERR_EXTENSION => 'Upload bloqueado por extensão'
             ];
-            
-            $resultadoUpload = uploadImagem($arquivo, $pastaPasseio);
-            if (isset($resultadoUpload['sucesso'])) {
-                $galeria[] = [
-                    'url' => normalizarCaminhoUpload($resultadoUpload['caminho']),
-                    'alt' => 'Foto do passeio ' . $passeio['nome'],
-                    'ordem' => $ordem++
-                ];
-            }
+            $errosUpload[] = $nomeArquivo . ': ' . ($mensagensErro[$erroUpload] ?? 'Erro desconhecido');
+            continue;
+        }
+        
+        $arquivo = [
+            'name' => $_FILES['galeria']['name'][$key],
+            'type' => $_FILES['galeria']['type'][$key],
+            'tmp_name' => $tmpName,
+            'error' => $_FILES['galeria']['error'][$key],
+            'size' => $_FILES['galeria']['size'][$key]
+        ];
+        
+        $resultadoUpload = uploadImagem($arquivo, $pastaPasseio);
+        if (isset($resultadoUpload['sucesso'])) {
+            $galeria[] = [
+                'url' => normalizarCaminhoUpload($resultadoUpload['caminho']),
+                'alt' => 'Foto do passeio ' . $passeio['nome'],
+                'ordem' => $ordem++
+            ];
+        } else {
+            // Coletar erros de validação
+            $nomeArquivo = $arquivo['name'];
+            $erro = $resultadoUpload['erro'] ?? 'Erro desconhecido no upload';
+            $errosUpload[] = $nomeArquivo . ': ' . $erro;
         }
     }
 }
@@ -184,7 +224,16 @@ if ($modoEdicao) {
 // Salvar dados
 $dados['passeios'] = $passeios;
 if (salvarPasseios($dados)) {
-    header('Location: painel.php?mensagem=salvo');
+    // Se houver erros de upload, mostrar mensagem
+    if (!empty($errosUpload)) {
+        $mensagemErro = 'Passeio salvo, mas alguns arquivos não foram enviados: ' . implode('; ', array_slice($errosUpload, 0, 3));
+        if (count($errosUpload) > 3) {
+            $mensagemErro .= ' e mais ' . (count($errosUpload) - 3) . ' arquivo(s)';
+        }
+        header('Location: painel.php?mensagem=salvo&aviso=' . urlencode($mensagemErro));
+    } else {
+        header('Location: painel.php?mensagem=salvo');
+    }
 } else {
     header('Location: painel.php?erro=erro_salvar');
 }

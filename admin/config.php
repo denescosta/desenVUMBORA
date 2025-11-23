@@ -6,9 +6,18 @@ if (!ob_get_level()) {
     ob_start();
 }
 
-// Verificar se a sessão já foi iniciada
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
+// Suprimir warnings de headers se já foram enviados (para uploads grandes)
+if (headers_sent()) {
+    // Headers já foram enviados, não podemos iniciar sessão normalmente
+    // Mas ainda podemos usar a sessão se já estiver ativa
+    if (session_status() === PHP_SESSION_NONE) {
+        @session_start();
+    }
+} else {
+    // Verificar se a sessão já foi iniciada
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
 }
 
 // IMPORTANTE: Altere estas credenciais!
@@ -212,25 +221,45 @@ function uploadImagem($arquivo, $pasta) {
         return ['erro' => 'Formato não permitido. Use JPG, PNG ou WEBP'];
     }
     
-    // Aumentado para 10MB para acomodar fotos de celular
-    if ($arquivo['size'] > 10485760) { // 10MB
-        return ['erro' => 'Arquivo muito grande. Máximo: 10MB'];
+    // Aumentado para 20MB para acomodar fotos de celular
+    if ($arquivo['size'] > 20971520) { // 20MB
+        return ['erro' => 'Arquivo muito grande. Máximo: 20MB'];
     }
     
-    // Validar tipo MIME real
-    $finfo = finfo_open(FILEINFO_MIME_TYPE);
-    $mimeType = finfo_file($finfo, $arquivo['tmp_name']);
-    finfo_close($finfo);
-    
-    $mimesPermitidos = [
-        'image/jpeg',
-        'image/jpg',
-        'image/png',
-        'image/webp'
-    ];
-    
-    if (!in_array($mimeType, $mimesPermitidos)) {
-        return ['erro' => 'Tipo de arquivo inválido'];
+    // Validar tipo MIME real (se a extensão fileinfo estiver disponível)
+    if (function_exists('finfo_open')) {
+        $finfo = finfo_open(FILEINFO_MIME_TYPE);
+        $mimeType = finfo_file($finfo, $arquivo['tmp_name']);
+        finfo_close($finfo);
+        
+        $mimesPermitidos = [
+            'image/jpeg',
+            'image/jpg',
+            'image/png',
+            'image/webp'
+        ];
+        
+        if (!in_array($mimeType, $mimesPermitidos)) {
+            return ['erro' => 'Tipo de arquivo inválido'];
+        }
+    } else {
+        // Validação alternativa: verificar se o arquivo é realmente uma imagem
+        // usando getimagesize (mais básico, mas funciona sem fileinfo)
+        $infoImagem = @getimagesize($arquivo['tmp_name']);
+        if ($infoImagem === false) {
+            return ['erro' => 'Arquivo não é uma imagem válida'];
+        }
+        
+        // Verificar se o tipo MIME retornado por getimagesize é permitido
+        $mimeTypesPermitidos = [
+            IMAGETYPE_JPEG,
+            IMAGETYPE_PNG,
+            IMAGETYPE_WEBP
+        ];
+        
+        if (!in_array($infoImagem[2], $mimeTypesPermitidos)) {
+            return ['erro' => 'Formato de imagem não permitido'];
+        }
     }
     
     if (!is_dir($pasta)) {

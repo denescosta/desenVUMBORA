@@ -212,11 +212,55 @@ if ($modoEdicao) {
             height: 150px;
             border-radius: 8px;
             overflow: hidden;
+            border: 2px solid transparent;
+            transition: border-color 0.3s ease;
         }
         .preview-item img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+        }
+        .preview-item.valid {
+            border-color: #27ae60;
+        }
+        .preview-item.invalid {
+            border-color: #e74c3c;
+        }
+        .file-status-badge {
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .file-status-badge.valid {
+            background: #27ae60;
+            color: white;
+        }
+        .file-status-badge.invalid {
+            background: #e74c3c;
+            color: white;
+        }
+        .file-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            color: white;
+            padding: 8px;
+            font-size: 0.7rem;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+        .preview-item:hover .file-info {
+            transform: translateY(0);
         }
         .upload-status {
             margin-top: 10px;
@@ -569,16 +613,40 @@ if ($modoEdicao) {
                 if (imagemCapaInput.files && imagemCapaInput.files[0]) {
                     const file = imagemCapaInput.files[0];
                     removerCapaInput.value = '0';
+                    const validacao = validarArquivo(file);
+                    
                     const reader = new FileReader();
                     reader.onload = (e) => {
+                        const badge = validacao.valido 
+                            ? '<div class="file-status-badge valid">✓ Válida</div>'
+                            : `<div class="file-status-badge invalid">✗ Inválida</div>`;
+                        
+                        const info = `
+                            <div class="file-info">
+                                <div><strong>${file.name}</strong></div>
+                                <div>${validacao.tamanho}MB • ${validacao.extensao.toUpperCase()}</div>
+                                ${validacao.erros.length > 0 ? `<div style="color: #ffcccc; margin-top: 4px;">${validacao.erros.join(', ')}</div>` : ''}
+                            </div>
+                        `;
+                        
                         imagemCapaPreview.innerHTML = `
-                            <div class="preview-item">
+                            <div class="preview-item ${validacao.valido ? 'valid' : 'invalid'}">
+                                ${badge}
                                 <img src="${e.target.result}" alt="Prévia da capa">
+                                ${info}
                             </div>
                         `;
                     };
                     reader.readAsDataURL(file);
-                    imagemCapaStatus.textContent = `1 arquivo selecionado (${file.name})`;
+                    
+                    let statusTexto = `1 arquivo selecionado: ${file.name}`;
+                    if (validacao.valido) {
+                        statusTexto += ` <span style="color: #27ae60;">✓ Válida</span>`;
+                    } else {
+                        statusTexto += ` <span style="color: #e74c3c;">✗ Inválida: ${validacao.erros.join(', ')}</span>`;
+                    }
+                    imagemCapaStatus.innerHTML = statusTexto;
+                    
                     if (imagemCapaAtual) {
                         imagemCapaAtual.style.display = 'none';
                     }
@@ -600,6 +668,31 @@ if ($modoEdicao) {
             const galeriaPreview = document.getElementById('galeria-preview');
             const galeriaStatus = document.getElementById('galeria-status');
 
+            // Função para validar arquivo
+            function validarArquivo(file) {
+                const maxSize = 20 * 1024 * 1024; // 20MB em bytes
+                const extensoesPermitidas = ['jpg', 'jpeg', 'png', 'webp'];
+                const extensao = file.name.split('.').pop().toLowerCase();
+                const tamanhoMB = (file.size / (1024 * 1024)).toFixed(2);
+                
+                const erros = [];
+                
+                if (!extensoesPermitidas.includes(extensao)) {
+                    erros.push(`Formato não permitido (${extensao})`);
+                }
+                
+                if (file.size > maxSize) {
+                    erros.push(`Muito grande (${tamanhoMB}MB)`);
+                }
+                
+                return {
+                    valido: erros.length === 0,
+                    erros: erros,
+                    tamanho: tamanhoMB,
+                    extensao: extensao
+                };
+            }
+
             galeriaInput?.addEventListener('change', () => {
                 galeriaPreview.innerHTML = '';
                 if (!galeriaInput.files || galeriaInput.files.length === 0) {
@@ -607,17 +700,55 @@ if ($modoEdicao) {
                     return;
                 }
 
-                galeriaStatus.textContent = `${galeriaInput.files.length} nova(s) imagem(ns) selecionada(s).`;
-                Array.from(galeriaInput.files).forEach(file => {
+                const arquivos = Array.from(galeriaInput.files);
+                let validos = 0;
+                let invalidos = 0;
+
+                arquivos.forEach(file => {
+                    const validacao = validarArquivo(file);
+                    if (validacao.valido) {
+                        validos++;
+                    } else {
+                        invalidos++;
+                    }
+
                     const reader = new FileReader();
                     reader.onload = (e) => {
                         const div = document.createElement('div');
-                        div.className = 'preview-item';
-                        div.innerHTML = `<img src="${e.target.result}" alt="${file.name}">`;
+                        div.className = `preview-item ${validacao.valido ? 'valid' : 'invalid'}`;
+                        
+                        const badge = validacao.valido 
+                            ? '<div class="file-status-badge valid">✓ Válida</div>'
+                            : `<div class="file-status-badge invalid">✗ Inválida</div>`;
+                        
+                        const info = `
+                            <div class="file-info">
+                                <div><strong>${file.name}</strong></div>
+                                <div>${validacao.tamanho}MB • ${validacao.extensao.toUpperCase()}</div>
+                                ${validacao.erros.length > 0 ? `<div style="color: #ffcccc; margin-top: 4px;">${validacao.erros.join(', ')}</div>` : ''}
+                            </div>
+                        `;
+                        
+                        div.innerHTML = `
+                            ${badge}
+                            <img src="${e.target.result}" alt="${file.name}">
+                            ${info}
+                        `;
                         galeriaPreview.appendChild(div);
                     };
                     reader.readAsDataURL(file);
                 });
+
+                // Atualizar status geral
+                let statusTexto = `${arquivos.length} imagem(ns) selecionada(s). `;
+                if (validos > 0 && invalidos > 0) {
+                    statusTexto += `<span style="color: #27ae60;">${validos} válida(s)</span>, <span style="color: #e74c3c;">${invalidos} inválida(s)</span>.`;
+                } else if (validos > 0) {
+                    statusTexto += `<span style="color: #27ae60;">Todas válidas ✓</span>`;
+                } else {
+                    statusTexto += `<span style="color: #e74c3c;">Nenhuma válida ✗</span>`;
+                }
+                galeriaStatus.innerHTML = statusTexto;
             });
 
             document.querySelectorAll('.existing-gallery-item input[type="checkbox"]').forEach((checkbox) => {
