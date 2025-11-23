@@ -40,6 +40,8 @@ window.PAGE_CONFIGS = {
     { id: 'hero', path: '../sections/hero.html' },
     { id: 'about', path: '../sections/about.html' },
     { id: 'tours', path: '../sections/tours.html' },
+    { id: 'servicos-privativos', path: '../sections/servicos-privativos.html' },
+    { id: 'transfers', path: '../sections/transfers.html' },
     { id: 'testimonials', path: '../sections/testimonials.html' }
     // { id: 'faq', path: '../sections/faq.html' },
     // { id: 'blog', path: '../sections/blog.html' },
@@ -65,6 +67,12 @@ window.PAGE_CONFIGS = {
   ],
   'como-funciona.html': [
     { id: 'como-funciona-content', path: '../sections/como-funciona-content.html' }
+  ],
+  'servicos-privativos.html': [
+    { id: 'servicos-privativos-content', path: '../sections/servicos-privativos-content.html' }
+  ],
+  'transfers.html': [
+    { id: 'transfers-content', path: '../sections/transfers-content.html' }
   ]
 };
 

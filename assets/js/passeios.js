@@ -89,6 +89,11 @@ class PasseiosManager {
   // Busca passeios por categoria (suporta categorias como array ou string)
   buscarPorCategoria(categoria) {
     return this.passeios.filter(p => {
+      // Filtro especial para "Destaque" - verifica o campo booleano
+      if (categoria === 'Destaque') {
+        return p.destaque === true;
+      }
+      // Para outras categorias, verifica no array de categorias
       const categoriasPasseio = Array.isArray(p.categoria) ? p.categoria : [p.categoria];
       return categoriasPasseio.includes(categoria);
     });

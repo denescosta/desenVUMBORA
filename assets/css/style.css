@@ -93,17 +93,22 @@ body {
   font-size: 1rem;
 }
 
+/* Botão de contato padronizado */
 .pagina-contato button {
-  background: var(--primary-color);
+  background: linear-gradient(135deg, #58371b 0%, #8b5a3c 100%);
   color: #fff;
   border: none;
-  border-radius: 6px;
-  padding: 10px 0;
+  border-radius: 8px;
+  padding: 12px 0;
   font-size: 1.1rem;
+  font-weight: 600;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(88, 55, 27, 0.3);
 }
 
 .pagina-contato button:hover {
-  background: #222;
+  background: linear-gradient(135deg, #6b4528 0%, #a06a4a 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(88, 55, 27, 0.4);
 }

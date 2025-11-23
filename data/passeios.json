@@ -9,8 +9,7 @@
             "duracao": "8 horas",
             "categoria": [
                 "Praia",
-                "Aventura",
-                "Mergulho"
+                "Famoso"
             ],
             "destaque": false,
             "ativo": true,
@@ -67,7 +66,12 @@
             "preco": "200.00",
             "preco_formatado": "R$ 200,00",
             "duracao": "4 horas",
-            "categoria": "Aventura",
+            "categoria": [
+                "Buggy",
+                "Radical",
+                "Aventura",
+                "Destaque"
+            ],
             "destaque": true,
             "ativo": true,
             "imagem_capa": "uploads\/passeios\/dunas-genipabu\/capa.jpg",
@@ -123,7 +127,10 @@
             "preco": "180.00",
             "preco_formatado": "R$ 180,00",
             "duracao": "6 horas",
-            "categoria": "Mergulho",
+            "categoria": [
+                "Mergulhos",
+                "Destaque"
+            ],
             "destaque": true,
             "ativo": true,
             "imagem_capa": "uploads\/passeios\/maracajau\/capa.jpg",
@@ -179,7 +186,10 @@
             "preco": "140.00",
             "preco_formatado": "R$ 140,00",
             "duracao": "8 horas",
-            "categoria": "Praia",
+            "categoria": [
+                "Praia",
+                "Destaque"
+            ],
             "destaque": true,
             "ativo": true,
             "tipo_passeio": "Tour guiado",
@@ -217,7 +227,8 @@
             "descricao_completa": "Um passeio cultural pelo coração de Natal, visitando os principais pontos históricos da cidade. Você conhecerá o Forte dos Reis Magos, a Catedral de Natal, o Teatro Alberto Maranhão, o Palácio Felipe Camarão e outros monumentos importantes. O passeio inclui guia especializado que conta a rica história da capital potiguar, desde sua fundação até os dias atuais.",
             "duracao": "4 horas",
             "categoria": [
-                "Cultural"
+                "Cultural",
+                "Família"
             ],
             "destaque": false,
             "ativo": true,
@@ -252,8 +263,8 @@
             "descricao_completa": "A Lagoa do Carcará é um refúgio ecológico localizado próximo a Natal, conhecida por sua rica biodiversidade e tranquilidade. Durante o passeio, você poderá observar diversas espécies de aves, fazer trilhas ecológicas, conhecer a flora local e relaxar em um ambiente natural preservado. Ideal para quem busca contato com a natureza e momentos de paz longe da agitação urbana.",
             "duracao": "5 horas",
             "categoria": [
-                "Ecoturismo",
-                "Praia"
+                "Praia",
+                "Família"
             ],
             "destaque": false,
             "ativo": true,
@@ -288,7 +299,9 @@
             "duracao": "6 horas",
             "categoria": [
                 "Praia",
-                "Aventura"
+                "Aventura",
+                "Famoso",
+                "Destaque"
             ],
             "destaque": true,
             "ativo": true,
@@ -325,7 +338,7 @@
             "duracao": "3 horas",
             "categoria": [
                 "Cultural",
-                "Ecoturismo"
+                "Família"
             ],
             "destaque": false,
             "ativo": true,
@@ -362,7 +375,8 @@
             "categoria": [
                 "Praia",
                 "Aventura",
-                "Mergulho"
+                "Mergulhos",
+                "Destaque"
             ],
             "destaque": true,
             "ativo": false,
@@ -400,7 +414,8 @@
             "categoria": [
                 "Praia",
                 "Aventura",
-                "Mergulho"
+                "Mergulhos",
+                "Destaque"
             ],
             "destaque": true,
             "ativo": true,

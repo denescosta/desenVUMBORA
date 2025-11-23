@@ -22,15 +22,19 @@
 }
 
 .catalogo-subtitle {
-  font-size: 1.1rem;
-  color: #555;
+  font-size: 1rem;
+  color: #e08e2b;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 600;
+  margin-bottom: 15px;
 }
 
 .catalogo-description {
-  max-width: 720px;
-  margin: 15px auto 0;
-  font-size: 1rem;
-  color: #555;
+  font-size: 1.2rem;
+  color: #666;
+  max-width: 700px;
+  margin: 0 auto;
   line-height: 1.6;
 }
 
@@ -306,43 +310,50 @@
   flex-direction: column;
 }
 
+/* Botões de passeios padronizados */
 .tour-btn {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
   text-align: center;
-  background: #58371b;
+  background: linear-gradient(135deg, #58371b 0%, #8b5a3c 100%);
   color: white;
   padding: 12px 20px;
   border-radius: 8px;
   text-decoration: none;
   font-weight: 600;
-  transition: background 0.3s ease, transform 0.2s ease;
+  transition: all 0.3s ease;
   border: none;
   cursor: pointer;
+  box-shadow: 0 4px 15px rgba(88, 55, 27, 0.3);
 }
 
 .tour-btn:hover {
-  background: #222;
+  background: linear-gradient(135deg, #6b4528 0%, #a06a4a 100%);
   transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(88, 55, 27, 0.4);
 }
 
 .tour-btn-whatsapp {
-  background: #25D366;
+  background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
   color: white;
+  box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
 }
 
 .tour-btn-whatsapp:hover {
-  background: #20BA5A;
+  background: linear-gradient(135deg, #20BA5A 0%, #0F7A6F 100%);
+  box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
 }
 
 .tour-btn-details {
-  background: #58371b;
+  background: linear-gradient(135deg, #58371b 0%, #8b5a3c 100%);
+  box-shadow: 0 4px 15px rgba(88, 55, 27, 0.3);
 }
 
 .tour-btn-details:hover {
-  background: #222;
+  background: linear-gradient(135deg, #6b4528 0%, #a06a4a 100%);
+  box-shadow: 0 6px 20px rgba(88, 55, 27, 0.4);
 }
 
 .tours-actions {
@@ -805,6 +816,7 @@
 }
 
 /* Botão de Reserva */
+/* Botão de reserva padronizado */
 .btn-reservar {
   display: flex;
   align-items: center;
@@ -812,19 +824,23 @@
   gap: 10px;
   width: 100%;
   padding: 18px;
-  background: #25d366;
+  background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
   color: white;
   text-decoration: none;
   border-radius: 12px;
   font-size: 1.1rem;
   font-weight: 700;
-  transition: background 0.3s ease, transform 0.2s ease;
+  transition: all 0.3s ease;
   margin-top: 20px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
 }
 
 .btn-reservar:hover {
-  background: #1da851;
+  background: linear-gradient(135deg, #20BA5A 0%, #0F7A6F 100%);
   transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
 }
 
 /* Descrição Completa */
@@ -930,19 +946,27 @@
   text-align: center;
 }
 
+/* Botão voltar padronizado */
 .btn-voltar {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
   padding: 14px 30px;
   background: #ecf0f1;
   color: #58371b;
   text-decoration: none;
   border-radius: 8px;
   font-weight: 600;
-  transition: background 0.3s ease;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
 }
 
 .btn-voltar:hover {
   background: #bdc3c7;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 /* ========== LIGHTBOX ========== */

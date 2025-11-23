@@ -105,6 +105,60 @@ window.configurarLinksWhatsApp = function() {
     }
   }
 
+  // Seção About - Card WhatsApp
+  const whatsappAboutCard = document.getElementById('whatsapp-about-card-link');
+  if (whatsappAboutCard) {
+    whatsappAboutCard.href = window.getWhatsAppLink(window.WHATSAPP_MENSAGEM_GERAL);
+    if (!whatsappAboutCard.hasAttribute('target')) {
+      whatsappAboutCard.setAttribute('target', '_blank');
+      whatsappAboutCard.setAttribute('rel', 'noopener noreferrer');
+    }
+  }
+
+  // Página Serviços Privativos - Link WhatsApp
+  const whatsappServicos = document.getElementById('whatsapp-servicos-link');
+  if (whatsappServicos) {
+    const mensagemServicos = 'Olá! Vim através do site VUMBORA e gostaria de solicitar um orçamento para locação de van/ônibus.';
+    whatsappServicos.href = window.getWhatsAppLink(mensagemServicos);
+    if (!whatsappServicos.hasAttribute('target')) {
+      whatsappServicos.setAttribute('target', '_blank');
+      whatsappServicos.setAttribute('rel', 'noopener noreferrer');
+    }
+  }
+
+  // Página Transfers - Link WhatsApp
+  const whatsappTransfers = document.getElementById('whatsapp-transfers-link');
+  if (whatsappTransfers) {
+    const mensagemTransfers = 'Olá! Vim através do site VUMBORA e gostaria de solicitar um orçamento para transfer.';
+    whatsappTransfers.href = window.getWhatsAppLink(mensagemTransfers);
+    if (!whatsappTransfers.hasAttribute('target')) {
+      whatsappTransfers.setAttribute('target', '_blank');
+      whatsappTransfers.setAttribute('rel', 'noopener noreferrer');
+    }
+  }
+
+  // Home - Seção Serviços Privativos - Link WhatsApp
+  const whatsappServicosPrivativosHome = document.getElementById('whatsapp-servicos-privativos-home-link');
+  if (whatsappServicosPrivativosHome) {
+    const mensagemServicosPrivativos = 'Olá! Vim através do site VUMBORA e gostaria de solicitar um orçamento para locação de van/ônibus.';
+    whatsappServicosPrivativosHome.href = window.getWhatsAppLink(mensagemServicosPrivativos);
+    if (!whatsappServicosPrivativosHome.hasAttribute('target')) {
+      whatsappServicosPrivativosHome.setAttribute('target', '_blank');
+      whatsappServicosPrivativosHome.setAttribute('rel', 'noopener noreferrer');
+    }
+  }
+
+  // Home - Seção Transfers - Link WhatsApp
+  const whatsappTransfersHome = document.getElementById('whatsapp-transfers-home-link');
+  if (whatsappTransfersHome) {
+    const mensagemTransfersHome = 'Olá! Vim através do site VUMBORA e gostaria de solicitar um orçamento para transfer.';
+    whatsappTransfersHome.href = window.getWhatsAppLink(mensagemTransfersHome);
+    if (!whatsappTransfersHome.hasAttribute('target')) {
+      whatsappTransfersHome.setAttribute('target', '_blank');
+      whatsappTransfersHome.setAttribute('rel', 'noopener noreferrer');
+    }
+  }
+
   // Textos do footer
   const whatsappText = document.getElementById('footer-whatsapp-text');
   const telefoneText = document.getElementById('footer-telefone');
