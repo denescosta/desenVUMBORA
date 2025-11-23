@@ -50,7 +50,8 @@ if (strpos($path, '/admin') === 0) {
 
 // Verifica se é um arquivo PHP do admin (sem /admin no path)
 $adminFiles = ['login.php', 'painel.php', 'formulario-passeio.php', 'salvar-passeio.php', 
-               'deletar-passeio.php', 'logout.php', 'config.php', 'index.php'];
+               'deletar-passeio.php', 'painel-testimonials.php', 'formulario-testimonial.php', 
+               'salvar-testimonial.php', 'deletar-testimonial.php', 'logout.php', 'config.php', 'index.php'];
 $fileName = basename($path);
 if (in_array($fileName, $adminFiles)) {
     $adminFilePath = __DIR__ . '/admin/' . $fileName;

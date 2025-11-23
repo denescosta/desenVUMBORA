@@ -711,6 +711,26 @@ h2 {
   opacity: 0.8;
 }
 
+.testimonial-rating {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 16px;
+}
+
+.testimonial-rating .star {
+  font-size: 1.2rem;
+  color: #e0e0e0;
+  transition: color 0.2s;
+}
+
+.testimonial-rating .star.filled {
+  color: #f39c12;
+}
+
+.testimonial-rating .star.empty {
+  color: #e0e0e0;
+}
+
 /* Media Queries para Responsividade - Testimonials */
 
 /* Tablets (768px - 1024px) */
@@ -3716,5 +3736,35 @@ h2 {
   .transfer-btn {
     padding: 12px 30px;
     font-size: 1rem;
+  }
+}
+
+/* Logo nas páginas - Desktop apenas */
+.page-logo-title-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.page-logo-title-container .page-logo {
+  flex-shrink: 0;
+}
+
+.page-logo-title-container .page-logo img {
+  max-width: 120px;
+  height: auto;
+}
+
+.page-logo-title-container h1 {
+  margin: 0;
+}
+
+/* Esconder logo no mobile */
+@media (max-width: 768px) {
+  .page-logo-title-container .page-logo {
+    display: none;
   }
 }

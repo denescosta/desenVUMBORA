@@ -55,7 +55,8 @@
                 "Alimentação",
                 "Bebidas",
                 "Despesas pessoais"
-            ]
+            ],
+            "politica_criancas": "Crianças de 0 a 5 anos: gratuito (no colo, sem assento garantido)\r\nCrianças de 6 a 10 anos: 50% do valor do adulto\r\nA partir de 11 anos: valor integral"
         },
         {
             "id": "dunas-genipabu",
@@ -115,6 +116,7 @@
             "tipo_passeio": "Aventura",
             "min_pessoas": "1",
             "observacoes": "Não recomendado para gestantes. Levar óculos de sol, protetor solar e câmera protegida contra areia.",
+            "politica_criancas": "Crianças de 0 a 3 anos: gratuito (no colo, não recomendado para o passeio de buggy)\r\nCrianças de 4 a 8 anos: 60% do valor do adulto\r\nCrianças de 9 a 12 anos: 70% do valor do adulto\r\nA partir de 13 anos: valor integral\r\nNota: Crianças menores de 4 anos não podem andar de buggy por segurança. Acompanham no carro de apoio.",
             "data_criacao": "2024-01-15",
             "data_atualizacao": "2024-01-15"
         },
@@ -174,6 +176,7 @@
             "tipo_passeio": "Tour guiado",
             "min_pessoas": "1",
             "observacoes": "Passeio depende das condições climáticas e da maré. Saber nadar é recomendado mas não obrigatório (há coletes). Levar roupa de banho, protetor solar, toalha.",
+            "politica_criancas": "Crianças de 0 a 2 anos: gratuito (no colo, não pode mergulhar)\r\nCrianças de 3 a 5 anos: 40% do valor (com colete, acompanhadas pelos pais)\r\nCrianças de 6 a 10 anos: 60% do valor\r\nCrianças de 11 a 12 anos: 75% do valor\r\nA partir de 13 anos: valor integral\r\nNota: Crianças menores de 5 anos devem estar sempre acompanhadas por um responsável adulto durante o mergulho.",
             "data_criacao": "2024-01-15",
             "data_atualizacao": "2024-01-15"
         },
@@ -195,6 +198,7 @@
             "tipo_passeio": "Tour guiado",
             "min_pessoas": "1",
             "observacoes": "Levar protetor solar, roupa de banho, toalha e dinheiro para refeições.",
+            "politica_criancas": "Crianças de 0 a 5 anos: gratuito (no colo, sem assento garantido)\r\nCrianças de 6 a 10 anos: 50% do valor do adulto\r\nA partir de 11 anos: valor integral",
             "data_atualizacao": "2025-11-19",
             "data_criacao": "2024-01-15",
             "imagem_capa": "uploads\/passeios\/litoral-sul-praias-do-amor-madeiro-e-cacimbinhas\/capa.jpg",
@@ -235,6 +239,7 @@
             "tipo_passeio": "Tour guiado",
             "min_pessoas": "1",
             "observacoes": "Recomendamos usar calçados confortáveis e protetor solar. O passeio é feito a pé e de transporte.",
+            "politica_criancas": "Crianças de 0 a 5 anos: gratuito (no colo)\r\nCrianças de 6 a 10 anos: 50% do valor do adulto\r\nCrianças de 11 a 12 anos: 70% do valor do adulto\r\nA partir de 13 anos: valor integral\r\nNota: Passeio cultural educativo, ideal para crianças em idade escolar.",
             "data_atualizacao": "2025-11-19",
             "data_criacao": "2025-11-19",
             "imagem_capa": "uploads\/passeios\/centro-historico-natal\/capa.jpg",
@@ -271,6 +276,7 @@
             "tipo_passeio": "Tour guiado",
             "min_pessoas": "1",
             "observacoes": "Levar repelente, protetor solar, boné e água. Recomendado para amantes da natureza.",
+            "politica_criancas": "Crianças de 0 a 5 anos: gratuito (no colo)\r\nCrianças de 6 a 10 anos: 50% do valor do adulto\r\nCrianças de 11 a 12 anos: 70% do valor do adulto\r\nA partir de 13 anos: valor integral\r\nNota: Passeio ecológico ideal para famílias. Crianças devem estar sempre acompanhadas.",
             "data_atualizacao": "2025-11-19",
             "data_criacao": "2025-11-19",
             "imagem_capa": "uploads\/passeios\/lagoa-do-carcara\/capa.jpg",
@@ -308,6 +314,7 @@
             "tipo_passeio": "Tour guiado",
             "min_pessoas": "1",
             "observacoes": "Levar protetor solar, roupa de banho, toalha e dinheiro para alimentação e atividades opcionais.",
+            "politica_criancas": "Crianças de 0 a 5 anos: gratuito (no colo, sem assento garantido)\r\nCrianças de 6 a 10 anos: 50% do valor do adulto\r\nCrianças de 11 a 12 anos: 70% do valor do adulto\r\nA partir de 13 anos: valor integral",
             "data_atualizacao": "2025-11-19",
             "data_criacao": "2025-11-19",
             "imagem_capa": "uploads\/passeios\/praia-ponta-negra\/capa.jpg",
@@ -337,15 +344,16 @@
             "descricao_completa": "O Forte dos Reis Magos é um dos principais monumentos históricos do Rio Grande do Norte e marco da fundação de Natal em 1599. Construído em formato de estrela, o forte oferece uma viagem no tempo com suas muralhas, canhões e exposições sobre a história colonial. O passeio inclui visita guiada ao forte, explicações históricas e uma vista privilegiada do mar e da cidade.",
             "duracao": "3 horas",
             "categoria": [
-                "Cultural",
-                "Família"
+                "Cultural"
             ],
             "destaque": false,
             "ativo": true,
             "tipo_passeio": "Tour guiado",
             "min_pessoas": "1",
             "observacoes": "Recomendamos usar calçados confortáveis. O forte tem escadas e áreas abertas.",
-            "data_atualizacao": "2025-11-19",
+            "politica_criancas": "Crianças de 0 a 5 anos: gratuito (no colo)\r\nCrianças de 6 a 10 anos: 50% do valor do adulto\r\nCrianças de 11 a 12 anos: 70% do valor do adulto\r\nA partir de 13 anos: valor integral\r\nNota: Passeio histórico educativo. Crianças devem estar acompanhadas e cuidado ao subir escadas do forte.",
+            "posicao": 1,
+            "data_atualizacao": "2025-11-23",
             "data_criacao": "2025-11-19",
             "imagem_capa": "uploads\/passeios\/forte-dos-reis-magos\/capa.jpg",
             "galeria": [],
@@ -383,6 +391,7 @@
             "tipo_passeio": "Aventura",
             "min_pessoas": "1",
             "observacoes": "Levar roupa de banho, protetor solar, toalha e equipamento de mergulho (ou alugar no local). Saber nadar é recomendado.",
+            "politica_criancas": "Crianças de 0 a 3 anos: gratuito (no colo, não pode mergulhar)\r\nCrianças de 4 a 7 anos: 50% do valor (com colete, acompanhadas pelos pais)\r\nCrianças de 8 a 10 anos: 65% do valor\r\nCrianças de 11 a 12 anos: 80% do valor\r\nA partir de 13 anos: valor integral\r\nNota: Crianças menores de 8 anos devem estar sempre acompanhadas por um responsável adulto durante atividades aquáticas.",
             "data_atualizacao": "2025-11-19",
             "data_criacao": "2025-11-19",
             "imagem_capa": "uploads\/passeios\/barra-do-cunhau\/capa.jpg",

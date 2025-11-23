@@ -24,7 +24,8 @@ $passeio = [
     'tipo_passeio' => '',
     'min_pessoas' => '1',
     'observacoes' => '',
-    'politica_criancas' => ''
+    'politica_criancas' => '',
+    'posicao' => '999'
 ];
 
 if ($modoEdicao) {
@@ -35,6 +36,10 @@ if ($modoEdicao) {
     foreach ($passeios as $p) {
         if ($p['id'] === $idEdicao) {
             $passeio = $p;
+            // Garantir que passeios antigos sem posição tenham um valor padrão
+            if (!isset($passeio['posicao']) || $passeio['posicao'] === '') {
+                $passeio['posicao'] = '999';
+            }
             break;
         }
     }
@@ -349,6 +354,12 @@ if ($modoEdicao) {
                 <div class="form-group">
                     <label for="duracao">Duração média *</label>
                     <input type="text" id="duracao" name="duracao" value="<?= htmlspecialchars($passeio['duracao']) ?>" placeholder="Ex: 8 horas" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="posicao">Posição na página de passeios *</label>
+                    <input type="number" id="posicao" name="posicao" value="<?= htmlspecialchars($passeio['posicao'] ?? '999') ?>" placeholder="Ex: 1, 2, 3..." min="1" required>
+                    <p class="help-text">Número que define a ordem de exibição na página. Menor número aparece primeiro (1 = primeiro lugar). Passeios sem posição definida aparecem por último.</p>
                 </div>
 
                 <div class="checkbox-group">

@@ -1,0 +1,60 @@
+{
+    "testimonials": [
+        {
+            "id": "testimonial_001",
+            "texto": "Agência perfeita, pontuais, passeios completos, comunicação eficiente, facilidade para reagendar e preços bons. Ótimo custo-benefício!",
+            "autor": "Cissa",
+            "data": "28\/05\/2025",
+            "estrelas": 5,
+            "posicao": 1
+        },
+        {
+            "id": "testimonial_002",
+            "texto": "Passeio em família. Preço bom. Ótimo atendimento do guia. Lindos lugares e paisagens. Segurança e pontualidade.",
+            "autor": "Anderson F",
+            "data": "27\/05\/2025",
+            "estrelas": 5,
+            "posicao": 2
+        },
+        {
+            "id": "testimonial_003",
+            "texto": "As paisagens são lindas e o nosso buggueiro foi excelente. Adoramos o passeio pelo litoral norte, foi muito bom!",
+            "autor": "Francisco A",
+            "data": "26\/05\/2025",
+            "estrelas": 5,
+            "posicao": 3
+        },
+        {
+            "id": "testimonial_004",
+            "texto": "Empresa parceira, motoristas atenciosos, criativos e conhecedores da história da cidade. Preocupados com nossa segurança sem deixar de ser alegres e brincalhões.",
+            "autor": "Eleni W",
+            "data": "26\/05\/2025",
+            "estrelas": 5,
+            "posicao": 4
+        },
+        {
+            "id": "testimonial_005",
+            "texto": "Motorista, Sr. Antônio, foi impecável! Extremamente educado, excelente condutor, muito atencioso, simpático e compartilhou conosco seu vasto conhecimento sobre o Rio Grande do Norte.",
+            "autor": "Monica O",
+            "data": "26\/05\/2025",
+            "estrelas": 5,
+            "posicao": 5
+        },
+        {
+            "id": "testimonial_006",
+            "texto": "Experiência incrível! Os passeios superaram todas as expectativas. Recomendo de olhos fechados!",
+            "autor": "Maria Silva",
+            "data": "25\/05\/2025",
+            "estrelas": 5,
+            "posicao": 6
+        },
+        {
+            "id": "testimonial_007",
+            "texto": "Atendimento de primeira qualidade. O guia foi muito atencioso e soube tornar o passeio ainda mais especial.",
+            "autor": "João Pedro",
+            "data": "24\/05\/2025",
+            "estrelas": 5,
+            "posicao": 7
+        }
+    ]
+}

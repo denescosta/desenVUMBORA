@@ -71,6 +71,7 @@ $passeio = [
     'min_pessoas' => (string)(int)$_POST['min_pessoas'],
     'observacoes' => trim($_POST['observacoes']),
     'politica_criancas' => trim($_POST['politica_criancas'] ?? ''),
+    'posicao' => isset($_POST['posicao']) ? (int)$_POST['posicao'] : 999,
     'data_atualizacao' => date('Y-m-d')
 ];
 

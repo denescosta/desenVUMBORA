@@ -6,9 +6,20 @@ verificarLogin();
 $dados = carregarPasseios();
 $passeios = $dados['passeios'] ?? [];
 
-// Ordenar por data de criação (mais recentes primeiro)
+// Ordenar por posição primeiro, depois por data de criação (mais recentes primeiro)
 usort($passeios, function($a, $b) {
-    return strtotime($b['data_criacao']) - strtotime($a['data_criacao']);
+    $posA = isset($a['posicao']) ? (int)$a['posicao'] : 999;
+    $posB = isset($b['posicao']) ? (int)$b['posicao'] : 999;
+    
+    // Primeiro ordena por posição
+    if ($posA !== $posB) {
+        return $posA - $posB;
+    }
+    
+    // Se posição igual, ordena por data de criação (mais recentes primeiro)
+    $dataA = isset($a['data_criacao']) ? strtotime($a['data_criacao']) : 0;
+    $dataB = isset($b['data_criacao']) ? strtotime($b['data_criacao']) : 0;
+    return $dataB - $dataA;
 });
 ?>
 <!DOCTYPE html>
@@ -181,7 +192,10 @@ usort($passeios, function($a, $b) {
     </div>
 
     <div class="container">
-        <a href="formulario-passeio.php" class="btn-novo">➕ Adicionar Novo Passeio</a>
+        <div style="display: flex; gap: 15px; margin-bottom: 30px; flex-wrap: wrap;">
+            <a href="formulario-passeio.php" class="btn-novo">➕ Adicionar Novo Passeio</a>
+            <a href="painel-testimonials.php" class="btn-novo" style="background: #e67e22;">💬 Gerenciar Depoimentos</a>
+        </div>
 
         <?php if (empty($passeios)): ?>
             <div class="empty-state">
@@ -205,7 +219,9 @@ usort($passeios, function($a, $b) {
                                 <?php 
                                 $categorias = is_array($passeio['categoria'] ?? null) ? $passeio['categoria'] : (isset($passeio['categoria']) ? [$passeio['categoria']] : []);
                                 $categoriasTexto = !empty($categorias) ? implode(', ', $categorias) : 'Sem categoria';
+                                $posicao = isset($passeio['posicao']) ? (int)$passeio['posicao'] : 999;
                                 ?>
+                                📍 Posição: <?= htmlspecialchars($posicao) ?> | 
                                 🏷️ <?= htmlspecialchars($categoriasTexto) ?> | 
                                 ⏱️ <?= htmlspecialchars($passeio['duracao']) ?>
                             </div>

@@ -63,7 +63,30 @@ class PasseiosManager {
         // Remover campos de preço se existirem
         delete p.preco;
         delete p.preco_formatado;
+        // Garantir que posição existe (default 999 para aparecer por último)
+        if (!p.posicao || p.posicao === undefined) {
+          p.posicao = 999;
+        }
         return p;
+      });
+      
+      // Ordenar por posição (menor número primeiro), depois por destaque, depois por nome
+      this.passeios.sort((a, b) => {
+        const posA = parseInt(a.posicao) || 999;
+        const posB = parseInt(b.posicao) || 999;
+        
+        // Primeiro ordena por posição
+        if (posA !== posB) {
+          return posA - posB;
+        }
+        
+        // Se posição for igual, destaque vem primeiro
+        if (a.destaque !== b.destaque) {
+          return a.destaque ? -1 : 1;
+        }
+        
+        // Se tudo igual, ordena por nome
+        return a.nome.localeCompare(b.nome);
       });
       
       return this.passeios;
@@ -188,6 +211,22 @@ class PasseiosManager {
     let passeiosFiltrados = this.passeios;
     if (filtroCategoria) {
       passeiosFiltrados = this.buscarPorCategoria(filtroCategoria);
+      
+      // Reordenar passeios filtrados por posição
+      passeiosFiltrados.sort((a, b) => {
+        const posA = parseInt(a.posicao) || 999;
+        const posB = parseInt(b.posicao) || 999;
+        
+        if (posA !== posB) {
+          return posA - posB;
+        }
+        
+        if (a.destaque !== b.destaque) {
+          return a.destaque ? -1 : 1;
+        }
+        
+        return a.nome.localeCompare(b.nome);
+      });
     }
 
     if (passeiosFiltrados.length === 0) {
@@ -217,6 +256,18 @@ class PasseiosManager {
       container.innerHTML = '<p class="no-results">Nenhum passeio em destaque no momento.</p>';
       return 0;
     }
+
+    // Ordenar destaques por posição
+    destaques.sort((a, b) => {
+      const posA = parseInt(a.posicao) || 999;
+      const posB = parseInt(b.posicao) || 999;
+      
+      if (posA !== posB) {
+        return posA - posB;
+      }
+      
+      return a.nome.localeCompare(b.nome);
+    });
 
     if (limite && Number.isFinite(limite)) {
       destaques = destaques.slice(0, limite);

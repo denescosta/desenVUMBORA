@@ -18,6 +18,7 @@ define('ADMIN_PASS', 'senha123'); // MUDE ISSO - use senha forte!
 // Caminhos
 define('DATA_PATH', '../data/passeios.json');
 define('UPLOADS_PATH', '../uploads/passeios/');
+define('TESTIMONIALS_PATH', '../data/testimonials.json');
 
 // Função para verificar se está logado
 function verificarLogin() {
@@ -94,4 +95,19 @@ function removerArquivoSeExistir($caminhoRelativo) {
     if (file_exists($caminhoAbsoluto) && is_file($caminhoAbsoluto)) {
         @unlink($caminhoAbsoluto);
     }
+}
+
+// Função para carregar depoimentos
+function carregarDepoimentos() {
+    if (!file_exists(TESTIMONIALS_PATH)) {
+        return ['testimonials' => []];
+    }
+    $json = file_get_contents(TESTIMONIALS_PATH);
+    return json_decode($json, true);
+}
+
+// Função para salvar depoimentos
+function salvarDepoimentos($data) {
+    $json = json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+    return file_put_contents(TESTIMONIALS_PATH, $json);
 }

@@ -168,6 +168,15 @@ document.addEventListener('DOMContentLoaded', async () => {
       }, 300);
     }
 
+    // Carregar depoimentos se a seção de testimonials foi carregada
+    if (pageConfig.some(config => config.id === 'testimonials' || config.path.includes('testimonials.html'))) {
+      setTimeout(() => {
+        if (typeof window.initTestimonials === 'function') {
+          window.initTestimonials();
+        }
+      }, 500);
+    }
+
     // Scroll suave para âncora após carregar seções, se necessário
     if (window.pendingScrollTarget) {
       setTimeout(() => {
