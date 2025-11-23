@@ -94,6 +94,22 @@ class TestimonialsManager {
     const duplicatedCardsHTML = this.testimonials.map(t => this.criarCardHTML(t)).join('');
 
     container.innerHTML = cardsHTML + duplicatedCardsHTML;
+    
+    // Garantir que a animação CSS seja aplicada corretamente
+    // Força o navegador a recalcular o layout
+    void container.offsetWidth;
+    
+    // Garantir que a animação não seja interrompida no mobile
+    requestAnimationFrame(() => {
+      const scrollElement = container;
+      if (scrollElement) {
+        // Remove qualquer estilo inline que possa estar interferindo
+        scrollElement.style.animation = '';
+        scrollElement.style.transform = '';
+        // Força o navegador a aplicar a animação CSS novamente
+        scrollElement.offsetHeight;
+      }
+    });
   }
 }
 

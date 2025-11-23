@@ -422,9 +422,7 @@
             "duracao": "5 horas",
             "categoria": [
                 "Praia",
-                "Aventura",
-                "Mergulhos",
-                "Destaque"
+                "Aventura"
             ],
             "destaque": true,
             "ativo": true,
@@ -432,99 +430,55 @@
             "min_pessoas": "1",
             "observacoes": "Não esqueça o protetor solar",
             "politica_criancas": "0 e 1 ano: gratuito (no colo)\r\n2 e 3 anos: R$ 115,00\r\n4 a 8 anos: R$ 160,00",
-            "data_atualizacao": "2025-11-22",
+            "posicao": 999,
+            "data_atualizacao": "2025-11-23",
             "data_criacao": "2025-11-20",
             "imagem_capa": "uploads\/passeios\/litoral-sul-teste\/691e666a7182f.png",
             "galeria": [
                 {
-                    "url": "uploads\/passeios\/litoral-sul-teste\/691e66c64c5d7.jpeg",
+                    "url": "uploads\/passeios\/litoral-sul-teste\/691e66c64c728.jpeg",
                     "alt": "Foto do passeio Litoral Sul - teste",
                     "ordem": 1
                 },
                 {
-                    "url": "uploads\/passeios\/litoral-sul-teste\/691e66c64c728.jpeg",
+                    "url": "uploads\/passeios\/litoral-sul-teste\/691e66c64c87d.jpeg",
                     "alt": "Foto do passeio Litoral Sul - teste",
                     "ordem": 2
                 },
                 {
-                    "url": "uploads\/passeios\/litoral-sul-teste\/691e66c64c87d.jpeg",
+                    "url": "uploads\/passeios\/litoral-sul-teste\/691e66c64c9bc.jpeg",
                     "alt": "Foto do passeio Litoral Sul - teste",
                     "ordem": 3
                 },
                 {
-                    "url": "uploads\/passeios\/litoral-sul-teste\/691e66c64c9bc.jpeg",
+                    "url": "uploads\/passeios\/litoral-sul-teste\/691e66c64cb08.jpeg",
                     "alt": "Foto do passeio Litoral Sul - teste",
                     "ordem": 4
                 },
                 {
-                    "url": "uploads\/passeios\/litoral-sul-teste\/691e66c64cb08.jpeg",
+                    "url": "uploads\/passeios\/litoral-sul-teste\/691e66c64cc55.jpeg",
                     "alt": "Foto do passeio Litoral Sul - teste",
                     "ordem": 5
                 },
                 {
-                    "url": "uploads\/passeios\/litoral-sul-teste\/691e66c64cc55.jpeg",
+                    "url": "uploads\/passeios\/litoral-sul-teste\/691e66c64cd72.jpeg",
                     "alt": "Foto do passeio Litoral Sul - teste",
                     "ordem": 6
                 },
                 {
-                    "url": "uploads\/passeios\/litoral-sul-teste\/691e66c64cd72.jpeg",
+                    "url": "uploads\/passeios\/litoral-sul-teste\/691e66c64ceaf.jpeg",
                     "alt": "Foto do passeio Litoral Sul - teste",
                     "ordem": 7
                 },
                 {
-                    "url": "uploads\/passeios\/litoral-sul-teste\/691e66c64ceaf.jpeg",
+                    "url": "uploads\/passeios\/litoral-sul-teste\/691e66c64d034.jpeg",
                     "alt": "Foto do passeio Litoral Sul - teste",
                     "ordem": 8
                 },
                 {
-                    "url": "uploads\/passeios\/litoral-sul-teste\/691e66c64d034.jpeg",
-                    "alt": "Foto do passeio Litoral Sul - teste",
-                    "ordem": 9
-                },
-                {
                     "url": "uploads\/passeios\/litoral-sul-teste\/691e66c64d159.jpeg",
                     "alt": "Foto do passeio Litoral Sul - teste",
-                    "ordem": 10
-                },
-                {
-                    "url": "uploads\/passeios\/litoral-sul-teste\/691e66c64d2c3.jpeg",
-                    "alt": "Foto do passeio Litoral Sul - teste",
-                    "ordem": 11
-                },
-                {
-                    "url": "uploads\/passeios\/litoral-sul-teste\/691e66c64d400.png",
-                    "alt": "Foto do passeio Litoral Sul - teste",
-                    "ordem": 12
-                },
-                {
-                    "url": "uploads\/passeios\/litoral-sul-teste\/691e66c64d50e.png",
-                    "alt": "Foto do passeio Litoral Sul - teste",
-                    "ordem": 13
-                },
-                {
-                    "url": "uploads\/passeios\/litoral-sul-teste\/691e66c64d618.png",
-                    "alt": "Foto do passeio Litoral Sul - teste",
-                    "ordem": 14
-                },
-                {
-                    "url": "uploads\/passeios\/litoral-sul-teste\/691e66c64d73d.png",
-                    "alt": "Foto do passeio Litoral Sul - teste",
-                    "ordem": 15
-                },
-                {
-                    "url": "uploads\/passeios\/litoral-sul-teste\/691e66c64d875.png",
-                    "alt": "Foto do passeio Litoral Sul - teste",
-                    "ordem": 16
-                },
-                {
-                    "url": "uploads\/passeios\/litoral-sul-teste\/691e66c64d9b3.png",
-                    "alt": "Foto do passeio Litoral Sul - teste",
-                    "ordem": 17
-                },
-                {
-                    "url": "uploads\/passeios\/litoral-sul-teste\/691e66c64dbad.png",
-                    "alt": "Foto do passeio Litoral Sul - teste",
-                    "ordem": 18
+                    "ordem": 9
                 }
             ],
             "horarios": [
