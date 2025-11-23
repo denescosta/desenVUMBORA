@@ -51,17 +51,186 @@ function criarSlug($texto) {
     return $texto;
 }
 
-// Função para upload de imagem
+// Função para corrigir orientação EXIF de imagens
+function corrigirOrientacaoImagem($caminhoImagem) {
+    if (!function_exists('exif_read_data') || !function_exists('imagecreatefromjpeg')) {
+        return false; // Extensões não disponíveis
+    }
+    
+    $extensao = strtolower(pathinfo($caminhoImagem, PATHINFO_EXTENSION));
+    if (!in_array($extensao, ['jpg', 'jpeg'])) {
+        return false; // Apenas JPEG tem EXIF
+    }
+    
+    // Ler dados EXIF
+    $exif = @exif_read_data($caminhoImagem);
+    if (!$exif || !isset($exif['Orientation'])) {
+        return false; // Sem dados de orientação
+    }
+    
+    // Carregar imagem
+    $imagem = @imagecreatefromjpeg($caminhoImagem);
+    if (!$imagem) {
+        return false;
+    }
+    
+    // Aplicar rotação baseada na orientação EXIF
+    $orientacao = $exif['Orientation'];
+    $imagemCorrigida = false;
+    
+    switch ($orientacao) {
+        case 3:
+            $imagemCorrigida = imagerotate($imagem, 180, 0);
+            break;
+        case 6:
+            $imagemCorrigida = imagerotate($imagem, -90, 0);
+            break;
+        case 8:
+            $imagemCorrigida = imagerotate($imagem, 90, 0);
+            break;
+        default:
+            imagedestroy($imagem);
+            return false; // Não precisa de correção
+    }
+    
+    if ($imagemCorrigida) {
+        imagedestroy($imagem);
+        // Salvar imagem corrigida
+        imagejpeg($imagemCorrigida, $caminhoImagem, 85);
+        imagedestroy($imagemCorrigida);
+        return true;
+    }
+    
+    imagedestroy($imagem);
+    return false;
+}
+
+// Função para redimensionar e otimizar imagem
+function otimizarImagem($caminhoImagem, $larguraMaxima = 1920, $alturaMaxima = 1920, $qualidade = 85) {
+    if (!function_exists('getimagesize') || !function_exists('imagecreatefromjpeg')) {
+        return false; // Extensões não disponíveis
+    }
+    
+    $extensao = strtolower(pathinfo($caminhoImagem, PATHINFO_EXTENSION));
+    
+    // Obter dimensões atuais
+    $info = @getimagesize($caminhoImagem);
+    if (!$info) {
+        return false;
+    }
+    
+    list($larguraAtual, $alturaAtual) = $info;
+    
+    // Verificar se precisa redimensionar
+    if ($larguraAtual <= $larguraMaxima && $alturaAtual <= $alturaMaxima) {
+        // Apenas otimizar qualidade se for JPEG
+        if (in_array($extensao, ['jpg', 'jpeg'])) {
+            $imagem = @imagecreatefromjpeg($caminhoImagem);
+            if ($imagem) {
+                imagejpeg($imagem, $caminhoImagem, $qualidade);
+                imagedestroy($imagem);
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    // Calcular novas dimensões mantendo proporção
+    $ratio = min($larguraMaxima / $larguraAtual, $alturaMaxima / $alturaAtual);
+    $novaLargura = (int)($larguraAtual * $ratio);
+    $novaAltura = (int)($alturaAtual * $ratio);
+    
+    // Carregar imagem original
+    $imagemOriginal = null;
+    switch ($extensao) {
+        case 'jpg':
+        case 'jpeg':
+            $imagemOriginal = @imagecreatefromjpeg($caminhoImagem);
+            break;
+        case 'png':
+            $imagemOriginal = @imagecreatefrompng($caminhoImagem);
+            break;
+        case 'webp':
+            if (function_exists('imagecreatefromwebp')) {
+                $imagemOriginal = @imagecreatefromwebp($caminhoImagem);
+            }
+            break;
+    }
+    
+    if (!$imagemOriginal) {
+        return false;
+    }
+    
+    // Criar nova imagem redimensionada
+    $imagemNova = imagecreatetruecolor($novaLargura, $novaAltura);
+    
+    // Preservar transparência para PNG
+    if ($extensao === 'png') {
+        imagealphablending($imagemNova, false);
+        imagesavealpha($imagemNova, true);
+        $transparente = imagecolorallocatealpha($imagemNova, 255, 255, 255, 127);
+        imagefill($imagemNova, 0, 0, $transparente);
+    }
+    
+    // Redimensionar
+    imagecopyresampled(
+        $imagemNova, $imagemOriginal,
+        0, 0, 0, 0,
+        $novaLargura, $novaAltura,
+        $larguraAtual, $alturaAtual
+    );
+    
+    // Salvar imagem otimizada
+    $sucesso = false;
+    switch ($extensao) {
+        case 'jpg':
+        case 'jpeg':
+            $sucesso = imagejpeg($imagemNova, $caminhoImagem, $qualidade);
+            break;
+        case 'png':
+            $sucesso = imagepng($imagemNova, $caminhoImagem, 8);
+            break;
+        case 'webp':
+            if (function_exists('imagewebp')) {
+                $sucesso = imagewebp($imagemNova, $caminhoImagem, $qualidade);
+            }
+            break;
+    }
+    
+    imagedestroy($imagemOriginal);
+    imagedestroy($imagemNova);
+    
+    return $sucesso;
+}
+
+// Função para upload de imagem (melhorada para fotos de celular)
 function uploadImagem($arquivo, $pasta) {
     $extensoes = ['jpg', 'jpeg', 'png', 'webp'];
     $extensao = strtolower(pathinfo($arquivo['name'], PATHINFO_EXTENSION));
     
     if (!in_array($extensao, $extensoes)) {
-        return ['erro' => 'Formato não permitido'];
+        return ['erro' => 'Formato não permitido. Use JPG, PNG ou WEBP'];
     }
     
-    if ($arquivo['size'] > 5000000) { // 5MB
-        return ['erro' => 'Arquivo muito grande'];
+    // Aumentado para 10MB para acomodar fotos de celular
+    if ($arquivo['size'] > 10485760) { // 10MB
+        return ['erro' => 'Arquivo muito grande. Máximo: 10MB'];
+    }
+    
+    // Validar tipo MIME real
+    $finfo = finfo_open(FILEINFO_MIME_TYPE);
+    $mimeType = finfo_file($finfo, $arquivo['tmp_name']);
+    finfo_close($finfo);
+    
+    $mimesPermitidos = [
+        'image/jpeg',
+        'image/jpg',
+        'image/png',
+        'image/webp'
+    ];
+    
+    if (!in_array($mimeType, $mimesPermitidos)) {
+        return ['erro' => 'Tipo de arquivo inválido'];
     }
     
     if (!is_dir($pasta)) {
@@ -71,11 +240,21 @@ function uploadImagem($arquivo, $pasta) {
     $nomeArquivo = uniqid() . '.' . $extensao;
     $caminhoCompleto = $pasta . $nomeArquivo;
     
-    if (move_uploaded_file($arquivo['tmp_name'], $caminhoCompleto)) {
-        return ['sucesso' => true, 'caminho' => $caminhoCompleto];
+    // Mover arquivo temporário
+    if (!move_uploaded_file($arquivo['tmp_name'], $caminhoCompleto)) {
+        return ['erro' => 'Erro ao fazer upload'];
     }
     
-    return ['erro' => 'Erro ao fazer upload'];
+    // Processar imagem: corrigir orientação e otimizar
+    // 1. Corrigir orientação EXIF (para fotos de celular)
+    if (in_array($extensao, ['jpg', 'jpeg'])) {
+        corrigirOrientacaoImagem($caminhoCompleto);
+    }
+    
+    // 2. Redimensionar e otimizar (máximo 1920x1920px, qualidade 85%)
+    otimizarImagem($caminhoCompleto, 1920, 1920, 85);
+    
+    return ['sucesso' => true, 'caminho' => $caminhoCompleto];
 }
 
 function normalizarCaminhoUpload($caminho) {
