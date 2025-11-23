@@ -128,6 +128,13 @@ class TestimonialsManager {
                   
                   // Forçar reflow final para garantir que a animação seja aplicada
                   void container.offsetWidth;
+                  
+                  // Adicionar funcionalidade de pausar no touch (mobile)
+                  // Usar bind para garantir o contexto correto
+                  const manager = this;
+                  setTimeout(() => {
+                    manager.setupTouchPause(container);
+                  }, 100);
                 } else {
                   // Se as dimensões ainda não estiverem corretas, tentar novamente
                   setTimeout(initAnimation, 150);
@@ -148,6 +155,83 @@ class TestimonialsManager {
     // Iniciar o processo de verificação após um pequeno delay
     // para garantir que o DOM foi atualizado
     setTimeout(initAnimation, 100);
+  }
+
+  setupTouchPause(container) {
+    // Encontrar o wrapper dos testimonials
+    const wrapper = container.closest('.testimonials-scroll-wrapper');
+    if (!wrapper) {
+      console.warn('⚠️ Wrapper de testimonials não encontrado');
+      return;
+    }
+
+    // Variável para controlar se está pausado
+    let isPaused = false;
+    let pauseTimeout = null;
+
+    // Função para pausar a animação
+    const pauseAnimation = () => {
+      if (container.classList.contains('animation-ready') && !isPaused) {
+        // Pausar usando style inline com !important via setProperty
+        container.style.setProperty('animation-play-state', 'paused', 'important');
+        container.style.setProperty('-webkit-animation-play-state', 'paused', 'important');
+        isPaused = true;
+        
+        // Limpar timeout anterior se existir
+        if (pauseTimeout) {
+          clearTimeout(pauseTimeout);
+          pauseTimeout = null;
+        }
+      }
+    };
+
+    // Função para retomar a animação
+    const resumeAnimation = () => {
+      if (container.classList.contains('animation-ready') && isPaused) {
+        // Remover o style inline para voltar ao CSS
+        container.style.removeProperty('animation-play-state');
+        container.style.removeProperty('-webkit-animation-play-state');
+        isPaused = false;
+      }
+    };
+
+    // Pausar ao tocar (touchstart) - adicionar em múltiplos elementos para garantir
+    wrapper.addEventListener('touchstart', pauseAnimation, { passive: true });
+    container.addEventListener('touchstart', pauseAnimation, { passive: true });
+    
+    // Pausar no mouseenter (para desktop) - o CSS já cuida disso, mas vamos garantir
+    wrapper.addEventListener('mouseenter', pauseAnimation, { passive: true });
+    
+    // Retomar ao soltar (touchend) com um pequeno delay para melhor UX
+    const handleTouchEnd = () => {
+      // Limpar timeout anterior
+      if (pauseTimeout) {
+        clearTimeout(pauseTimeout);
+      }
+      // Retomar após 500ms
+      pauseTimeout = setTimeout(() => {
+        resumeAnimation();
+        pauseTimeout = null;
+      }, 500);
+    };
+    
+    wrapper.addEventListener('touchend', handleTouchEnd, { passive: true });
+    container.addEventListener('touchend', handleTouchEnd, { passive: true });
+
+    // Retomar no mouseleave (para desktop)
+    wrapper.addEventListener('mouseleave', resumeAnimation, { passive: true });
+
+    // Também retomar se o usuário sair da área (touchcancel)
+    const handleTouchCancel = () => {
+      if (pauseTimeout) {
+        clearTimeout(pauseTimeout);
+        pauseTimeout = null;
+      }
+      resumeAnimation();
+    };
+    
+    wrapper.addEventListener('touchcancel', handleTouchCancel, { passive: true });
+    container.addEventListener('touchcancel', handleTouchCancel, { passive: true });
   }
 }
 
