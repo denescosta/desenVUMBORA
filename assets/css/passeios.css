@@ -32,7 +32,7 @@
 
 .catalogo-description {
   font-size: 1.2rem;
-  color: #666;
+  color: #58371b;
   max-width: 700px;
   margin: 0 auto;
   line-height: 1.6;
@@ -65,7 +65,7 @@
 }
 
 .carousel-btn {
-  background: #333;
+  background: #825436;
   color: white;
   border: none;
   border-radius: 50%;
@@ -132,7 +132,7 @@
   border-radius: 50px;
   font-size: 1rem;
   font-weight: 600;
-  color: #555;
+  color: #58371b;
   cursor: pointer;
   transition: all 0.3s ease;
 }
@@ -190,7 +190,7 @@
   text-align: center;
   padding: 60px 20px;
   font-size: 1.1rem;
-  color: #555;
+  color: #58371b;
 }
 
 /* ========== TOUR CARDS ========== */
@@ -275,7 +275,7 @@
 }
 
 .tour-description {
-  color: #555;
+  color: #58371b;
   font-size: 0.95rem;
   line-height: 1.6;
   margin-bottom: 20px;
@@ -294,7 +294,7 @@
   display: flex;
   align-items: center;
   gap: 6px;
-  color: #666;
+  color: #58371b;
   font-size: 0.9rem;
 }
 
@@ -669,7 +669,7 @@
 
 /* Botões do Carrossel da Galeria */
 .galeria-carousel-btn {
-  background: #333;
+  background: #58371b;
   color: white;
   border: none;
   border-radius: 50%;
@@ -777,7 +777,7 @@
 
 .info-label {
   font-size: 0.85rem;
-  color: #666;
+  color: #58371b;
   margin-bottom: 3px;
 }
 
@@ -855,7 +855,7 @@
 .passeio-descricao-completa p {
   font-size: 1.1rem;
   line-height: 1.8;
-  color: #555;
+  color: #58371b;
 }
 
 /* Grid - O que está incluído / não incluído / Política de Crianças */
@@ -892,7 +892,7 @@
   padding: 10px 0;
   padding-left: 30px;
   position: relative;
-  color: #555;
+  color: #58371b;
   line-height: 1.6;
 }
 
@@ -917,7 +917,7 @@
 
 .inclui-card.politica-criancas p {
   padding: 10px 0;
-  color: #555;
+  color: #58371b;
   line-height: 1.6;
   margin: 0;
 }
@@ -1329,7 +1329,7 @@
 .politica-section p {
   margin: 0 0 12px;
   line-height: 1.7;
-  color: #555;
+  color: #58371b;
 }
 
 .politica-section ul {
@@ -1340,7 +1340,7 @@
 .politica-section li {
   margin-bottom: 8px;
   line-height: 1.7;
-  color: #555;
+  color: #58371b;
 }
 
 .politica-section li strong {

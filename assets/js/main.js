@@ -38,6 +38,278 @@ function animateOnScroll() {
   });
 }
 
+// Função global para substituir emojis por ícones SVG em todo o site
+function replaceEmojisWithIconsGlobal() {
+  // Mapeamento completo de emojis para nomes de ícones
+  const emojiToIcon = {
+    '🔍': 'search',
+    '💬': 'message',
+    '📋': 'document',
+    '🎉': 'celebration',
+    '⏰': 'clock',
+    '⏱️': 'clock',
+    '👥': 'users',
+    '💳': 'creditCard',
+    '📱': 'smartphone',
+    '📧': 'mail',
+    '📍': 'mapPin',
+    '📸': 'camera',
+    '✅': 'check',
+    '❌': 'x',
+    '👶': 'baby',
+    '⚠️': 'alert',
+    '❓': 'help',
+    '📝': 'edit',
+    '🎯': 'target',
+    '🚐': 'van',
+    '🚌': 'bus',
+    '⭐': 'star',
+    '🗺️': 'map',
+    '📞': 'phone',
+    '🛡️': 'shield',
+    '✨': 'sparkle',
+    '💰': 'dollar',
+    '✈️': 'plane',
+    '🏖️': 'beach',
+    '🏨': 'hotel',
+    '🚗': 'car',
+    '🧳': 'suitcase',
+    '❤️': 'heart',
+    '🏛️': 'building',
+    '🏎️': 'raceCar',
+    '🏍️': 'motorcycle',
+    '👨‍✈️': 'pilot',
+    '🚙': 'suv',
+    '🤿': 'snorkel',
+    '⚡': 'lightning',
+    '👨‍👩‍👧‍👦': 'family',
+    '🌟': 'starBright',
+    '🔒': 'lock',
+    '📷': 'camera',
+    '🤝': 'handshake',
+    '🌿': 'leaf'
+  };
+
+  // Função auxiliar para verificar se o ícone está disponível
+  function waitForIcons(callback, maxAttempts = 10) {
+    let attempts = 0;
+    const checkInterval = setInterval(() => {
+      attempts++;
+      if (typeof window.getIcon === 'function' && typeof window.Icons === 'object') {
+        clearInterval(checkInterval);
+        callback();
+      } else if (attempts >= maxAttempts) {
+        clearInterval(checkInterval);
+        console.warn('Biblioteca de ícones não carregada após', maxAttempts, 'tentativas');
+      }
+    }, 100);
+  }
+
+  waitForIcons(() => {
+    // 1. Substituir emojis em containers de ícones grandes (cards, etc)
+    const iconContainers = document.querySelectorAll('[class*="icon"], [class*="Icon"]');
+    iconContainers.forEach(container => {
+      // Verificar se já foi substituído (contém SVG)
+      if (container.querySelector('svg')) {
+        return;
+      }
+      
+      const text = container.textContent.trim();
+      const iconName = emojiToIcon[text];
+      
+      if (iconName && window.getIcon) {
+        // Detectar tamanho baseado no contexto
+        let size = 24;
+        const computedStyle = window.getComputedStyle(container);
+        const fontSize = parseFloat(computedStyle.fontSize);
+        
+        // Containers grandes (cards, etc)
+        if (container.classList.contains('about-card-icon') || 
+            container.classList.contains('card-icon') ||
+            fontSize > 40) {
+          size = Math.round(fontSize) || 64;
+          const iconSvg = window.getIcon(iconName, { 
+            size: size,
+            className: 'icon-svg-large'
+          });
+          if (iconSvg) {
+            container.innerHTML = iconSvg;
+          }
+        }
+        // Containers médios
+        else if (fontSize > 20) {
+          size = Math.round(fontSize) || 32;
+          const iconSvg = window.getIcon(iconName, { 
+            size: size,
+            className: 'icon-svg-medium'
+          });
+          if (iconSvg) {
+            container.innerHTML = iconSvg;
+          }
+        }
+      }
+    });
+
+    // 2. Substituir emojis em botões
+    const buttons = document.querySelectorAll('button, a.btn, .btn, [class*="btn"]');
+    buttons.forEach(button => {
+      // Verificar se já foi substituído
+      if (button.querySelector('svg')) {
+        return;
+      }
+      
+      const text = button.textContent || button.innerHTML;
+      let hasEmoji = false;
+      let newContent = text;
+      
+      for (const [emoji, iconName] of Object.entries(emojiToIcon)) {
+        if (text.includes(emoji)) {
+          hasEmoji = true;
+          const iconSvg = window.getIcon(iconName, { 
+            size: 18,
+            className: 'btn-icon'
+          });
+          if (iconSvg) {
+            newContent = newContent.replace(new RegExp(emoji, 'g'), iconSvg);
+          }
+        }
+      }
+      
+      if (hasEmoji) {
+        button.innerHTML = newContent;
+      }
+    });
+
+    // 3. Substituir emojis em textos inline (parágrafos, spans, etc)
+    // Apenas em elementos que não são containers de ícones
+    const textSelectors = 'p, span, h1, h2, h3, h4, h5, h6, li, td, th, label, div:not([class*="icon"]):not([class*="Icon"])';
+    const textElements = document.querySelectorAll(textSelectors);
+    textElements.forEach(element => {
+      // Pular se é um container de ícone específico
+      if (element.classList.contains('about-card-icon') ||
+          element.classList.contains('card-icon') ||
+          (element.closest('[class*="icon"]') && !element.closest('[class*="icon-color"]'))) {
+        return;
+      }
+      
+      const text = element.textContent || '';
+      const innerHTML = element.innerHTML || '';
+      
+      // Verificar rapidamente se há algum emoji no HTML antes de processar
+      let hasAnyEmoji = false;
+      for (const emoji of Object.keys(emojiToIcon)) {
+        // Verificar tanto no texto quanto no HTML (para pegar emojis não processados)
+        if (innerHTML.includes(emoji) || text.includes(emoji)) {
+          hasAnyEmoji = true;
+          break;
+        }
+      }
+      
+      if (!hasAnyEmoji) {
+        return;
+      }
+      
+      // Processar emojis mesmo se já tiver SVG (pode ter sido inserido dinamicamente)
+      let hasEmoji = false;
+      let newHTML = innerHTML;
+      
+      for (const [emoji, iconName] of Object.entries(emojiToIcon)) {
+        // Verificar se o emoji ainda está no HTML (não foi substituído)
+        if (newHTML.includes(emoji)) {
+          hasEmoji = true;
+          const iconSvg = window.getIcon(iconName, { 
+            size: 20,
+            className: 'inline-icon'
+          });
+          if (iconSvg) {
+            // Escapar caracteres especiais do emoji para regex
+            const escapedEmoji = emoji.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+            // Substituir emoji no HTML preservando outras tags
+            newHTML = newHTML.replace(new RegExp(escapedEmoji, 'g'), iconSvg);
+          }
+        }
+      }
+      
+      if (hasEmoji) {
+        element.innerHTML = newHTML;
+      }
+    });
+  });
+}
+
+// Função legada para compatibilidade (mantém funcionamento da seção about)
+function injectIconsInAboutSection() {
+  replaceEmojisWithIconsGlobal();
+}
+
+// Função auxiliar para forçar substituição de emojis (sem verificar se já foi processado)
+function forceReplaceEmojis() {
+  if (typeof window.getIcon !== 'function' || typeof window.Icons !== 'object') {
+    return;
+  }
+
+  const emojiToIcon = {
+    '🔍': 'search', '💬': 'message', '📋': 'document', '🎉': 'celebration', '⏰': 'clock', '⏱️': 'clock',
+    '👥': 'users', '💳': 'creditCard', '📱': 'smartphone', '📧': 'mail', '📍': 'mapPin', '📸': 'camera',
+    '✅': 'check', '❌': 'x', '👶': 'baby', '⚠️': 'alert', '❓': 'help', '📝': 'edit', '🎯': 'target',
+    '🚐': 'van', '🚌': 'bus', '⭐': 'star', '🗺️': 'map', '📞': 'phone', '🛡️': 'shield', '✨': 'sparkle',
+    '💰': 'dollar', '✈️': 'plane', '🏖️': 'beach', '🏨': 'hotel', '🚗': 'car', '🧳': 'suitcase',
+    '❤️': 'heart', '🏛️': 'building', '🏎️': 'raceCar', '🏍️': 'motorcycle', '👨‍✈️': 'pilot', '🚙': 'suv',
+    '🤿': 'snorkel', '⚡': 'lightning', '👨‍👩‍👧‍👦': 'family', '🌟': 'starBright', '🔒': 'lock', '📷': 'camera',
+    '🤝': 'handshake', '🌿': 'leaf'
+  };
+
+  // Processar apenas elementos de texto relevantes (não todos os elementos)
+  const textSelectors = 'p, span, h1, h2, h3, h4, h5, h6, li, td, th, label, button, a, div:not(script):not(style)';
+  const elements = document.querySelectorAll(textSelectors);
+  
+  elements.forEach(element => {
+    // Pular elementos que não devem ser processados
+    if (element.tagName === 'SCRIPT' || element.tagName === 'STYLE' || 
+        element.closest('script') || element.closest('style') ||
+        element.classList.contains('about-card-icon') ||
+        element.classList.contains('card-icon')) {
+      return;
+    }
+
+    const innerHTML = element.innerHTML || '';
+    if (!innerHTML) return;
+
+    let hasEmoji = false;
+    let newHTML = innerHTML;
+
+    for (const [emoji, iconName] of Object.entries(emojiToIcon)) {
+      if (newHTML.includes(emoji)) {
+        hasEmoji = true;
+        const iconSvg = window.getIcon(iconName, { 
+          size: 20,
+          className: 'inline-icon'
+        });
+        if (iconSvg) {
+          const escapedEmoji = emoji.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+          newHTML = newHTML.replace(new RegExp(escapedEmoji, 'g'), iconSvg);
+        }
+      }
+    }
+
+    if (hasEmoji) {
+      element.innerHTML = newHTML;
+    }
+  });
+}
+
+// Exportar função auxiliar
+if (typeof window !== 'undefined') {
+  window.forceReplaceEmojis = forceReplaceEmojis;
+}
+
+// Listener para quando conteúdo for carregado dinamicamente
+document.addEventListener('contentLoaded', () => {
+  setTimeout(() => {
+    replaceEmojisWithIconsGlobal();
+  }, 100);
+});
+
 // Função para manipular formulários
 async function handleFormSubmit(event) {
   event.preventDefault();
@@ -906,6 +1178,7 @@ document.addEventListener('DOMContentLoaded', () => {
     toggleSidebar(); // <-- Adiciona inicialização do sidebar
     initPageSpecificFeatures();
     initToursSection(); // <-- Inicializa os destaques de passeios
+    replaceEmojisWithIconsGlobal(); // <-- Substitui emojis por ícones SVG em todo o site
 
     // Handler para links do nav que apontam para âncoras (ex: Feedbacks -> #testimonials)
     const navLinks = document.querySelectorAll('nav.main-nav a, .sidebar a');

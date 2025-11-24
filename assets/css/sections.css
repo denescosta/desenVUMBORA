@@ -74,7 +74,7 @@ h2 {
   line-height: 1.1;
   text-align: justify;
   color: #ffffff;
-  text-shadow: 0px 0px 20px #000000;
+  text-shadow: 0px 0px 20px #58371b;
 
 }
 
@@ -84,7 +84,7 @@ h2 {
   opacity: 0.9;
   animation: fadeInUp 1s ease 0.3s both;
   color: #ffffff;
-  text-shadow: 0px 0px 20px #000000;
+  text-shadow: 0px 0px 20px #58371b;
   text-align: left;
 }
 
@@ -165,7 +165,7 @@ h2 {
 
 .about-subtitle {
   font-size: 1.2rem;
-  color: #666;
+  color: #58371b;
   max-width: 700px;
   margin: 0 auto;
   line-height: 1.6;
@@ -233,7 +233,18 @@ h2 {
 .about-card-icon {
   font-size: 4rem;
   margin: 20px 0 20px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 64px;
+  line-height: 1;
+}
+
+.about-card-icon svg.about-card-icon-svg {
+  width: 64px;
+  height: 64px;
   display: block;
+  flex-shrink: 0;
 }
 
 .about-card h3 {
@@ -245,7 +256,7 @@ h2 {
 
 .about-card p {
   font-size: 1rem;
-  color: #666;
+  color: #58371b;
   line-height: 1.7;
   margin: 0 0 20px 0;
 }
@@ -345,6 +356,12 @@ h2 {
 
   .about-card-icon {
     font-size: 3.5rem;
+    min-height: 56px;
+  }
+
+  .about-card-icon svg.about-card-icon-svg {
+    width: 56px;
+    height: 56px;
   }
 
   .about-card h3 {
@@ -388,6 +405,12 @@ h2 {
   .about-card-icon {
     font-size: 3rem;
     margin: 15px 0 15px 0;
+    min-height: 48px;
+  }
+
+  .about-card-icon svg.about-card-icon-svg {
+    width: 48px;
+    height: 48px;
   }
 
   .about-card h3 {
@@ -443,6 +466,12 @@ h2 {
   .about-card-icon {
     font-size: 2.5rem;
     margin: 12px 0 12px 0;
+    min-height: 40px;
+  }
+
+  .about-card-icon svg.about-card-icon-svg {
+    width: 40px;
+    height: 40px;
   }
 
   .about-card h3 {
@@ -486,6 +515,12 @@ h2 {
 
   .about-card-icon {
     font-size: 2.2rem;
+    min-height: 35px;
+  }
+
+  .about-card-icon svg.about-card-icon-svg {
+    width: 35px;
+    height: 35px;
   }
 
   .about-card h3 {
@@ -552,7 +587,7 @@ h2 {
 }
 
 .service-item p {
-  color: #666;
+  color: #58371b;
   line-height: 1.6;
 }
 
@@ -1524,7 +1559,7 @@ h2 {
 
 .about-us-subtitle {
   font-size: 1.3rem;
-  color: #666;
+  color: #58371b;
   max-width: 700px;
   margin: 0 auto;
   line-height: 1.6;
@@ -1582,7 +1617,7 @@ h2 {
 .about-us-text p {
   font-size: 1.1rem;
   line-height: 1.8;
-  color: #555;
+  color: #58371b;
 }
 
 .about-us-image {
@@ -1644,6 +1679,7 @@ h2 {
 .value-icon {
   font-size: 3rem;
   margin-bottom: 20px;
+  justify-items: center;
 }
 
 .value-card h3 {
@@ -1654,7 +1690,7 @@ h2 {
 
 .value-card p {
   font-size: 1rem;
-  color: #666;
+  color: #58371b;
   line-height: 1.6;
 }
 
@@ -1673,6 +1709,7 @@ h2 {
 .feature-icon {
   font-size: 2.5rem;
   margin-bottom: 20px;
+  justify-items: center;
 }
 
 .feature-item h3 {
@@ -1683,7 +1720,7 @@ h2 {
 
 .feature-item p {
   font-size: 1rem;
-  color: #666;
+  color: #58371b;
   line-height: 1.6;
 }
 
@@ -1885,7 +1922,7 @@ h2 {
 
 .contact-subtitle {
   font-size: 1.3rem;
-  color: #666;
+  color: #58371b;
   max-width: 700px;
   margin: 0 auto;
   line-height: 1.6;
@@ -2035,7 +2072,7 @@ h2 {
 
 .info-content p {
   font-size: 1rem;
-  color: #666;
+  color: #58371b;
   line-height: 1.6;
   margin: 0;
 }
@@ -2217,7 +2254,7 @@ h2 {
 
 .como-funciona-subtitle {
   font-size: 1.3rem;
-  color: #666;
+  color: #58371b;
   max-width: 700px;
   margin: 0 auto;
   line-height: 1.6;
@@ -2270,6 +2307,7 @@ h2 {
 .etapa-icon {
   font-size: 3.5rem;
   margin: 20px 0 20px 0;
+  justify-items: center;
 }
 
 .etapa-card h3 {
@@ -2281,7 +2319,7 @@ h2 {
 
 .etapa-card p {
   font-size: 1rem;
-  color: #666;
+  color: #58371b;
   line-height: 1.7;
   margin-bottom: 20px;
 }
@@ -2345,6 +2383,7 @@ h2 {
 .info-item-icon {
   font-size: 2.5rem;
   margin-bottom: 15px;
+  justify-items: center;
 }
 
 .info-item-card h3 {
@@ -2355,7 +2394,7 @@ h2 {
 
 .info-item-card p {
   font-size: 0.95rem;
-  color: #666;
+  color: #58371b;
   line-height: 1.6;
 }
 
@@ -2397,6 +2436,136 @@ h2 {
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(88, 55, 27, 0.4);
   background: linear-gradient(135deg, #6b4528 0%, #a06a4a 100%);
+}
+
+.btn-como-funciona svg.btn-icon {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 6px;
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+}
+
+/* Estilos globais para ícones SVG injetados */
+svg.inline-icon {
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0 4px;
+  flex-shrink: 0;
+}
+
+svg.icon-svg-large {
+  display: block;
+  flex-shrink: 0;
+}
+
+svg.icon-svg-medium {
+  display: block;
+  flex-shrink: 0;
+}
+
+svg.btn-icon {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 6px;
+  flex-shrink: 0;
+}
+
+/* ============================================
+   CONTROLE DE CORES DOS ÍCONES SVG
+   ============================================ */
+
+/* Cor padrão para todos os ícones SVG */
+svg {
+  color: inherit;
+  /* Herda a cor do elemento pai */
+}
+
+/* Classe para mudar a cor de um ícone específico (tem precedência sobre body) */
+.icon-color-primary svg,
+.icon-color-primary svg *,
+body.icon-theme-primary .icon-color-primary svg,
+body.icon-theme-primary .icon-color-primary svg *,
+body.icon-theme-secondary .icon-color-primary svg,
+body.icon-theme-secondary .icon-color-primary svg * {
+  color: #58371b !important;
+  stroke: #58371b !important;
+  fill: #58371b !important;
+}
+
+.icon-color-secondary svg,
+.icon-color-secondary svg *,
+body.icon-theme-primary .icon-color-secondary svg,
+body.icon-theme-primary .icon-color-secondary svg *,
+body.icon-theme-secondary .icon-color-secondary svg,
+body.icon-theme-secondary .icon-color-secondary svg * {
+  color: #e08e2b !important;
+  stroke: #e08e2b !important;
+  fill: #e08e2b !important;
+}
+
+.icon-color-white svg,
+.icon-color-white svg *,
+body.icon-theme-primary .icon-color-white svg,
+body.icon-theme-primary .icon-color-white svg *,
+body.icon-theme-secondary .icon-color-white svg,
+body.icon-theme-secondary .icon-color-white svg * {
+  color: #ffffff !important;
+  stroke: #ffffff !important;
+  fill: #ffffff00 !important;
+}
+
+.icon-color-dark svg,
+.icon-color-dark svg *,
+body.icon-theme-primary .icon-color-dark svg,
+body.icon-theme-primary .icon-color-dark svg *,
+body.icon-theme-secondary .icon-color-dark svg,
+body.icon-theme-secondary .icon-color-dark svg * {
+  color: #333333 !important;
+  stroke: #333333 !important;
+  fill: #333333 !important;
+}
+
+.icon-color-light svg,
+.icon-color-light svg *,
+body.icon-theme-primary .icon-color-light svg,
+body.icon-theme-primary .icon-color-light svg *,
+body.icon-theme-secondary .icon-color-light svg,
+body.icon-theme-secondary .icon-color-light svg * {
+  color: #58371b666 !important;
+  stroke: #58371b666 !important;
+  fill: #58371b666 !important;
+}
+
+/* Aplicar cor a todos os ícones dentro de um container */
+.icon-container-primary svg,
+.icon-container-primary svg * {
+  color: #58371b !important;
+  stroke: #58371b !important;
+  fill: #58371b !important;
+}
+
+.icon-container-secondary svg,
+.icon-container-secondary svg * {
+  color: #e08e2b !important;
+  stroke: #e08e2b !important;
+  fill: #e08e2b !important;
+}
+
+/* Para mudar TODOS os ícones do site de uma vez, adicione uma classe ao body */
+body.icon-theme-primary svg,
+body.icon-theme-primary svg * {
+  color: #58371b !important;
+  stroke: #58371b !important;
+  fill: #58371b00 !important;
+}
+
+body.icon-theme-secondary svg,
+body.icon-theme-secondary svg * {
+  color: #e08e2b !important;
+  stroke: #e08e2b !important;
+  fill: #e08e2b !important;
 }
 
 /* Responsive - Como Funciona Page */
@@ -2505,7 +2674,7 @@ h2 {
 
 .servicos-description {
   font-size: 1.2rem;
-  color: #666;
+  color: #58371b;
   max-width: 700px;
   margin: 0 auto;
   line-height: 1.6;
@@ -2555,6 +2724,7 @@ h2 {
 .servico-icon {
   font-size: 4rem;
   margin-bottom: 20px;
+  justify-items: center;
 }
 
 .servico-card h3 {
@@ -2566,7 +2736,7 @@ h2 {
 
 .servico-card p {
   font-size: 1rem;
-  color: #555;
+  color: #58371b;
   line-height: 1.7;
   margin-bottom: 20px;
 }
@@ -2580,7 +2750,7 @@ h2 {
 
 .servico-features li {
   font-size: 0.95rem;
-  color: #666;
+  color: #58371b;
   padding: 8px 0;
   line-height: 1.6;
 }
@@ -2650,7 +2820,7 @@ h2 {
 
 .servicos-page-subtitle {
   font-size: 1.3rem;
-  color: #666;
+  color: #58371b;
   max-width: 700px;
   margin: 0 auto;
   line-height: 1.6;
@@ -2681,7 +2851,7 @@ h2 {
 .servicos-intro-content p {
   font-size: 1.1rem;
   line-height: 1.8;
-  color: #555;
+  color: #58371b;
   margin-bottom: 20px;
 }
 
@@ -2730,13 +2900,13 @@ h2 {
 .servico-detalhado-text {
   display: flex;
   flex-direction: column;
-  gap: 18px;
 }
 
 .servico-detalhado-icon {
   font-size: 3.5rem;
   margin-bottom: 15px;
   line-height: 1;
+  justify-items: center;
 }
 
 .servico-detalhado-text .section-title {
@@ -2744,12 +2914,16 @@ h2 {
   color: #58371b;
   margin-bottom: 15px;
   line-height: 1.2;
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  align-items: center;
 }
 
 .servico-detalhado-text p {
   font-size: 1.05rem;
   line-height: 1.7;
-  color: #555;
+  color: #58371b;
   margin-bottom: 5px;
 }
 
@@ -2772,11 +2946,11 @@ h2 {
 
 .servico-lista li {
   font-size: 0.95rem;
-  color: #555;
+  color: #58371b;
   padding: 6px 0;
   padding-left: 25px;
   position: relative;
-  line-height: 1.6;
+  line-height: 1;
 }
 
 .servico-lista li::before {
@@ -2839,7 +3013,7 @@ h2 {
 .servicos-personalizados-text {
   font-size: 1.1rem;
   line-height: 1.8;
-  color: #555;
+  color: #58371b;
   max-width: 800px;
   margin: 0 auto 50px;
 }
@@ -2874,6 +3048,7 @@ h2 {
 .personalizado-icon {
   font-size: 3rem;
   margin-bottom: 20px;
+  justify-items: center;
 }
 
 .personalizado-item h3 {
@@ -2885,7 +3060,7 @@ h2 {
 
 .personalizado-item p {
   font-size: 0.95rem;
-  color: #666;
+  color: #58371b;
   line-height: 1.6;
   flex-grow: 1;
 }
@@ -2924,6 +3099,7 @@ h2 {
 .beneficio-icon {
   font-size: 3rem;
   margin-bottom: 20px;
+  justify-items: center;
 }
 
 .beneficio-card h3 {
@@ -2935,7 +3111,7 @@ h2 {
 
 .beneficio-card p {
   font-size: 0.95rem;
-  color: #666;
+  color: #58371b;
   line-height: 1.6;
   flex-grow: 1;
 }
@@ -3189,7 +3365,7 @@ h2 {
 
 .transfers-description {
   font-size: 1.2rem;
-  color: #666;
+  color: #58371b;
   max-width: 700px;
   margin: 0 auto;
   line-height: 1.6;
@@ -3239,6 +3415,7 @@ h2 {
 .transfer-icon {
   font-size: 4rem;
   margin-bottom: 20px;
+  justify-items: center;
 }
 
 .transfer-card h3 {
@@ -3250,7 +3427,7 @@ h2 {
 
 .transfer-card p {
   font-size: 1rem;
-  color: #555;
+  color: #58371b;
   line-height: 1.7;
   margin-bottom: 20px;
 }
@@ -3264,7 +3441,7 @@ h2 {
 
 .transfer-features li {
   font-size: 0.95rem;
-  color: #666;
+  color: #58371b;
   padding: 8px 0;
   line-height: 1.6;
 }
@@ -3334,7 +3511,7 @@ h2 {
 
 .transfers-page-subtitle {
   font-size: 1.3rem;
-  color: #666;
+  color: #58371b;
   max-width: 700px;
   margin: 0 auto;
   line-height: 1.6;
@@ -3360,7 +3537,7 @@ h2 {
 .transfers-intro-content p {
   font-size: 1.1rem;
   line-height: 1.8;
-  color: #555;
+  color: #58371b;
   margin-bottom: 20px;
 }
 
@@ -3428,7 +3605,7 @@ h2 {
 .transfer-detalhado-text p {
   font-size: 1.05rem;
   line-height: 1.7;
-  color: #555;
+  color: #58371b;
   margin-bottom: 5px;
 }
 
@@ -3451,7 +3628,7 @@ h2 {
 
 .transfer-lista li {
   font-size: 0.95rem;
-  color: #555;
+  color: #58371b;
   padding: 6px 0;
   padding-left: 25px;
   position: relative;
@@ -3518,7 +3695,7 @@ h2 {
 .transfers-rotas-text {
   font-size: 1.1rem;
   line-height: 1.8;
-  color: #555;
+  color: #58371b;
   max-width: 800px;
   margin: 0 auto 50px;
 }
@@ -3550,6 +3727,7 @@ h2 {
 .rota-icon {
   font-size: 3rem;
   margin-bottom: 20px;
+  justify-items: center;
 }
 
 .rota-item h3 {
@@ -3561,7 +3739,7 @@ h2 {
 
 .rota-item p {
   font-size: 0.95rem;
-  color: #666;
+  color: #58371b;
   line-height: 1.6;
   flex-grow: 1;
 }

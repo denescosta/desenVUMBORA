@@ -41,7 +41,7 @@ body {
 .pagina-contato p,
 .pagina-sobre p,
 .pagina-portifolio p {
-  color: #555;
+  color: #58371b;
   font-size: 1.1rem;
   margin-bottom: 18px;
 }
@@ -74,7 +74,7 @@ body {
 
 .pagina-portifolio .projeto p {
   margin-bottom: 0;
-  color: #666;
+  color: #58371b;
   font-size: 1rem;
 }
 
