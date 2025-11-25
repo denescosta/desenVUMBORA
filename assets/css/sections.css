@@ -1678,9 +1678,11 @@ h2 {
 
 .value-icon {
   font-size: 3rem;
-  margin-bottom: 20px !important;
-  display: block;
-  margin: 0 auto 20px auto;
+  margin: 20px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
 }
 
 .value-card h3 {
@@ -1709,9 +1711,11 @@ h2 {
 
 .feature-icon {
   font-size: 2.5rem;
-  margin-bottom: 20px !important;
-  display: block;
-  margin: 0 auto 20px auto;
+  margin: 20px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
 }
 
 .feature-item h3 {
@@ -2308,8 +2312,11 @@ h2 {
 
 .etapa-icon {
   font-size: 3.5rem;
-  display: block;
-  margin: 20px auto;
+  margin: 20px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
 }
 
 .etapa-card h3 {
@@ -2384,9 +2391,11 @@ h2 {
 
 .info-item-icon {
   font-size: 2.5rem;
-  margin-bottom: 15px !important;
-  display: block;
-  margin: 0 auto 15px auto;
+  margin: 15px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
 }
 
 .info-item-card h3 {
@@ -2536,9 +2545,9 @@ body.icon-theme-primary .icon-color-light svg,
 body.icon-theme-primary .icon-color-light svg *,
 body.icon-theme-secondary .icon-color-light svg,
 body.icon-theme-secondary .icon-color-light svg * {
-  color: #58371b666 !important;
-  stroke: #58371b666 !important;
-  fill: #58371b666 !important;
+  color: #58371b !important;
+  stroke: #58371b !important;
+  fill: #58371b !important;
 }
 
 /* Aplicar cor a todos os ícones dentro de um container */
@@ -2726,9 +2735,11 @@ body.icon-theme-secondary svg * {
 
 .servico-icon {
   font-size: 4rem;
-  margin-bottom: 20px !important;
-  display: block;
-  margin: 0 auto 20px auto;
+  margin: 20px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
 }
 
 .servico-card h3 {
@@ -2908,10 +2919,11 @@ body.icon-theme-secondary svg * {
 
 .servico-detalhado-icon {
   font-size: 3.5rem;
-  margin-bottom: 15px !important;
+  margin: 15px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   line-height: 1;
-  display: block;
-  margin: 0 auto 15px auto;
 }
 
 .servico-detalhado-text .section-title {
@@ -3052,9 +3064,11 @@ body.icon-theme-secondary svg * {
 
 .personalizado-icon {
   font-size: 3rem;
-  margin-bottom: 20px !important;
-  display: block;
-  margin: 0 auto 20px auto;
+  margin: 20px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
 }
 
 .personalizado-item h3 {
@@ -3104,9 +3118,11 @@ body.icon-theme-secondary svg * {
 
 .beneficio-icon {
   font-size: 3rem;
-  margin-bottom: 20px !important;
-  display: block;
-  margin: 0 auto 20px auto;
+  margin: 20px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
 }
 
 .beneficio-card h3 {
@@ -3421,9 +3437,11 @@ body.icon-theme-secondary svg * {
 
 .transfer-icon {
   font-size: 4rem;
-  margin-bottom: 20px !important;
-  display: block;
-  margin: 0 auto 20px auto;
+  margin: 20px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
 }
 
 .transfer-card h3 {
@@ -3734,9 +3752,11 @@ body.icon-theme-secondary svg * {
 
 .rota-icon {
   font-size: 3rem;
-  margin-bottom: 20px !important;
-  display: block;
-  margin: 0 auto 20px auto;
+  margin: 20px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
 }
 
 .rota-item h3 {
