@@ -421,6 +421,8 @@ class PasseiosManager {
           if (typeof window.forceReplaceEmojis === 'function') {
             window.forceReplaceEmojis();
           }
+          // Reinicializar modal após substituir emojis (garante que o botão funcione)
+          inicializarModalPoliticaCancelamento();
         }, 300);
       }, 100);
     }
@@ -492,6 +494,8 @@ class PasseiosManager {
     if (typeof window.replaceEmojisWithIconsGlobal === 'function') {
       setTimeout(() => {
         window.replaceEmojisWithIconsGlobal();
+        // Reinicializar modal após substituir emojis (garante que o botão funcione)
+        inicializarModalPoliticaCancelamento();
       }, 200);
     }
   }
@@ -983,6 +987,13 @@ window.filtrarPasseios = async (evt, categoria) => {
 window.passeiosManager = passeiosManager;
 
 // ========== MODAL DE POLÍTICA DE CANCELAMENTO ==========
+// Armazenar referências globais para evitar duplicação de listeners
+let modalPoliticaHandlers = {
+  abrir: null,
+  fechar: null,
+  escape: null
+};
+
 function inicializarModalPoliticaCancelamento() {
   const modal = document.getElementById('modal-politica-cancelamento');
   const btnAbrir = document.getElementById('btn-abrir-politica-cancelamento');
@@ -991,57 +1002,129 @@ function inicializarModalPoliticaCancelamento() {
   const overlay = modal?.querySelector('.modal-politica-overlay');
 
   if (!modal) {
-    //console.warn('⚠️ Modal de política de cancelamento não encontrado');
+    console.warn('⚠️ Modal de política de cancelamento não encontrado');
     return;
   }
 
+  console.log('✅ Modal de política de cancelamento inicializado');
+
   // Função para abrir modal
-  function abrirModal() {
+  function abrirModal(e) {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
     modal.classList.add('active');
     document.body.style.overflow = 'hidden';
   }
 
   // Função para fechar modal
-  function fecharModal() {
+  function fecharModal(e) {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
     modal.classList.remove('active');
     document.body.style.overflow = '';
   }
 
-  // Event listeners
-  if (btnAbrir) {
-    btnAbrir.addEventListener('click', abrirModal);
+  // Remover listeners antigos se existirem
+  if (modalPoliticaHandlers.abrir) {
+    document.removeEventListener('click', modalPoliticaHandlers.abrir);
+  }
+  if (modalPoliticaHandlers.fechar) {
+    document.removeEventListener('click', modalPoliticaHandlers.fechar);
+  }
+  if (modalPoliticaHandlers.escape) {
+    document.removeEventListener('keydown', modalPoliticaHandlers.escape);
   }
 
+  // Criar novos handlers
+  modalPoliticaHandlers.abrir = function(e) {
+    // Verificar se o clique foi no botão ou em algum elemento dentro dele (como o SVG)
+    const btn = e.target.closest('#btn-abrir-politica-cancelamento');
+    if (btn) {
+      abrirModal(e);
+    }
+  };
+
+  modalPoliticaHandlers.fechar = function(e) {
+    const btnFecharEl = e.target.closest('#btn-fechar-modal');
+    const btnFecharXEl = e.target.closest('#modal-politica-close');
+    const overlayEl = e.target.closest('.modal-politica-overlay');
+    
+    if (btnFecharEl || btnFecharXEl || overlayEl) {
+      fecharModal(e);
+    }
+  };
+
+  modalPoliticaHandlers.escape = function(e) {
+    if (e.key === 'Escape' && modal.classList.contains('active')) {
+      fecharModal(e);
+    }
+  };
+
+  // Adicionar novos listeners
+  document.addEventListener('click', modalPoliticaHandlers.abrir);
+  document.addEventListener('click', modalPoliticaHandlers.fechar);
+  document.addEventListener('keydown', modalPoliticaHandlers.escape);
+
+  // Também adicionar listener diretamente no botão se ele existir (backup mais confiável)
+  if (btnAbrir) {
+    btnAbrir.onclick = function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      abrirModal(e);
+    };
+  }
+
+  // Event listeners diretos para fechar (mais confiáveis)
   if (btnFechar) {
-    btnFechar.addEventListener('click', fecharModal);
+    btnFechar.onclick = fecharModal;
   }
 
   if (btnFecharX) {
-    btnFecharX.addEventListener('click', fecharModal);
+    btnFecharX.onclick = fecharModal;
   }
 
   if (overlay) {
-    overlay.addEventListener('click', fecharModal);
+    overlay.onclick = fecharModal;
   }
-
-  // Fechar com ESC
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && modal.classList.contains('active')) {
-      fecharModal();
-    }
-  });
 }
 
 // Inicializar modal quando o conteúdo for carregado
-document.addEventListener('contentLoaded', () => {
+document.addEventListener('contentLoaded', (event) => {
+  // Verificar se o modal foi carregado
+  if (event.detail && event.detail.pageConfig) {
+    const modalConfig = event.detail.pageConfig.find(config => config.id === 'modal-politica-container');
+    if (modalConfig) {
+      // Modal foi carregado, inicializar após um pequeno delay
+      setTimeout(() => {
+        inicializarModalPoliticaCancelamento();
+      }, 200);
+    }
+  }
+  // Sempre tentar inicializar (caso o modal já esteja no DOM)
   setTimeout(() => {
     inicializarModalPoliticaCancelamento();
-  }, 300);
+  }, 500);
 });
 
 // Fallback para inicialização
 document.addEventListener('DOMContentLoaded', () => {
-  setTimeout(() => {
-    inicializarModalPoliticaCancelamento();
-  }, 1000);
+  // Tentar múltiplas vezes para garantir que o modal seja encontrado
+  let tentativas = 0;
+  const maxTentativas = 10;
+  
+  const tentarInicializar = () => {
+    tentativas++;
+    const modal = document.getElementById('modal-politica-cancelamento');
+    if (modal) {
+      inicializarModalPoliticaCancelamento();
+    } else if (tentativas < maxTentativas) {
+      setTimeout(tentarInicializar, 200);
+    }
+  };
+  
+  setTimeout(tentarInicializar, 500);
 });
