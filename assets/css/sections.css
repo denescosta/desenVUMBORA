@@ -1679,8 +1679,8 @@ h2 {
 .value-icon {
   font-size: 3rem;
   margin-bottom: 20px !important;
-  justify-items: center;
-  margin: auto;
+  display: block;
+  margin: 0 auto 20px auto;
 }
 
 .value-card h3 {
@@ -1710,8 +1710,8 @@ h2 {
 .feature-icon {
   font-size: 2.5rem;
   margin-bottom: 20px !important;
-  justify-items: center;
-  margin: auto;
+  display: block;
+  margin: 0 auto 20px auto;
 }
 
 .feature-item h3 {
@@ -2308,8 +2308,8 @@ h2 {
 
 .etapa-icon {
   font-size: 3.5rem;
+  display: block;
   margin: 20px auto;
-  justify-items: center;
 }
 
 .etapa-card h3 {
@@ -2385,8 +2385,8 @@ h2 {
 .info-item-icon {
   font-size: 2.5rem;
   margin-bottom: 15px !important;
-  justify-items: center;
-  margin: auto;
+  display: block;
+  margin: 0 auto 15px auto;
 }
 
 .info-item-card h3 {
@@ -2727,8 +2727,8 @@ body.icon-theme-secondary svg * {
 .servico-icon {
   font-size: 4rem;
   margin-bottom: 20px !important;
-  justify-items: center;
-  margin: auto;
+  display: block;
+  margin: 0 auto 20px auto;
 }
 
 .servico-card h3 {
@@ -2910,8 +2910,8 @@ body.icon-theme-secondary svg * {
   font-size: 3.5rem;
   margin-bottom: 15px !important;
   line-height: 1;
-  justify-items: center;
-  margin: auto;
+  display: block;
+  margin: 0 auto 15px auto;
 }
 
 .servico-detalhado-text .section-title {
@@ -3053,8 +3053,8 @@ body.icon-theme-secondary svg * {
 .personalizado-icon {
   font-size: 3rem;
   margin-bottom: 20px !important;
-  justify-items: center;
-  margin: auto;
+  display: block;
+  margin: 0 auto 20px auto;
 }
 
 .personalizado-item h3 {
@@ -3105,8 +3105,8 @@ body.icon-theme-secondary svg * {
 .beneficio-icon {
   font-size: 3rem;
   margin-bottom: 20px !important;
-  justify-items: center;
-  margin: auto;
+  display: block;
+  margin: 0 auto 20px auto;
 }
 
 .beneficio-card h3 {
@@ -3422,8 +3422,8 @@ body.icon-theme-secondary svg * {
 .transfer-icon {
   font-size: 4rem;
   margin-bottom: 20px !important;
-  justify-items: center;
-  margin: auto;
+  display: block;
+  margin: 0 auto 20px auto;
 }
 
 .transfer-card h3 {
@@ -3735,8 +3735,8 @@ body.icon-theme-secondary svg * {
 .rota-icon {
   font-size: 3rem;
   margin-bottom: 20px !important;
-  justify-items: center;
-  margin: auto;
+  display: block;
+  margin: 0 auto 20px auto;
 }
 
 .rota-item h3 {
