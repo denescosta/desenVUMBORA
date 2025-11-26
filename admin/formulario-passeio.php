@@ -358,7 +358,7 @@ if ($modoEdicao) {
                     <label>Categorias *</label>
                     <div class="checkbox-group" style="flex-direction: column; align-items: flex-start; gap: 12px;">
                         <?php 
-                        $categoriasDisponiveis = ['Praia', 'Aventura', 'Mergulho', 'Cultural', 'Ecoturismo'];
+                        $categoriasDisponiveis = ['Praia', 'Mergulhos', 'Aventura', 'Cultural', 'Radical', 'Família', 'Crianças', 'Destaque', 'Famoso', 'Buggy', 'Quadriciclo', 'Privativo'];
                         $categoriasPasseio = is_array($passeio['categoria'] ?? null) ? $passeio['categoria'] : (isset($passeio['categoria']) ? [$passeio['categoria']] : []);
                         foreach ($categoriasDisponiveis as $cat): 
                         ?>
@@ -369,10 +369,17 @@ if ($modoEdicao) {
                                     <?php
                                     $icones = [
                                         'Praia' => '🏖️',
+                                        'Mergulhos' => '🤿',
                                         'Aventura' => '🚙',
-                                        'Mergulho' => '🤿',
                                         'Cultural' => '🏛️',
-                                        'Ecoturismo' => '🌿'
+                                        'Radical' => '⚡',
+                                        'Família' => '👨‍👩‍👧‍👦',
+                                        'Crianças' => '👶',
+                                        'Destaque' => '⭐',
+                                        'Famoso' => '🌟',
+                                        'Buggy' => '🏎️',
+                                        'Quadriciclo' => '🏍️',
+                                        'Privativo' => '🔒'
                                     ];
                                     echo ($icones[$cat] ?? '') . ' ' . $cat;
                                     ?>
