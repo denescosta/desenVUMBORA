@@ -338,6 +338,12 @@ class PasseiosManager {
     this.preencherDetalhes(passeio);
     this.renderizarGaleria(passeio.galeria);
     this.renderizarDepoimentos(passeio.depoimentos);
+
+    // Rolar para o título do passeio no topo da página
+    const tituloEl = document.getElementById('passeio-nome');
+    if (tituloEl) {
+      tituloEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   }
 
   // Preenche os detalhes do passeio na página
