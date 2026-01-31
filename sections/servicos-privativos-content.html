@@ -4,11 +4,12 @@
     <div class="servicos-hero" style="margin-bottom: 2rem;">
       <div class="page-logo-title-container">
         <a href="../index.html" class="page-logo">
-          <img src="../assets/img/vumbora.png" alt="VUMBORA Logo" width="120" height="120" loading="lazy" />
+          <img src="/img.php?src=assets/img/vumbora.png&h=120&fmt=auto&q=85" alt="VUMBORA Logo" width="120"
+            height="120" loading="lazy" decoding="async" onerror="this.onerror=null; this.src='../assets/img/vumbora.png';" />
         </a>
         <h1 class="servicos-page-title">Serviços Privativos</h1>
       </div>
-      <p class="servicos-page-subtitle">Locação de vans e ônibus para grupos, eventos corporativos, excursões e passeios
+      <p class="servicos-page-subtitle">Transfers privativos, vans, micro ônibus e ônibus para grupos, eventos corporativos, excursões e passeios
         personalizados</p>
     </div>
 
@@ -18,38 +19,103 @@
         <h2 class="section-title">Transporte de Qualidade para Sua Viagem</h2>
         <p>
           Oferecemos serviços de locação de veículos para grupos que buscam conforto, segurança e flexibilidade.
-          Seja para um passeio familiar, evento corporativo, excursão escolar ou viagem personalizada, temos a
-          solução ideal para você.
+          Seja para um transfer privativo, passeio familiar, evento corporativo, excursão escolar ou viagem
+          personalizada, temos a solução ideal para você.
         </p>
         <p>
-          Nossa frota é composta por vans e ônibus modernos, bem conservados e equipados com os melhores recursos
-          para garantir uma viagem confortável e segura. Todos os nossos motoristas são experientes, credenciados
-          e conhecem profundamente as rotas do Rio Grande do Norte.
+          Nossa frota é composta por veículos de diferentes capacidades: transfers privativos (até 6 pessoas),
+          vans (até 18 lugares), micro ônibus (até 30 lugares) e ônibus (até 48 lugares). Todos os veículos são
+          modernos, bem conservados e equipados com os melhores recursos para garantir uma viagem confortável e
+          segura. Nossos motoristas são experientes, credenciados e conhecem profundamente as rotas do Rio Grande
+          do Norte.
         </p>
+      </div>
+    </div>
+
+    <!-- Menu de Navegação -->
+    <div class="servicos-nav-menu" id="servicos-nav-menu">
+      <div class="container">
+        <nav class="servicos-nav">
+          <a href="#transfers-privativos" class="servicos-nav-link" data-target="transfers-privativos">
+            <span class="servicos-nav-icon">🚙</span>
+            <span class="servicos-nav-text">Transfers Privativos</span>
+          </a>
+          <a href="#vans" class="servicos-nav-link" data-target="vans">
+            <span class="servicos-nav-icon">🚐</span>
+            <span class="servicos-nav-text">Vans</span>
+          </a>
+          <a href="#micro-onibus" class="servicos-nav-link" data-target="micro-onibus">
+            <span class="servicos-nav-icon">🚌</span>
+            <span class="servicos-nav-text">Micro Ônibus</span>
+          </a>
+          <a href="#onibus" class="servicos-nav-link" data-target="onibus">
+            <span class="servicos-nav-icon">🚌</span>
+            <span class="servicos-nav-text">Ônibus</span>
+          </a>
+        </nav>
       </div>
     </div>
 
     <!-- Serviços Detalhados -->
     <div class="servicos-detalhados">
-      <div class="servico-detalhado">
+      <!-- 1. Transfers Privativos -->
+      <div class="servico-detalhado" id="transfers-privativos">
         <div class="servico-detalhado-content">
           <div class="servico-detalhado-text">
             <h2 class="section-title">
-              <div class="servico-detalhado-icon">🚐</div>Locação de Vans
+              <div class="servico-detalhado-icon">🚙</div>Transfers Privativos
             </h2>
             <p>
-              Nossas vans são ideais para grupos de até 15 pessoas. Perfeitas para passeios familiares, grupos de
-              amigos, pequenas excursões e eventos corporativos. Todos os veículos são equipados com ar condicionado,
-              sistema de som e conforto para viagens longas.
+              Serviço de transfer privativo ideal para grupos pequenos de até 6 pessoas. Perfeito para deslocamentos
+              entre aeroporto, hotéis, praias e pontos turísticos. Conforto, pontualidade e segurança em veículos
+              modernos e bem equipados.
             </p>
             <h3>Características:</h3>
             <ul class="servico-lista">
-              <li>Capacidade para até 15 passageiros</li>
-              <li>Ar condicionado em todos os veículos</li>
+              <li>Capacidade para até 6 passageiros</li>
+              <li>Veículos climatizados e modernos</li>
+              <li>Motorista experiente e credenciado</li>
+              <li>Seguro completo para passageiros</li>
+              <li>Pontualidade garantida</li>
+              <li>Flexibilidade de horários</li>
+              <li>Atendimento personalizado</li>
+            </ul>
+            <h3>Ideal para:</h3>
+            <ul class="servico-lista">
+              <li>Transfer aeroporto/hotel</li>
+              <li>Deslocamentos entre praias</li>
+              <li>Passeios em grupos pequenos</li>
+              <li>Eventos e compromissos</li>
+              <li>Viagens de negócios</li>
+            </ul>
+          </div>
+          <div class="servico-detalhado-image">
+            <img src="../assets/img/Transfer.png" alt="Transfers Privativos" loading="lazy">
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. Vans para Transfers e Passeios -->
+      <div class="servico-detalhado servico-detalhado-alt" id="vans">
+        <div class="servico-detalhado-content servico-detalhado-content-reverse">
+          <div class="servico-detalhado-text">
+            <h2 class="section-title">
+              <div class="servico-detalhado-icon">🚐</div>Vans para Transfers e Passeios
+            </h2>
+            <p>
+              Nossas vans são ideais para grupos de até 18 pessoas. Perfeitas para passeios familiares, grupos de
+              amigos, pequenas excursões, eventos corporativos e transfers de grupos. Todos os veículos são equipados
+              com ar condicionado, sistema de som e conforto para viagens longas.
+            </p>
+            <h3>Características:</h3>
+            <ul class="servico-lista">
+              <li>Capacidade para até 18 passageiros</li>
+              <li>Veículos climatizados</li>
               <li>Motorista experiente e credenciado</li>
               <li>Seguro completo para passageiros</li>
               <li>Manutenção preventiva regular</li>
               <li>Flexibilidade de horários e rotas</li>
+              <li>Guia de turismo embratur</li>
             </ul>
             <h3>Ideal para:</h3>
             <ul class="servico-lista">
@@ -57,48 +123,85 @@
               <li>Grupos de amigos</li>
               <li>Pequenas excursões</li>
               <li>Eventos corporativos</li>
-              <li>Transfer aeroporto/hotel</li>
+              <li>Transfer de grupos</li>
             </ul>
           </div>
           <div class="servico-detalhado-image">
-            <img src="../assets/img/Vans.png" alt="Locação de Vans" loading="lazy">
+            <img src="../assets/img/Vans.png" alt="Vans para Transfers e Passeios" loading="lazy">
           </div>
         </div>
       </div>
 
-      <div class="servico-detalhado servico-detalhado-alt">
-        <div class="servico-detalhado-content servico-detalhado-content-reverse">
+      <!-- 3. Micro Ônibus para Transfers e Passeios -->
+      <div class="servico-detalhado" id="micro-onibus">
+        <div class="servico-detalhado-content">
           <div class="servico-detalhado-text">
-
             <h2 class="section-title">
-              <div class="servico-detalhado-icon">🚌</div>Locação de Ônibus
+              <div class="servico-detalhado-icon">🚌</div>Micro Ônibus para Transfers e Passeios
             </h2>
             <p>
-              Para grupos maiores, oferecemos ônibus executivos com capacidade para até 45 passageiros. Equipados
-              com os melhores recursos de conforto, são perfeitos para excursões escolares, eventos corporativos
-              e viagens em grupo.
+              Micro ônibus executivos com capacidade para até 30 passageiros. Equipados com os melhores recursos de
+              conforto, são perfeitos para excursões, eventos corporativos, transfers de grupos médios e viagens
+              em grupo com mais espaço e comodidade.
             </p>
             <h3>Características:</h3>
             <ul class="servico-lista">
-              <li>Capacidade para até 45 passageiros</li>
+              <li>Capacidade para até 30 passageiros</li>
               <li>Conforto executivo com poltronas reclináveis</li>
-              <li>Wi-Fi gratuito durante a viagem</li>
-              <li>Tomadas USB em cada assento</li>
+              <li>Veículos climatizados</li>
               <li>Sistema de som e entretenimento</li>
               <li>Motorista experiente e credenciado</li>
               <li>Seguro completo para todos os passageiros</li>
+              <li>Guia de turismo embratur</li>
             </ul>
             <h3>Ideal para:</h3>
             <ul class="servico-lista">
               <li>Excursões escolares</li>
               <li>Eventos corporativos</li>
-              <li>Viagens em grupo</li>
+              <li>Viagens em grupo médio</li>
               <li>Passeios turísticos</li>
               <li>Transfer de grupos</li>
             </ul>
           </div>
           <div class="servico-detalhado-image">
-            <img src="../assets/img/Onibus.png" alt="Locação de Ônibus" loading="lazy">
+            <img src="../assets/img/Micro-Onibus.png" alt="Micro Ônibus para Transfers e Passeios" loading="lazy">
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. Ônibus para Transfers e Passeios -->
+      <div class="servico-detalhado servico-detalhado-alt" id="onibus">
+        <div class="servico-detalhado-content servico-detalhado-content-reverse">
+          <div class="servico-detalhado-text">
+            <h2 class="section-title">
+              <div class="servico-detalhado-icon">🚌</div>Ônibus para Transfers e Passeios
+            </h2>
+            <p>
+              Para grupos grandes, oferecemos ônibus executivos com capacidade para até 48 passageiros. Equipados
+              com os melhores recursos de conforto, são perfeitos para excursões escolares, eventos corporativos,
+              transfers de grandes grupos e viagens em grupo com máximo conforto.
+            </p>
+            <h3>Características:</h3>
+            <ul class="servico-lista">
+              <li>Capacidade para até 48 passageiros</li>
+              <li>Conforto executivo com poltronas reclináveis</li>
+              <li>Veículos climatizados</li>
+              <li>Sistema de som e entretenimento</li>
+              <li>Motorista experiente e credenciado</li>
+              <li>Seguro completo para todos os passageiros</li>
+              <li>Guia de turismo embratur</li>
+            </ul>
+            <h3>Ideal para:</h3>
+            <ul class="servico-lista">
+              <li>Excursões escolares</li>
+              <li>Eventos corporativos</li>
+              <li>Viagens em grupo grande</li>
+              <li>Passeios turísticos</li>
+              <li>Transfer de grandes grupos</li>
+            </ul>
+          </div>
+          <div class="servico-detalhado-image">
+            <img src="../assets/img/Onibus.png" alt="Ônibus para Transfers e Passeios" loading="lazy">
           </div>
         </div>
       </div>

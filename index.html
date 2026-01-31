@@ -5,13 +5,65 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VUMBORA</title>
-    <link href="../assets/css/style.css" rel="stylesheet">
-    <link href="../assets/css/components.css" rel="stylesheet">
-    <link href="../assets/css/sections.css" rel="stylesheet">
-    <link href="../assets/css/passeios.css" rel="stylesheet">
+    <meta name="description" content="Passeios e experiências em Natal/RN. Buggy, 4x4, praias e transfers privativos com atendimento rápido no WhatsApp.">
+    <link rel="icon" type="image/png" href="assets/img/vumbora.png">
+
+    <!-- Preload do hero (LCP) - o mais cedo possível no head + alta prioridade -->
+    <link rel="preload" as="image" fetchpriority="high"
+        href="/img.php?src=assets/img/Genipabu.png&w=1280&fmt=auto&q=70"
+        imagesrcset="/img.php?src=assets/img/Genipabu.png&w=640&fmt=auto&q=70 640w,
+                    /img.php?src=assets/img/Genipabu.png&w=960&fmt=auto&q=70 960w,
+                    /img.php?src=assets/img/Genipabu.png&w=1280&fmt=auto&q=70 1280w,
+                    /img.php?src=assets/img/Genipabu.png&w=1600&fmt=auto&q=70 1600w,
+                    /img.php?src=assets/img/Genipabu.png&w=1920&fmt=auto&q=70 1920w"
+        imagesizes="100vw" />
+
+    <!-- CSS crítico mínimo (evita tela “quebrando” enquanto o CSS completo carrega) -->
+    <style>
+        :root { --font-family: 'Outfit', Arial, Helvetica, sans-serif; }
+        body { margin: 0; font-family: var(--font-family); background: #f1e3ca; line-height: 1.6; }
+        /* Hero acima da dobra (LCP) */
+        #hero.hero { overflow: hidden; justify-items: center; }
+        .hero { width: 100%; min-height: 440px; height: 500px; max-height: 600px; display: flex; align-items: flex-start; justify-content: center; text-align: center; color: #fff; box-shadow: inset 0 -20px 20px 5px #f1e3ca; position: relative; overflow: hidden; background: #000; }
+        .hero .hero-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center top; z-index: 0; }
+        .hero::before { content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none; }
+        .hero-content { display: flex; flex-direction: column; max-width: 1100px; align-items: flex-start; width: 100%; position: relative; z-index: 2; height: 500px; padding: 30px 20px; }
+        .hero-content h1 { font-size: 4rem; margin: 0 0 1rem; line-height: 1.1; text-align: justify; color: #fff; text-shadow: 0 0 20px #58371b; }
+        .hero-content p { font-size: 2.2rem; margin: 0 0 2rem; opacity: .9; color: #fff; text-shadow: 0 0 20px #58371b; text-align: left; }
+        .hero-buttons { display: flex; gap: 15px; flex-wrap: wrap; margin-top: auto; min-height: 72px; }
+        .cta-button, .cta-button-1 { padding: 10px 20px; border-radius: 8px; text-decoration: none; font-size: 2rem; font-weight: 600; display: inline-block; }
+        .cta-button { background: linear-gradient(135deg, #58371b 0%, #8b5a3c 100%); color: #fff; }
+        .cta-button-1 { background: linear-gradient(135deg, #e9ab3b 0%, #d4941f 100%); color: #fff; }
+        /* Reserva espaço p/ evitar CLS quando a fonte web entrar e mudar métricas (botões podem quebrar linha). */
+        @media (max-width: 900px){ .hero-content h1{font-size:3rem} .hero-content p{font-size:1.6rem} .cta-button,.cta-button-1{font-size:1.2rem} .hero-buttons{min-height:140px} }
+        /* Evitar CLS do header/footer (carregados via includes.js) */
+        #header { min-height: 120px; }
+        #footer { min-height: 420px; }
+        /* Reservar altura de seções carregadas via fetch (evita empurrão quando chegam) */
+        #tours { min-height: 700px; }
+        #servicos-privativos { min-height: 520px; }
+        #about { min-height: 650px; }
+        #testimonials { min-height: 520px; }
+    </style>
+
+    <!-- CSS completo (não bloqueante) -->
+    <link rel="preload" href="../assets/css/style.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="../assets/css/components.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="../assets/css/sections.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="../assets/css/passeios.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link href="../assets/css/style.css" rel="stylesheet"></noscript>
+    <noscript><link href="../assets/css/components.css" rel="stylesheet"></noscript>
+    <noscript><link href="../assets/css/sections.css" rel="stylesheet"></noscript>
+    <noscript><link href="../assets/css/passeios.css" rel="stylesheet"></noscript>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+    <!-- Google Fonts (não-bloqueante, mas garante aplicar a fonte) -->
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap"
+        media="print" onload="this.media='all'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet"></noscript>
+
 </head>
 
 <body class="icon-theme-primary">
@@ -21,16 +73,31 @@
     <main>
         <div class="site-content">
             <!-- Hero/Banner principal -->
-            <section id="hero"></section>
+            <section id="hero" class="hero">
+                <img class="hero-bg" src="/img.php?src=assets/img/Genipabu.png&w=1280&fmt=auto&q=70"
+                    srcset="/img.php?src=assets/img/Genipabu.png&w=640&fmt=auto&q=70 640w,
+                            /img.php?src=assets/img/Genipabu.png&w=960&fmt=auto&q=70 960w,
+                            /img.php?src=assets/img/Genipabu.png&w=1280&fmt=auto&q=70 1280w,
+                            /img.php?src=assets/img/Genipabu.png&w=1600&fmt=auto&q=70 1600w,
+                            /img.php?src=assets/img/Genipabu.png&w=1920&fmt=auto&q=70 1920w"
+                    sizes="100vw" alt="" aria-hidden="true" decoding="async" fetchpriority="high" loading="eager"
+                    onerror="this.onerror=null; this.removeAttribute('srcset'); this.src='/assets/img/Genipabu.png';" />
+                <div class="hero-content">
+                    <h1>Vumbora viver<br>Natal do jeito certo?</h1>
+                    <p>Mais que passeios experiências para a vida toda</p>
+                    <div class="hero-buttons">
+                        <a href="../pages/catalogo.html" class="cta-button-1 hero-btn">Ver Passeios</a>
+                        <a href="#" id="whatsapp-hero-link" class="cta-button hero-btn" target="_blank"
+                            rel="noopener noreferrer">Agende Agora</a>
+                    </div>
+                </div>
+            </section>
 
             <!-- Seção de Passeios em Destaque -->
             <section id="tours"></section>
 
             <!-- Seção de Serviços Privativos -->
             <section id="servicos-privativos"></section>
-
-            <!-- Seção de Transfers -->
-            <section id="transfers"></section>
 
             <!-- Seção Quem Somos -->
             <section id="about"></section>
@@ -56,12 +123,12 @@
     <div id="footer"></div>
 
     <!-- Scripts -->
-    <script src="../assets/js/config.js"></script>
-    <script src="../assets/js/icons.js"></script>
-    <script src="../assets/js/includes.js"></script>
-    <script src="../assets/js/passeios.js"></script>
-    <script src="../assets/js/testimonials.js"></script>
-    <script src="../assets/js/main.js"></script>
+    <script defer src="../assets/js/config.js"></script>
+    <script defer src="../assets/js/icons.js"></script>
+    <script defer src="../assets/js/includes.js"></script>
+    <script defer src="../assets/js/passeios.js"></script>
+    <script defer src="../assets/js/testimonials.js"></script>
+    <script defer src="../assets/js/main.js"></script>
 </body>
 
 </html>

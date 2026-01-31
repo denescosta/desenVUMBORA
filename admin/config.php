@@ -85,8 +85,8 @@ if (headers_sent()) {
 }
 
 // IMPORTANTE: Altere estas credenciais!
-define('ADMIN_USER', 'admin'); // MUDE ISSO
-define('ADMIN_PASS', 'senha123'); // MUDE ISSO - use senha forte!
+define('ADMIN_USER', 'eduboy'); // MUDE ISSO
+define('ADMIN_PASS', ':gzMh5BB>P!JD76'); // MUDE ISSO - use senha forte!
 
 // Caminhos
 define('DATA_PATH', '../data/passeios.json');

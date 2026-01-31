@@ -1,10 +1,45 @@
 # Configurações de upload para PHP
 # Aumentar limites para permitir upload de fotos grandes de celular
 
-php_value upload_max_filesize 20M
-php_value post_max_size 25M
-php_value max_file_uploads 50
-php_value max_execution_time 300
-php_value max_input_time 300
-php_value memory_limit 256M
+php_value upload_max_filesize 50M
+php_value post_max_size 500M
+php_value max_file_uploads 100
+php_value max_execution_time 600
+php_value max_input_time 600
+php_value memory_limit 512M
+
+# ============================================
+# CONTROLE DE CACHE - FORÇAR ATUALIZAÇÃO
+# ============================================
+# Desabilitar cache para arquivos HTML, CSS e JS
+# Isso garante que os clientes sempre recebam a versão mais recente
+
+<IfModule mod_headers.c>
+    # Arquivos HTML - sempre buscar do servidor
+    <FilesMatch "\.(html|htm)$">
+        Header set Cache-Control "no-cache, no-store, must-revalidate"
+        Header set Pragma "no-cache"
+        Header set Expires "0"
+    </FilesMatch>
+    
+    # Arquivos CSS e JS - SEM CACHE (sempre buscar do servidor)
+    <FilesMatch "\.(css|js)$">
+        Header set Cache-Control "no-cache, no-store, must-revalidate"
+        Header set Pragma "no-cache"
+        Header set Expires "0"
+    </FilesMatch>
+    
+    # Arquivos JSON (dados dinâmicos) - sem cache
+    <FilesMatch "\.(json)$">
+        Header set Cache-Control "no-cache, no-store, must-revalidate"
+        Header set Pragma "no-cache"
+        Header set Expires "0"
+    </FilesMatch>
+</IfModule>
+
+# Desabilitar ETags (pode causar problemas de cache em alguns servidores)
+<IfModule mod_headers.c>
+    Header unset ETag
+</IfModule>
+FileETag None
 

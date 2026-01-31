@@ -1,5 +1,37 @@
 // main.js - Scripts principais da aplicação
 
+// ============================================
+// SISTEMA DE CACHE BUSTING - ATUALIZAÇÃO AUTOMÁTICA
+// ============================================
+// Verifica se a versão do site mudou e força atualização do navegador
+(function checkSiteVersion() {
+  const STORAGE_KEY = 'vumbora_site_version';
+  const currentVersion = window.SITE_VERSION || '1.0.0';
+  const storedVersion = localStorage.getItem(STORAGE_KEY);
+
+  // Se a versão mudou, limpa o cache e recarrega
+  if (storedVersion && storedVersion !== currentVersion) {
+    console.log(`🔄 Nova versão detectada: ${storedVersion} → ${currentVersion}. Atualizando...`);
+    
+    // Salva a nova versão ANTES de recarregar
+    localStorage.setItem(STORAGE_KEY, currentVersion);
+    
+    // Limpa caches do navegador (se suportado)
+    if ('caches' in window) {
+      caches.keys().then(names => {
+        names.forEach(name => caches.delete(name));
+      });
+    }
+    
+    // Força reload completo (ignora cache)
+    window.location.reload(true);
+    return;
+  }
+  
+  // Salva a versão atual
+  localStorage.setItem(STORAGE_KEY, currentVersion);
+})();
+
 // Configurações globais
 const CONFIG = {
   animationDuration: 300,
@@ -85,7 +117,8 @@ function replaceEmojisWithIconsGlobal() {
     '👨‍👩‍👧‍👦': 'family',
     '🌟': 'starBright',
     '🔒': 'lock',
-    '📷': 'camera',
+    '📷': 'instagram',
+    '📸': 'camera',
     '🤝': 'handshake',
     '🌿': 'leaf'
   };
@@ -150,8 +183,8 @@ function replaceEmojisWithIconsGlobal() {
       }
     });
 
-    // 2. Substituir emojis em botões
-    const buttons = document.querySelectorAll('button, a.btn, .btn, [class*="btn"]');
+    // 2. Substituir emojis em botões e links (incluindo links do Instagram)
+    const buttons = document.querySelectorAll('button, a.btn, .btn, [class*="btn"], a.instagram-link, .instagram-link');
     buttons.forEach(button => {
       // Verificar se já foi substituído
       if (button.querySelector('svg')) {
@@ -162,11 +195,17 @@ function replaceEmojisWithIconsGlobal() {
       let hasEmoji = false;
       let newContent = text;
       
+      // Tamanho do ícone baseado no tipo de elemento
+      let iconSize = 18;
+      if (button.classList.contains('instagram-link')) {
+        iconSize = 18; // Tamanho para links do Instagram
+      }
+      
       for (const [emoji, iconName] of Object.entries(emojiToIcon)) {
         if (text.includes(emoji)) {
           hasEmoji = true;
           const iconSvg = window.getIcon(iconName, { 
-            size: 18,
+            size: iconSize,
             className: 'btn-icon'
           });
           if (iconSvg) {
@@ -180,6 +219,32 @@ function replaceEmojisWithIconsGlobal() {
       }
     });
 
+    // 2.5. Substituir emojis em spans dentro de links do Instagram (processamento específico)
+    const instagramLinks = document.querySelectorAll('.instagram-link');
+    instagramLinks.forEach(link => {
+      const spans = link.querySelectorAll('span');
+      spans.forEach(span => {
+        // Verificar se já foi substituído
+        if (span.querySelector('svg')) {
+          return;
+        }
+        
+        const spanText = span.textContent || span.innerHTML;
+        for (const [emoji, iconName] of Object.entries(emojiToIcon)) {
+          if (spanText.trim() === emoji) {
+            const iconSvg = window.getIcon(iconName, { 
+              size: 18,
+              className: 'btn-icon'
+            });
+            if (iconSvg) {
+              span.innerHTML = iconSvg;
+            }
+            break;
+          }
+        }
+      });
+    });
+
     // 3. Substituir emojis em textos inline (parágrafos, spans, etc)
     // Apenas em elementos que não são containers de ícones
     const textSelectors = 'p, span, h1, h2, h3, h4, h5, h6, li, td, th, label, div:not([class*="icon"]):not([class*="Icon"])';
@@ -189,6 +254,12 @@ function replaceEmojisWithIconsGlobal() {
       if (element.classList.contains('about-card-icon') ||
           element.classList.contains('card-icon') ||
           (element.closest('[class*="icon"]') && !element.closest('[class*="icon-color"]'))) {
+        return;
+      }
+
+      // IMPORTANTE: não mexer em innerHTML de elementos que contenham imagens.
+      // Caso contrário, emojis em atributos (ex: alt="🌟 ...") quebram a tag <img>.
+      if (element.querySelector && element.querySelector('img, picture, source')) {
         return;
       }
       
@@ -255,7 +326,7 @@ function forceReplaceEmojis() {
     '🚐': 'van', '🚌': 'bus', '⭐': 'star', '🗺️': 'map', '📞': 'phone', '🛡️': 'shield', '✨': 'sparkle',
     '💰': 'dollar', '✈️': 'plane', '🏖️': 'beach', '🏨': 'hotel', '🚗': 'car', '🧳': 'suitcase',
     '❤️': 'heart', '🏛️': 'building', '🏎️': 'raceCar', '🏍️': 'motorcycle', '👨‍✈️': 'pilot', '🚙': 'suv',
-    '🤿': 'snorkel', '⚡': 'lightning', '👨‍👩‍👧‍👦': 'family', '🌟': 'starBright', '🔒': 'lock', '📷': 'camera',
+    '🤿': 'snorkel', '⚡': 'lightning', '👨‍👩‍👧‍👦': 'family', '🌟': 'starBright', '🔒': 'lock', '📷': 'instagram',
     '🤝': 'handshake', '🌿': 'leaf'
   };
 
@@ -269,6 +340,11 @@ function forceReplaceEmojis() {
         element.closest('script') || element.closest('style') ||
         element.classList.contains('about-card-icon') ||
         element.classList.contains('card-icon')) {
+      return;
+    }
+
+    // Não processar containers com imagens (evita substituir emojis dentro de atributos como alt/srcset)
+    if (element.querySelector && element.querySelector('img, picture, source')) {
       return;
     }
 
@@ -307,6 +383,7 @@ if (typeof window !== 'undefined') {
 document.addEventListener('contentLoaded', () => {
   setTimeout(() => {
     replaceEmojisWithIconsGlobal();
+    initServicosNavMenu(); // Inicializa menu de serviços privativos se a página for carregada
   }, 100);
 });
 
@@ -1178,6 +1255,7 @@ document.addEventListener('DOMContentLoaded', () => {
     toggleSidebar(); // <-- Adiciona inicialização do sidebar
     initPageSpecificFeatures();
     initToursSection(); // <-- Inicializa os destaques de passeios
+    initServicosNavMenu(); // <-- Inicializa menu de navegação de serviços privativos
     replaceEmojisWithIconsGlobal(); // <-- Substitui emojis por ícones SVG em todo o site
 
     // Handler para links do nav que apontam para âncoras (ex: Feedbacks -> #testimonials)
@@ -1225,7 +1303,120 @@ if (window.loadComponent) {
         initToursSection(true);
       }, 100);
     }
+    // Se o componente carregado contém serviços privativos, inicializa o menu
+    if (containerId === 'servicos-privativos-content' || componentPath.includes('servicos-privativos')) {
+      setTimeout(() => {
+        initServicosNavMenu();
+      }, 100);
+    }
   };
+}
+
+// Função para inicializar menu de navegação de serviços privativos
+function initServicosNavMenu() {
+  const navMenu = document.getElementById('servicos-nav-menu');
+  if (!navMenu) return;
+
+  const navLinks = navMenu.querySelectorAll('.servicos-nav-link');
+  const sections = {
+    'transfers-privativos': document.getElementById('transfers-privativos'),
+    'vans': document.getElementById('vans'),
+    'micro-onibus': document.getElementById('micro-onibus'),
+    'onibus': document.getElementById('onibus')
+  };
+
+  // Função para fazer scroll suave até a seção
+  navLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const targetId = link.getAttribute('data-target');
+      const targetSection = sections[targetId];
+
+      if (targetSection) {
+        // Remove classe active de todos os links
+        navLinks.forEach(l => l.classList.remove('active'));
+        // Adiciona classe active ao link clicado
+        link.classList.add('active');
+
+        // Calcula a posição exata: topo da seção alinhado com o topo da viewport
+        const targetPosition = targetSection.getBoundingClientRect().top + window.pageYOffset;
+
+        window.scrollTo({
+          top: targetPosition,
+          behavior: 'smooth'
+        });
+
+        // Atualiza o hash na URL sem fazer scroll automático
+        history.replaceState(null, '', `#${targetId}`);
+      }
+    });
+  });
+
+  // Função para destacar o item ativo baseado na posição do scroll
+  function updateActiveNavItem() {
+    const scrollPosition = window.pageYOffset;
+
+    // Encontra qual seção está mais próxima do topo da viewport
+    let activeSection = null;
+    let minDistance = Infinity;
+
+    Object.entries(sections).forEach(([id, section]) => {
+      if (!section) return;
+
+      const sectionTop = section.getBoundingClientRect().top + scrollPosition;
+      const viewportTop = scrollPosition;
+      const distance = Math.abs(sectionTop - viewportTop);
+
+      // Se a seção está visível na viewport e mais próxima do topo
+      if (sectionTop <= viewportTop + 100 && distance < minDistance) {
+        minDistance = distance;
+        activeSection = id;
+      }
+    });
+
+    // Atualiza a classe active nos links
+    navLinks.forEach(link => {
+      const targetId = link.getAttribute('data-target');
+      if (targetId === activeSection) {
+        link.classList.add('active');
+      } else {
+        link.classList.remove('active');
+      }
+    });
+  }
+
+  // Atualiza o item ativo ao rolar a página
+  let scrollTimeout;
+  window.addEventListener('scroll', () => {
+    clearTimeout(scrollTimeout);
+    scrollTimeout = setTimeout(updateActiveNavItem, 50);
+  });
+
+  // Atualiza o item ativo ao carregar a página
+  updateActiveNavItem();
+
+  // Se houver hash na URL, faz scroll até a seção correspondente
+  if (window.location.hash) {
+    const hash = window.location.hash.substring(1);
+    if (sections[hash]) {
+      setTimeout(() => {
+        // Calcula a posição exata: topo da seção alinhado com o topo da viewport
+        const targetPosition = sections[hash].getBoundingClientRect().top + window.pageYOffset;
+        
+        window.scrollTo({
+          top: targetPosition,
+          behavior: 'smooth'
+        });
+        
+        // Destaca o link correspondente
+        navLinks.forEach(link => {
+          if (link.getAttribute('data-target') === hash) {
+            link.classList.add('active');
+          }
+        });
+      }, 300);
+    }
+  }
 }
 
 // Funcionalidades globais
@@ -1234,3 +1425,4 @@ window.validateField = validateField;
 window.initToursSection = initToursSection;
 window.initToursCarousel = initToursCarousel;
 window.toggleSidebar = toggleSidebar;
+window.initServicosNavMenu = initServicosNavMenu;

@@ -1,9 +1,18 @@
 // includes.js - Sistema de carregamento de componentes e seções
 
+// Função para adicionar versão ao caminho (cache busting)
+function addVersionToPath(path) {
+  const version = window.SITE_VERSION || Date.now();
+  const separator = path.includes('?') ? '&' : '?';
+  return `${path}${separator}v=${version}`;
+}
+
 class ComponentLoader {
   static async load(containerId, componentPath) {
     try {
-      const response = await fetch(componentPath);
+      // Adicionar versão ao path para forçar atualização do cache
+      const pathWithVersion = addVersionToPath(componentPath);
+      const response = await fetch(pathWithVersion);
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
@@ -34,13 +43,13 @@ const COMPONENTS = {
 };
 
 // Configuração específica para cada página
-window.PAGE_CONFIGS = {
+// IMPORTANTE: não sobrescrever PAGE_CONFIGS se a página já definiu/estendeu configs inline.
+// Com scripts `defer`, é comum o HTML definir PAGE_CONFIGS antes do includes.js executar.
+const DEFAULT_PAGE_CONFIGS = {
   'index.html': [
-    { id: 'hero', path: '../sections/hero.html' },
     { id: 'about', path: '../sections/about.html' },
     { id: 'tours', path: '../sections/tours.html' },
     { id: 'servicos-privativos', path: '../sections/servicos-privativos.html' },
-    { id: 'transfers', path: '../sections/transfers.html' },
     { id: 'testimonials', path: '../sections/testimonials.html' }
     // { id: 'faq', path: '../sections/faq.html' },
     // { id: 'blog', path: '../sections/blog.html' },
@@ -50,7 +59,8 @@ window.PAGE_CONFIGS = {
     { id: 'catalogo-content', path: '../sections/catalogo-content.html' }
   ],
   'passeio.html': [
-    { id: 'passeio-content', path: '../sections/passeio-content.html' }
+    { id: 'passeio-content', path: '../sections/passeio-content.html' },
+    { id: 'modal-politica-container', path: '../sections/modal-politica-cancelamento.html' }
   ],
   'conheca.html': [
     { id: 'conheca-page', path: '../sections/conheca.html' }
@@ -74,6 +84,9 @@ window.PAGE_CONFIGS = {
     { id: 'transfers-content', path: '../sections/transfers-content.html' }
   ]
 };
+
+// Merge: defaults + overrides da página (overrides vencem)
+window.PAGE_CONFIGS = Object.assign({}, DEFAULT_PAGE_CONFIGS, window.PAGE_CONFIGS || {});
 
 // Função para detectar página atual
 function getCurrentPage() {
@@ -175,6 +188,15 @@ document.addEventListener('DOMContentLoaded', async () => {
           window.initTestimonials();
         }
       }, 500);
+    }
+
+    // Inicializar formulário de contato se a seção foi carregada
+    if (pageConfig.some(config => config.id === 'contact-form' || config.path.includes('contact.html'))) {
+      setTimeout(() => {
+        if (typeof window.initContactForm === 'function') {
+          window.initContactForm();
+        }
+      }, 300);
     }
 
     // Scroll suave para âncora após carregar seções, se necessário
