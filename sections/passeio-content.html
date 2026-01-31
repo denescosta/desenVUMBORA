@@ -17,19 +17,11 @@
 
     <!-- Grid Principal -->
     <div class="passeio-grid">
-      <!-- Coluna Esquerda: Imagem Principal + Galeria -->
+      <!-- Coluna Esquerda: Imagem Principal -->
       <div class="passeio-coluna-esquerda">
         <!-- Imagem de Capa -->
         <div class="passeio-imagem-principal">
           <img id="passeio-imagem-capa" src="" alt="">
-        </div>
-
-        <!-- Galeria de Fotos -->
-        <div class="passeio-galeria-container">
-          <h2 class="section-subtitle">📸 Galeria de Fotos</h2>
-          <div id="galeria-carousel-container">
-            <!-- Carrossel será carregado aqui -->
-          </div>
         </div>
       </div>
 
@@ -41,25 +33,27 @@
             <h3>Informações do Passeio</h3>
           </div>
           <div class="info-card-body">
-            <div class="info-item">
-              <div class="info-icon">⏱️</div>
-              <div class="info-content">
-                <span class="info-label">Duração média</span>
-                <span class="info-value" id="passeio-duracao">-</span>
+            <div class="info-items-row">
+              <div class="info-item">
+                <div class="info-icon">⏱️</div>
+                <div class="info-content">
+                  <span class="info-label">Duração média</span>
+                  <span class="info-value" id="passeio-duracao">-</span>
+                </div>
               </div>
-            </div>
-            <div class="info-item">
-              <div class="info-icon">🎯</div>
-              <div class="info-content">
-                <span class="info-label">Tipo de Passeio</span>
-                <span class="info-value" id="passeio-tipo-passeio">-</span>
+              <div class="info-item">
+                <div class="info-icon">🎯</div>
+                <div class="info-content">
+                  <span class="info-label">Tipo de Passeio</span>
+                  <span class="info-value" id="passeio-tipo-passeio">-</span>
+                </div>
               </div>
-            </div>
-            <div class="info-item">
-              <div class="info-icon">👥</div>
-              <div class="info-content">
-                <span class="info-label">Mínimo de Pessoas</span>
-                <span class="info-value" id="passeio-min-pessoas">-</span>
+              <div class="info-item">
+                <div class="info-icon">👥</div>
+                <div class="info-content">
+                  <span class="info-label">Mínimo de Pessoas</span>
+                  <span class="info-value" id="passeio-min-pessoas">-</span>
+                </div>
               </div>
             </div>
           </div>
@@ -70,6 +64,11 @@
             <div class="horarios-lista" id="passeio-horarios">
               <!-- Horários de Saída serão inseridos aqui -->
             </div>
+          </div>
+
+          <!-- Valor do Passeio -->
+          <div class="passeio-valor-container" id="passeio-valor-container" style="display: none;">
+            <p class="passeio-valor" id="passeio-valor"></p>
           </div>
 
           <!-- Botão de Reserva -->
@@ -90,6 +89,16 @@
       <h2 class="section-subtitle">📝 Roteiro do Passeio</h2>
       <p id="passeio-descricao">Carregando roteiro...</p>
     </div>
+
+    <!-- Galeria de Fotos -->
+    <div class="passeio-galeria-container">
+      <h2 class="section-subtitle">📸 Galeria de Fotos</h2>
+      <div id="galeria-carousel-container">
+        <!-- Carrossel será carregado aqui -->
+      </div>
+    </div>
+
+
 
     <!-- O que está incluído / não incluído / Política de Crianças -->
     <div class="passeio-inclui-grid">
@@ -112,6 +121,18 @@
         </div>
       </div>
     </div>
+
+    <!-- Depoimentos do Passeio -->
+    <section class="testimonials testimonials-passeio" id="passeio-depoimentos-section" style="display: none;">
+      <div class="container">
+        <h2>Depoimentos</h2>
+        <div class="testimonials-scroll-wrapper">
+          <div class="testimonials-scroll" id="passeio-depoimentos-container">
+            <!-- Depoimentos serão inseridos via JS (letreiros como na home) -->
+          </div>
+        </div>
+      </div>
+    </section>
 
     <!-- Observações Importantes -->
     <div class="passeio-observacoes">

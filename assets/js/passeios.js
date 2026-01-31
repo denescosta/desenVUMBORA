@@ -1,5 +1,19 @@
 // passeios.js - Sistema de gerenciamento de passeios
 
+// ============================
+// Imagens otimizadas (WebP/AVIF + resize) via /img.php
+// ============================
+function buildOptimizedImgUrl(src, params = {}) {
+  const sp = new URLSearchParams({ src, ...params });
+  return `/img.php?${sp.toString()}`;
+}
+
+function buildOptimizedSrcSet(src, widths, params = {}) {
+  return widths
+    .map((w) => `${buildOptimizedImgUrl(src, { ...params, w: String(w) })} ${w}w`)
+    .join(', ');
+}
+
 class PasseiosManager {
   constructor() {
     this.passeios = [];
@@ -139,6 +153,15 @@ class PasseiosManager {
     const linkPrefix = options.linkPrefix || '';
     const detailsUrl = `${linkPrefix}passeio.html?id=${passeio.slug}`;
     const categoriasTexto = this.formatarCategorias(passeio.categoria);
+
+    const capaQ = 75;
+    const capaSrc = buildOptimizedImgUrl(passeio.imagem_capa, { w: '640', fmt: 'auto', q: String(capaQ) });
+    const capaSrcSet = buildOptimizedSrcSet(
+      passeio.imagem_capa,
+      [320, 480, 640, 800, 1024],
+      { fmt: 'auto', q: String(capaQ) }
+    );
+    const capaSizes = '(max-width: 768px) 100vw, (max-width: 1024px) 50vw, (max-width: 1400px) 33vw, 25vw';
     
     // Gera link do WhatsApp para agendamento
     let whatsappLink = '#';
@@ -155,11 +178,19 @@ class PasseiosManager {
       whatsappLink = `https://wa.me/${telefone}?text=${mensagem}`;
     }
 
+    const fallbackCardImg = `../${passeio.imagem_capa}`;
+
     return `
       <article class="tour-card">
         <div class="tour-image">
-          <img src="../${passeio.imagem_capa}" alt="${passeio.nome}" loading="lazy" 
-               onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=\\'http://www.w3.org/2000/svg\\' width=\\'400\\' height=\\'300\\'%3E%3Crect fill=\\'%23e0e0e0\\' width=\\'400\\' height=\\'300\\'/%3E%3Ctext x=\\'50%25\\' y=\\'50%25\\' text-anchor=\\'middle\\' dy=\\'.3em\\' fill=\\'%23999\\' font-family=\\'sans-serif\\' font-size=\\'16\\'%3EImagem não disponível%3C/text%3E%3C/svg%3E';">
+          <img src="${capaSrc}"
+               srcset="${capaSrcSet}"
+               sizes="${capaSizes}"
+               alt="${passeio.nome}"
+               loading="lazy"
+               decoding="async"
+               data-fallback-src="${fallbackCardImg}"
+               onerror="if (this.dataset && this.dataset.fallbackSrc && this.src !== this.dataset.fallbackSrc) { this.onerror=null; this.removeAttribute('srcset'); this.src=this.dataset.fallbackSrc; } else { this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=\\'http://www.w3.org/2000/svg\\' width=\\'400\\' height=\\'300\\'%3E%3Crect fill=\\'%23e0e0e0\\' width=\\'400\\' height=\\'300\\'/%3E%3Ctext x=\\'50%25\\' y=\\'50%25\\' text-anchor=\\'middle\\' dy=\\'.3em\\' fill=\\'%23999\\' font-family=\\'sans-serif\\' font-size=\\'16\\'%3EImagem não disponível%3C/text%3E%3C/svg%3E'; }">
           ${passeio.destaque ? '<span class="tour-badge">Destaque</span>' : ''}
         </div>
         <div class="tour-content">
@@ -306,6 +337,7 @@ class PasseiosManager {
     this.passeioAtual = passeio;
     this.preencherDetalhes(passeio);
     this.renderizarGaleria(passeio.galeria);
+    this.renderizarDepoimentos(passeio.depoimentos);
   }
 
   // Preenche os detalhes do passeio na página
@@ -323,9 +355,27 @@ class PasseiosManager {
     // Imagem de capa
     const imgCapa = document.getElementById('passeio-imagem-capa');
     if (imgCapa) {
-      imgCapa.src = `../${passeio.imagem_capa}`;
+      const capaQ = 80;
+      imgCapa.src = buildOptimizedImgUrl(passeio.imagem_capa, { w: '1280', fmt: 'auto', q: String(capaQ) });
+      imgCapa.srcset = buildOptimizedSrcSet(
+        passeio.imagem_capa,
+        [640, 960, 1280, 1600],
+        { fmt: 'auto', q: String(capaQ) }
+      );
+      imgCapa.sizes = '(max-width: 1024px) 100vw, 66vw';
+      imgCapa.loading = 'eager';
+      imgCapa.decoding = 'async';
+      imgCapa.setAttribute('fetchpriority', 'high');
       imgCapa.alt = passeio.nome;
       imgCapa.onerror = function() {
+        // Fallback (Live Server sem PHP): tenta arquivo original
+        const fallback = `../${passeio.imagem_capa}`;
+        if (this.src !== fallback) {
+          this.onerror = null;
+          this.removeAttribute('srcset');
+          this.src = fallback;
+          return;
+        }
         this.onerror = null;
         this.src = 'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'800\' height=\'600\'%3E%3Crect fill=\'%23e0e0e0\' width=\'800\' height=\'600\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' text-anchor=\'middle\' dy=\'.3em\' fill=\'%23999\' font-family=\'sans-serif\' font-size=\'24\'%3EImagem não disponível%3C/text%3E%3C/svg%3E';
       };
@@ -400,6 +450,19 @@ class PasseiosManager {
         .join('');
     }
 
+    // Valor do Passeio (acima do botão de Agendamento)
+    const valorContainer = document.getElementById('passeio-valor-container');
+    const valorElement = document.getElementById('passeio-valor');
+    const btnReservar = document.getElementById('btn-reservar-whatsapp');
+    if (valorContainer && valorElement && passeio.valor && passeio.valor.trim()) {
+      valorElement.textContent = passeio.valor.trim();
+      valorContainer.style.display = 'block';
+      btnReservar?.classList.remove('btn-reservar--sem-valor');
+    } else if (valorContainer) {
+      valorContainer.style.display = 'none';
+      btnReservar?.classList.add('btn-reservar--sem-valor');
+    }
+
     // Observações
     this.setTextContent('passeio-observacoes', passeio.observacoes);
 
@@ -468,8 +531,12 @@ class PasseiosManager {
            data-pswp-src="../${foto.url}"
            target="_blank"
            rel="noopener noreferrer">
-          <img src="../${foto.url}" alt="${foto.alt}" loading="lazy" 
-               onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=\\'http://www.w3.org/2000/svg\\' width=\\'400\\' height=\\'300\\'%3E%3Crect fill=\\'%23e0e0e0\\' width=\\'400\\' height=\\'300\\'/%3E%3Ctext x=\\'50%25\\' y=\\'50%25\\' text-anchor=\\'middle\\' dy=\\'.3em\\' fill=\\'%23999\\' font-family=\\'sans-serif\\' font-size=\\'14\\'%3EImagem não disponível%3C/text%3E%3C/svg%3E';">
+          <img src="${buildOptimizedImgUrl(foto.url, { w: '400', fmt: 'auto', q: '78' })}"
+               srcset="${buildOptimizedSrcSet(foto.url, [200, 300, 400, 600], { fmt: 'auto', q: '78' })}"
+               sizes="(max-width: 480px) 100vw, (max-width: 768px) 50vw, 25vw"
+               alt="${foto.alt}" loading="lazy" decoding="async"
+               data-fallback-src="../${foto.url}"
+               onerror="if (this.dataset && this.dataset.fallbackSrc && this.src !== this.dataset.fallbackSrc) { this.onerror=null; this.removeAttribute('srcset'); this.src=this.dataset.fallbackSrc; } else { this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=\\'http://www.w3.org/2000/svg\\' width=\\'400\\' height=\\'300\\'%3E%3Crect fill=\\'%23e0e0e0\\' width=\\'400\\' height=\\'300\\'/%3E%3Ctext x=\\'50%25\\' y=\\'50%25\\' text-anchor=\\'middle\\' dy=\\'.3em\\' fill=\\'%23999\\' font-family=\\'sans-serif\\' font-size=\\'14\\'%3EImagem não disponível%3C/text%3E%3C/svg%3E'; }">
           <div class="gallery-overlay">
             <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
               <circle cx="11" cy="11" r="8"/>
@@ -498,6 +565,142 @@ class PasseiosManager {
         inicializarModalPoliticaCancelamento();
       }, 200);
     }
+  }
+
+  // Cria HTML do card de depoimento (mesmo padrão da home)
+  criarCardDepoimentoHTML(depoimento) {
+    let starsHTML = '';
+    if (depoimento.estrelas && depoimento.estrelas > 0) {
+      starsHTML = '<div class="testimonial-rating">';
+      for (let i = 1; i <= 5; i++) {
+        starsHTML += `<span class="star ${i <= depoimento.estrelas ? 'filled' : 'empty'}">★</span>`;
+      }
+      starsHTML += '</div>';
+    }
+    return `
+      <div class="testimonial-card">
+        ${starsHTML}
+        <p class="testimonial-text">"${(depoimento.texto || '').replace(/"/g, '&quot;')}"</p>
+        <div class="testimonial-info">
+          <span class="testimonial-author">${depoimento.autor || ''}</span>
+          <span class="testimonial-date">${depoimento.data || ''}</span>
+        </div>
+      </div>
+    `;
+  }
+
+  // Renderiza depoimentos do passeio (após a galeria) - mesmo scroll/letreiros da home
+  renderizarDepoimentos(depoimentos) {
+    const section = document.getElementById('passeio-depoimentos-section');
+    const container = document.getElementById('passeio-depoimentos-container');
+    if (!section || !container) return;
+
+    if (!depoimentos || depoimentos.length === 0) {
+      section.style.display = 'none';
+      return;
+    }
+
+    // Duplicar cards para loop infinito (letreiros como na home)
+    const cardsHTML = depoimentos.map(d => this.criarCardDepoimentoHTML(d)).join('');
+    const duplicatedCardsHTML = depoimentos.map(d => this.criarCardDepoimentoHTML(d)).join('');
+    container.innerHTML = cardsHTML + duplicatedCardsHTML;
+    section.style.display = 'block';
+
+    if (typeof window.replaceEmojisWithIconsGlobal === 'function') {
+      setTimeout(() => window.replaceEmojisWithIconsGlobal(), 50);
+    }
+
+    // Iniciar animação de scroll (letreiros)
+    this.iniciarAnimacaoDepoimentos(container);
+  }
+
+  // Inicia animação de scroll nos depoimentos do passeio
+  iniciarAnimacaoDepoimentos(container) {
+    const initAnimation = () => {
+      void container.offsetWidth;
+      void container.offsetHeight;
+
+      const firstCard = container.querySelector('.testimonial-card');
+      if (firstCard) {
+        const cardWidth = firstCard.offsetWidth;
+        const containerWidth = container.scrollWidth || container.offsetWidth;
+
+        if (cardWidth > 0 && containerWidth >= cardWidth * 2) {
+          requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+              requestAnimationFrame(() => {
+                const finalCardWidth = firstCard.offsetWidth;
+                const finalContainerWidth = container.scrollWidth || container.offsetWidth;
+
+                if (finalCardWidth > 0 && finalContainerWidth >= finalCardWidth * 2) {
+                  container.classList.add('animation-ready');
+                  void container.offsetWidth;
+                  this.setupTouchPauseDepoimentos(container);
+                } else {
+                  setTimeout(initAnimation, 150);
+                }
+              });
+            });
+          });
+        } else {
+          setTimeout(initAnimation, 150);
+        }
+      } else {
+        setTimeout(initAnimation, 150);
+      }
+    };
+
+    setTimeout(initAnimation, 100);
+  }
+
+  setupTouchPauseDepoimentos(container) {
+    const wrapper = container.closest('.testimonials-scroll-wrapper');
+    if (!wrapper) return;
+
+    let isPaused = false;
+    let pauseTimeout = null;
+
+    const pauseAnimation = () => {
+      if (container.classList.contains('animation-ready') && !isPaused) {
+        container.style.setProperty('animation-play-state', 'paused', 'important');
+        container.style.setProperty('-webkit-animation-play-state', 'paused', 'important');
+        isPaused = true;
+        if (pauseTimeout) {
+          clearTimeout(pauseTimeout);
+          pauseTimeout = null;
+        }
+      }
+    };
+
+    const resumeAnimation = () => {
+      if (container.classList.contains('animation-ready') && isPaused) {
+        container.style.removeProperty('animation-play-state');
+        container.style.removeProperty('-webkit-animation-play-state');
+        isPaused = false;
+      }
+    };
+
+    const handleTouchEnd = () => {
+      if (pauseTimeout) clearTimeout(pauseTimeout);
+      pauseTimeout = setTimeout(() => {
+        resumeAnimation();
+        pauseTimeout = null;
+      }, 500);
+    };
+
+    wrapper.addEventListener('touchstart', pauseAnimation, { passive: true });
+    container.addEventListener('touchstart', pauseAnimation, { passive: true });
+    wrapper.addEventListener('mouseenter', pauseAnimation, { passive: true });
+    wrapper.addEventListener('touchend', handleTouchEnd, { passive: true });
+    container.addEventListener('touchend', handleTouchEnd, { passive: true });
+    wrapper.addEventListener('mouseleave', resumeAnimation, { passive: true });
+    wrapper.addEventListener('touchcancel', () => {
+      if (pauseTimeout) {
+        clearTimeout(pauseTimeout);
+        pauseTimeout = null;
+      }
+      resumeAnimation();
+    }, { passive: true });
   }
 
   // Inicializa PhotoSwipe (galeria de fotos)
@@ -1002,7 +1205,11 @@ function inicializarModalPoliticaCancelamento() {
   const overlay = modal?.querySelector('.modal-politica-overlay');
 
   if (!modal) {
-    console.warn('⚠️ Modal de política de cancelamento não encontrado');
+    // Não logar como erro em páginas que não têm esse modal.
+    // Só é um problema se existir o botão de abrir (ou seja: o modal era esperado).
+    if (btnAbrir) {
+      console.warn('⚠️ Modal de política de cancelamento não encontrado (botão existe, modal não).');
+    }
     return;
   }
 

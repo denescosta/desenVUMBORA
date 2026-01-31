@@ -23,7 +23,8 @@
 
 .catalogo-subtitle {
   font-size: 1rem;
-  color: #e08e2b;
+  /* Contraste AA no fundo claro (#f1e3ca) */
+  color: #6b4528;
   text-transform: uppercase;
   letter-spacing: 2px;
   font-weight: 600;
@@ -238,7 +239,8 @@
   position: absolute;
   top: 15px;
   right: 15px;
-  background: #e74c3c;
+  /* Contraste AA com texto branco */
+  background: #c0392b;
   color: white;
   padding: 6px 15px;
   border-radius: 20px;
@@ -510,7 +512,7 @@
 
 /* ========== PÁGINA DE DETALHES DO PASSEIO ========== */
 .passeio-detalhes {
-  padding: 40px 0 80px;
+  padding: 10px 0 80px;
   background: #f1e3ca;
 }
 
@@ -519,7 +521,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  margin-bottom: 30px;
+  margin-bottom: 10px;
   font-size: 0.9rem;
 }
 
@@ -540,7 +542,7 @@
 
 /* Header do Passeio */
 .passeio-header {
-  margin-bottom: 40px;
+  margin-bottom: 20px;
 }
 
 .passeio-categoria-badge {
@@ -551,7 +553,7 @@
   border-radius: 25px;
   font-size: 0.9rem;
   font-weight: 600;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 }
 
 .passeio-titulo {
@@ -587,7 +589,7 @@
 
 /* Galeria */
 .passeio-galeria-container {
-  margin-top: 40px;
+  margin: 40px 0;
 }
 
 .section-subtitle {
@@ -751,6 +753,12 @@
   padding: 25px;
 }
 
+.info-items-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
 .info-item {
   display: flex;
   align-items: center;
@@ -773,18 +781,27 @@
   flex: 1;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  justify-items: center;
+  margin: auto;
 }
 
 .info-label {
   font-size: 0.85rem;
   color: #58371b;
   margin-bottom: 3px;
+  justify-items: center;
+  display: flex;
+  margin: auto;
 }
 
 .info-value {
   font-size: 1.1rem;
   font-weight: 600;
   color: #58371b;
+  justify-items: center;
+  display: flex;
+  margin: auto;
 }
 
 /* Horários */
@@ -815,6 +832,21 @@
   font-weight: 600;
 }
 
+/* Valor do Passeio */
+.passeio-valor-container {
+  padding: 16px 25px;
+  background: linear-gradient(135deg, #f8f4ee 0%, #fff 100%);
+  border-top: 1px solid #e8e0d5;
+}
+
+.passeio-valor {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #58371b;
+  text-align: center;
+}
+
 /* Botão de Reserva */
 /* Botão de reserva padronizado */
 .btn-reservar {
@@ -831,7 +863,6 @@
   font-size: 1.1rem;
   font-weight: 700;
   transition: all 0.3s ease;
-  margin-top: 20px;
   border: none;
   cursor: pointer;
   box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
@@ -856,6 +887,7 @@
   font-size: 1.1rem;
   line-height: 1.8;
   color: #58371b;
+  white-space: pre-wrap;
 }
 
 /* Grid - O que está incluído / não incluído / Política de Crianças */
@@ -863,7 +895,7 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 30px;
-  margin-bottom: 40px;
+  margin-bottom: 0px;
 }
 
 .inclui-card {
@@ -939,6 +971,7 @@
   color: #856404;
   font-size: 1rem;
   line-height: 1.7;
+  white-space: pre-wrap;
 }
 
 /* Footer da Página */
@@ -1085,6 +1118,136 @@
 }
 
 @media (max-width: 768px) {
+
+  /* Seção mais compacta no mobile */
+  .passeio-detalhes {
+    padding: 16px 0 60px;
+  }
+
+  /* Breadcrumb compacto no mobile */
+  .passeio-detalhes .breadcrumb {
+    font-size: 0.68rem;
+    margin-bottom: 8px;
+    gap: 4px;
+    flex-wrap: wrap;
+  }
+
+  /* Header mais compacto */
+  .passeio-header {
+    margin-bottom: 16px;
+  }
+
+  .passeio-categoria-badge {
+    padding: 4px 12px;
+    font-size: 0.75rem;
+    margin-bottom: 8px;
+  }
+
+  .passeio-titulo {
+    font-size: 1.5rem;
+  }
+
+  /* Info card ACIMA da imagem no mobile (acima da dobra) */
+  .passeio-coluna-direita {
+    order: -1;
+  }
+
+  .passeio-coluna-esquerda {
+    order: -2;
+  }
+
+  .passeio-grid {
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+
+  /* Duração, Tipo e Mínimo na mesma linha */
+  .info-items-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+
+  .info-items-row .info-item {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 8px 4px;
+    border-bottom: none;
+    gap: 4px;
+  }
+
+  .info-items-row .info-icon {
+    font-size: 1.2rem;
+    width: auto;
+  }
+
+  .info-items-row .info-label {
+    font-size: 0.65rem;
+    margin-bottom: 0;
+  }
+
+  .info-items-row .info-value {
+    font-size: 0.85rem;
+  }
+
+  .info-card-header {
+    padding: 12px 16px;
+  }
+
+  .info-card-header h3 {
+    font-size: 1rem;
+  }
+
+  .horarios-disponiveis {
+    padding: 12px 16px;
+  }
+
+  .horarios-disponiveis h4 {
+    font-size: 0.85rem;
+  }
+
+  .horario-badge {
+    padding: 6px 10px;
+    font-size: 0.75rem;
+  }
+
+  .passeio-valor-container {
+    padding: 10px 16px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    height: 70px;
+    width: 50vw;
+    align-content: center;
+    justify-content: center;
+    z-index: 9999;
+  }
+
+  .passeio-valor {
+    font-size: 1rem;
+  }
+
+  .btn-reservar {
+    padding: 14px;
+    font-size: 1rem;
+    margin-top: 12px;
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    width: 50vw;
+    height: 70px;
+    border-radius: 0;
+    z-index: 9999;
+  }
+
+  /* Quando não tem valor, botão ocupa 100vw */
+  .btn-reservar.btn-reservar--sem-valor {
+    left: 0;
+    right: 0;
+    width: 100vw;
+  }
+
   .catalogo-title {
     font-size: 2rem;
   }
@@ -1093,12 +1256,9 @@
     grid-template-columns: 1fr;
   }
 
-  .passeio-titulo {
-    font-size: 2rem;
-  }
-
   .passeio-imagem-principal {
     height: 300px;
+    margin-bottom: 0px;
   }
 
   .passeio-galeria-carousel-wrapper {

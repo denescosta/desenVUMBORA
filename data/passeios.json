@@ -1,502 +1,481 @@
 {
     "passeios": [
         {
-            "id": "praia-de-pipa",
-            "nome": "Praia de Pipa",
-            "slug": "praia-de-pipa",
-            "descricao_curta": "Conheça uma das praias mais famosas do Brasil com suas falésias coloridas e piscinas naturais",
-            "descricao_completa": "A Praia de Pipa é um dos destinos mais procurados do litoral sul do Rio Grande do Norte. Com suas falésias coloridas, piscinas naturais de água cristalina e vida marinha exuberante, Pipa oferece uma experiência única. Durante o passeio, você terá tempo para explorar as principais praias, conhecer o centrinho charmoso com suas lojas e restaurantes, e se encantar com a beleza natural preservada da região.",
+            "id": "passeio_69271275b5b02",
+            "nome": "🌴 Praia da Pipa – O paraíso mais vibrante do RN!",
+            "slug": "praia-da-pipa-o-para-so-mais-vibrante-do-rn",
+            "descricao_curta": "O destino que todo mundo quer conhecer - Falésias, mirantes, mar cristalino e golfinho ao vivo. Um cenário imperdivel paradas  incrivéis e um dia inesquicivél!",
+            "descricao_completa": "Nosso passeio para Pipa oferece uma experiência completa pelos cenários mais famosos e encantadores da região. Nosso passeio inclui paradas em mirantes, praias e pontos icônicos que fazem de Pipa um dos destinos mais desejados do RN.\r\n\r\nPraia de Ponta do Madeiro – um dos cartões-postais da região, conhecida pelas águas tranquilas e possibilidade de avistar golfinhos.\r\n\r\nPraia do Amor – com sua vista incrível do alto da falésia e opção de parada no Restaurante Amo, um dos mais procurados pelos visitantes.\r\n\r\nCentro de Pipa e Rua Principal – momento livre para conhecer o comércio local, fotografar os cantinhos mais famosos e explorar locais como a charmosa Vila Mangueira (com vibe grega) e a colorida Rua do Céu dos Guarda-chuvas.\r\n\r\nMirante da Lagoa de Guaraíras – parada perfeita para contemplar a paisagem e registrar fotos inesquecíveis.\r\n\r\nSempre buscamos proporcionar um dia confortável, seguro e cheio de paisagens incríveis — mas lembre-se: os pontos de parada podem mudar conforme as condições e logística do dia.",
             "duracao": "8 horas",
             "categoria": [
                 "Praia",
-                "Famoso"
-            ],
-            "destaque": false,
-            "ativo": true,
-            "tipo_passeio": "Tour guiado",
-            "min_pessoas": "1",
-            "observacoes": "Recomendamos levar protetor solar, toalha, roupa de banho e dinheiro para alimentação.",
-            "data_atualizacao": "2025-11-19",
-            "data_criacao": "2024-01-15",
-            "imagem_capa": "uploads\/passeios\/praia-de-pipa\/capa.jpg",
-            "galeria": [
-                {
-                    "url": "uploads\/passeios\/praia-de-pipa\/foto1.jpg",
-                    "alt": "Vista das falésias coloridas de Pipa",
-                    "ordem": 1
-                },
-                {
-                    "url": "uploads\/passeios\/praia-de-pipa\/foto2.jpg",
-                    "alt": "Piscinas naturais",
-                    "ordem": 2
-                },
-                {
-                    "url": "uploads\/passeios\/praia-de-pipa\/foto3.jpg",
-                    "alt": "Centro de Pipa",
-                    "ordem": 3
-                },
-                {
-                    "url": "uploads\/passeios\/praia-de-pipa\/foto4.jpg",
-                    "alt": "Pôr do sol em Pipa",
-                    "ordem": 4
-                }
-            ],
-            "horarios": [
-                "08:00",
-                "14:00"
-            ],
-            "inclui": [
-                "Transporte ida e volta",
-                "Guia turístico credenciado",
-                "Seguro viagem",
-                "Paradas para fotos"
-            ],
-            "nao_inclui": [
-                "Alimentação",
-                "Bebidas",
-                "Despesas pessoais"
-            ],
-            "politica_criancas": "Crianças de 0 a 5 anos: gratuito (no colo, sem assento garantido)\r\nCrianças de 6 a 10 anos: 50% do valor do adulto\r\nA partir de 11 anos: valor integral"
-        },
-        {
-            "id": "dunas-genipabu",
-            "nome": "Passeio de Buggy nas Dunas de Genipabu",
-            "slug": "dunas-genipabu",
-            "descricao_curta": "Aventura emocionante pelas famosas dunas de Genipabu com buggy e esquibunda",
-            "descricao_completa": "Prepare-se para muita adrenalina nas dunas de Genipabu! Este passeio icônico de Natal oferece a emoção de andar de buggy pelas dunas móveis, com direito a escolher entre 'com emoção' ou 'sem emoção'. Você também poderá praticar esquibunda, conhecer a Lagoa de Genipabu e o Dromedário. Uma experiência inesquecível que combina aventura, natureza e diversão para toda a família.",
-            "preco": "200.00",
-            "preco_formatado": "R$ 200,00",
-            "duracao": "4 horas",
-            "categoria": [
-                "Buggy",
-                "Radical",
-                "Aventura",
+                "Família",
                 "Destaque"
             ],
             "destaque": true,
             "ativo": true,
-            "imagem_capa": "uploads\/passeios\/dunas-genipabu\/capa.jpg",
+            "tipo_passeio": "Passeio regular",
+            "min_pessoas": "6",
+            "observacoes": "O acesso às praias é realizado por escadarias;\r\n\r\nNão esqueça de levar roupa de banho e o filtro solar;\r\n\r\nPara buscar fora da área hoteleira de Natal e cobrado o valor do deslocamento;\r\n\r\nO tipo de transporte pode variar de acordo com o numero de pessoas indo ao pesseio.\r\n\r\nAtenção: Os restaurantes e estabelecimentos não permitem a entrada de alimentos e bebidas",
+            "politica_criancas": "Crianças menores de 02 anos (colo) e gratuíta.\r\nCrianças de 02 a 11 anos (direito a assento) 50% de desconto.",
+            "posicao": 3,
+            "data_atualizacao": "2025-12-27",
+            "data_criacao": "2025-11-26",
+            "imagem_capa": "uploads\/passeios\/praia-da-pipa\/692a482918526.png",
             "galeria": [
                 {
-                    "url": "uploads\/passeios\/dunas-genipabu\/foto1.jpg",
-                    "alt": "Buggy nas dunas",
+                    "url": "uploads\/passeios\/praia-da-pipa\/69271275d3193.jpg",
+                    "alt": "Foto do passeio Praia  da Pipa",
                     "ordem": 1
                 },
                 {
-                    "url": "uploads\/passeios\/dunas-genipabu\/foto2.jpg",
-                    "alt": "Esquibunda nas dunas",
+                    "url": "uploads\/passeios\/praia-da-pipa-o-para-so-mais-vibrante-do-rn\/692a5a69150be.jpeg",
+                    "alt": "Foto do passeio 🌴 Praia da Pipa – O paraíso mais vibrante do RN!",
                     "ordem": 2
                 },
                 {
-                    "url": "uploads\/passeios\/dunas-genipabu\/foto3.jpg",
-                    "alt": "Vista panorâmica de Genipabu",
+                    "url": "uploads\/passeios\/praia-da-pipa-o-para-so-mais-vibrante-do-rn\/695042926b4e7.jpg",
+                    "alt": "Foto do passeio 🌴 Praia da Pipa – O paraíso mais vibrante do RN!",
                     "ordem": 3
-                },
-                {
-                    "url": "uploads\/passeios\/dunas-genipabu\/foto4.jpg",
-                    "alt": "Lagoa de Genipabu",
-                    "ordem": 4
                 }
             ],
+            "horarios": [
+                "Depende do Hotel"
+            ],
             "inclui": [
-                "Passeio de buggy",
-                "Equipamento de segurança",
-                "Guia especializado",
-                "Esquibunda"
+                "Transporte ida e volta",
+                "Trasnporte com AR condicionado",
+                "Guia de turismo Credenciado"
             ],
             "nao_inclui": [
-                "Passeio de dromedário (opcional - R$ 30)",
                 "Alimentação",
-                "Bebidas"
-            ],
-            "horarios": [
-                "08:00",
-                "14:00"
-            ],
-            "tipo_passeio": "Aventura",
-            "min_pessoas": "1",
-            "observacoes": "Não recomendado para gestantes. Levar óculos de sol, protetor solar e câmera protegida contra areia.",
-            "politica_criancas": "Crianças de 0 a 3 anos: gratuito (no colo, não recomendado para o passeio de buggy)\r\nCrianças de 4 a 8 anos: 60% do valor do adulto\r\nCrianças de 9 a 12 anos: 70% do valor do adulto\r\nA partir de 13 anos: valor integral\r\nNota: Crianças menores de 4 anos não podem andar de buggy por segurança. Acompanham no carro de apoio.",
-            "data_criacao": "2024-01-15",
-            "data_atualizacao": "2024-01-15"
+                "Qualquer extra não citado no roteiro"
+            ]
         },
         {
-            "id": "maracajau",
-            "nome": "Mergulho nos Parrachos de Maracajaú",
-            "slug": "maracajau",
-            "descricao_curta": "Mergulho com snorkel nas piscinas naturais formadas por corais",
-            "descricao_completa": "Os Parrachos de Maracajaú são formações de corais que criam verdadeiras piscinas naturais no meio do mar, a cerca de 7km da costa. Com águas cristalinas e calmas, é o lugar perfeito para mergulhar com snorkel e observar a rica vida marinha. Você verá peixes coloridos, corais e, com sorte, tartarugas marinhas. O passeio inclui transporte até a praia, travessia de barco até os parrachos e todo o equipamento necessário.",
-            "preco": "180.00",
-            "preco_formatado": "R$ 180,00",
-            "duracao": "6 horas",
+            "id": "passeio_692a28197d2b6",
+            "nome": "🌊 Rio do fogo – Um paraíso de águas cristalinas pertinho de você!",
+            "slug": "rio-do-fogo-um-para-so-de-guas-cristalinas-pertinho-de-voc",
+            "descricao_curta": "Parta da charmosa Vila de Perobas rumo aos parrachos de Rio do Fogo e mergulhe em águas cristalinas com profundidade entre 1m e 1,5m. Até 2 horas aproveitando piscinas naturais, peixinhos coloridos e a opção de fotos submarinas incríveis. Um passeio exclusivo, leve e inesquecível!",
+            "descricao_completa": "Localizada a cerca de 74 km de Natal, a charmosa Vila de Perobas é um refúgio tranquilo do litoral norte potiguar, conhecida por suas águas cristalinas, atmosfera acolhedora e acesso privilegiado a um dos cenários mais deslumbrantes do RN: os parrachos. É deste vilarejo que parte um dos passeios mais desejados da região, unindo beleza natural, tranquilidade e uma experiência única em alto-mar.\r\n\r\nO roteiro pode variar conforme a maré e a operação do dia, mas inclui navegação, piscinas naturais e tempo para aproveitar o melhor da região.\r\n\r\nEntre as atividades podem estar:\r\n\r\nEmbarque em Perobas – saída em embarcação rumo aos parrachos, com navegação tranquila e vista espetacular do mar azul-turquesa.\r\n\r\nParrachos de Rio do Fogo – parada nas piscinas naturais, com profundidade variando entre 1m e 1,5m, ideais para flutuação, snorkel e fotos incríveis sobre os recifes. O mergulho costuma durar até 2 horas, aproveitando ao máximo a transparência da água e a vida marinha local.\r\n\r\nAtração Opcional: Fotos Submarinas – possibilidade de contratar um fotógrafo local para fazer ensaios subaquáticos com peixinhos coloridos, criando lembranças únicas e divertidas.\r\n\r\nTempo Livre no Mar – momento para relaxar, nadar, observar peixes e curtir a tranquilidade única da região.\r\n\r\nRetorno a Perobas – navegação de volta ao ponto de embarque, encerrando o passeio com a sensação de ter vivido algo realmente especial.\r\n\r\nComo o destino depende da maré, a profundidade e o tempo exato nas piscinas naturais podem variar — tornando cada experiência sempre única.",
+            "duracao": "8 horas",
             "categoria": [
+                "Praia",
                 "Mergulhos",
-                "Destaque"
-            ],
-            "destaque": true,
-            "ativo": true,
-            "imagem_capa": "uploads\/passeios\/maracajau\/capa.jpg",
-            "galeria": [
-                {
-                    "url": "uploads\/passeios\/maracajau\/foto1.jpg",
-                    "alt": "Águas cristalinas de Maracajaú",
-                    "ordem": 1
-                },
-                {
-                    "url": "uploads\/passeios\/maracajau\/foto2.jpg",
-                    "alt": "Mergulho com peixes",
-                    "ordem": 2
-                },
-                {
-                    "url": "uploads\/passeios\/maracajau\/foto3.jpg",
-                    "alt": "Corais nos parrachos",
-                    "ordem": 3
-                },
-                {
-                    "url": "uploads\/passeios\/maracajau\/foto4.jpg",
-                    "alt": "Tartaruga marinha",
-                    "ordem": 4
-                }
-            ],
-            "inclui": [
-                "Transporte ida e volta",
-                "Travessia de barco",
-                "Equipamento de snorkel",
-                "Colete salva-vidas",
-                "Guia de mergulho"
-            ],
-            "nao_inclui": [
-                "Alimentação",
-                "Bebidas",
-                "Fotos e vídeos subaquáticos"
-            ],
-            "horarios": [
-                "07:00"
-            ],
-            "tipo_passeio": "Tour guiado",
-            "min_pessoas": "1",
-            "observacoes": "Passeio depende das condições climáticas e da maré. Saber nadar é recomendado mas não obrigatório (há coletes). Levar roupa de banho, protetor solar, toalha.",
-            "politica_criancas": "Crianças de 0 a 2 anos: gratuito (no colo, não pode mergulhar)\r\nCrianças de 3 a 5 anos: 40% do valor (com colete, acompanhadas pelos pais)\r\nCrianças de 6 a 10 anos: 60% do valor\r\nCrianças de 11 a 12 anos: 75% do valor\r\nA partir de 13 anos: valor integral\r\nNota: Crianças menores de 5 anos devem estar sempre acompanhadas por um responsável adulto durante o mergulho.",
-            "data_criacao": "2024-01-15",
-            "data_atualizacao": "2024-01-15"
-        },
-        {
-            "id": "litoral-sul",
-            "nome": "Litoral Sul - Praias do Amor, Madeiro e Cacimbinhas",
-            "slug": "litoral-sul-praias-do-amor-madeiro-e-cacimbinhas",
-            "descricao_curta": "Tour pelas praias mais bonitas do litoral sul de Natal",
-            "descricao_completa": "Explore as praias mais paradisíacas do litoral sul potiguar. O passeio inclui visita à Praia do Amor, conhecida por suas ondas perfeitas para o surf; Praia de Madeiro, com suas águas calmas e encontro frequente com golfinhos; e Praia de Cacimbinhas, com suas falésias impressionantes. Cada praia tem sua particularidade e juntas compõem um roteiro inesquecível de belezas naturais, infraestrutura de barracas e piscinas naturais.",
-            "preco": "140.00",
-            "preco_formatado": "R$ 140,00",
-            "duracao": "8 horas",
-            "categoria": [
-                "Praia",
-                "Destaque"
-            ],
-            "destaque": true,
-            "ativo": true,
-            "tipo_passeio": "Tour guiado",
-            "min_pessoas": "1",
-            "observacoes": "Levar protetor solar, roupa de banho, toalha e dinheiro para refeições.",
-            "politica_criancas": "Crianças de 0 a 5 anos: gratuito (no colo, sem assento garantido)\r\nCrianças de 6 a 10 anos: 50% do valor do adulto\r\nA partir de 11 anos: valor integral",
-            "data_atualizacao": "2025-11-19",
-            "data_criacao": "2024-01-15",
-            "imagem_capa": "uploads\/passeios\/litoral-sul-praias-do-amor-madeiro-e-cacimbinhas\/capa.jpg",
-            "galeria": [
-                {
-                    "url": "uploads\/passeios\/litoral-sul-praias-do-amor-madeiro-e-cacimbinhas\/691dd341912ef.jpeg",
-                    "alt": "Foto do passeio Litoral Sul - Praias do Amor, Madeiro e Cacimbinhas",
-                    "ordem": 1
-                }
-            ],
-            "horarios": [
-                "08:00"
-            ],
-            "inclui": [
-                "Transporte ida e volta",
-                "Guia turístico",
-                "Paradas para fotos"
-            ],
-            "nao_inclui": [
-                "Alimentação",
-                "Cadeiras e guarda-sol",
-                "Despesas pessoais"
-            ]
-        },
-        {
-            "id": "centro-historico-natal",
-            "nome": "Centro Histórico de Natal",
-            "slug": "centro-historico-natal",
-            "descricao_curta": "Conheça a história e cultura de Natal visitando os principais pontos históricos da cidade",
-            "descricao_completa": "Um passeio cultural pelo coração de Natal, visitando os principais pontos históricos da cidade. Você conhecerá o Forte dos Reis Magos, a Catedral de Natal, o Teatro Alberto Maranhão, o Palácio Felipe Camarão e outros monumentos importantes. O passeio inclui guia especializado que conta a rica história da capital potiguar, desde sua fundação até os dias atuais.",
-            "duracao": "4 horas",
-            "categoria": [
-                "Cultural",
-                "Família"
-            ],
-            "destaque": false,
-            "ativo": true,
-            "tipo_passeio": "Tour guiado",
-            "min_pessoas": "1",
-            "observacoes": "Recomendamos usar calçados confortáveis e protetor solar. O passeio é feito a pé e de transporte.",
-            "politica_criancas": "Crianças de 0 a 5 anos: gratuito (no colo)\r\nCrianças de 6 a 10 anos: 50% do valor do adulto\r\nCrianças de 11 a 12 anos: 70% do valor do adulto\r\nA partir de 13 anos: valor integral\r\nNota: Passeio cultural educativo, ideal para crianças em idade escolar.",
-            "data_atualizacao": "2025-11-19",
-            "data_criacao": "2025-11-19",
-            "imagem_capa": "uploads\/passeios\/centro-historico-natal\/capa.jpg",
-            "galeria": [],
-            "horarios": [
-                "09:00",
-                "14:00"
-            ],
-            "inclui": [
-                "Transporte ida e volta",
-                "Guia turístico especializado",
-                "Entrada nos monumentos",
-                "Paradas para fotos"
-            ],
-            "nao_inclui": [
-                "Alimentação",
-                "Bebidas",
-                "Despesas pessoais"
-            ]
-        },
-        {
-            "id": "lagoa-do-carcara",
-            "nome": "Lagoa do Carcará",
-            "slug": "lagoa-do-carcara",
-            "descricao_curta": "Passeio ecológico pela Lagoa do Carcará com observação de aves e natureza",
-            "descricao_completa": "A Lagoa do Carcará é um refúgio ecológico localizado próximo a Natal, conhecida por sua rica biodiversidade e tranquilidade. Durante o passeio, você poderá observar diversas espécies de aves, fazer trilhas ecológicas, conhecer a flora local e relaxar em um ambiente natural preservado. Ideal para quem busca contato com a natureza e momentos de paz longe da agitação urbana.",
-            "duracao": "5 horas",
-            "categoria": [
-                "Praia",
-                "Família"
-            ],
-            "destaque": false,
-            "ativo": true,
-            "tipo_passeio": "Tour guiado",
-            "min_pessoas": "1",
-            "observacoes": "Levar repelente, protetor solar, boné e água. Recomendado para amantes da natureza.",
-            "politica_criancas": "Crianças de 0 a 5 anos: gratuito (no colo)\r\nCrianças de 6 a 10 anos: 50% do valor do adulto\r\nCrianças de 11 a 12 anos: 70% do valor do adulto\r\nA partir de 13 anos: valor integral\r\nNota: Passeio ecológico ideal para famílias. Crianças devem estar sempre acompanhadas.",
-            "data_atualizacao": "2025-11-19",
-            "data_criacao": "2025-11-19",
-            "imagem_capa": "uploads\/passeios\/lagoa-do-carcara\/capa.jpg",
-            "galeria": [],
-            "horarios": [
-                "08:00"
-            ],
-            "inclui": [
-                "Transporte ida e volta",
-                "Guia ambiental",
-                "Trilha ecológica",
-                "Observação de aves"
-            ],
-            "nao_inclui": [
-                "Alimentação",
-                "Bebidas",
-                "Equipamentos de observação"
-            ]
-        },
-        {
-            "id": "praia-ponta-negra",
-            "nome": "Praia de Ponta Negra",
-            "slug": "praia-ponta-negra",
-            "descricao_curta": "A praia mais famosa de Natal com o icônico Morro do Careca",
-            "descricao_completa": "Ponta Negra é a praia mais conhecida e movimentada de Natal, famosa pelo Morro do Careca, um dos cartões-postais da cidade. O passeio inclui tempo livre para aproveitar a praia, fazer atividades aquáticas, conhecer o calçadão com suas barracas e restaurantes, e claro, fotografar o famoso Morro do Careca. À noite, a região se transforma com bares e vida noturna animada.",
-            "duracao": "6 horas",
-            "categoria": [
-                "Praia",
                 "Aventura",
+                "Família",
                 "Famoso",
-                "Destaque"
+                "Quadriciclo"
             ],
             "destaque": true,
             "ativo": true,
-            "tipo_passeio": "Tour guiado",
-            "min_pessoas": "1",
-            "observacoes": "Levar protetor solar, roupa de banho, toalha e dinheiro para alimentação e atividades opcionais.",
-            "politica_criancas": "Crianças de 0 a 5 anos: gratuito (no colo, sem assento garantido)\r\nCrianças de 6 a 10 anos: 50% do valor do adulto\r\nCrianças de 11 a 12 anos: 70% do valor do adulto\r\nA partir de 13 anos: valor integral",
-            "data_atualizacao": "2025-11-19",
-            "data_criacao": "2025-11-19",
-            "imagem_capa": "uploads\/passeios\/praia-ponta-negra\/capa.jpg",
-            "galeria": [],
-            "horarios": [
-                "08:00",
-                "14:00"
-            ],
-            "inclui": [
-                "Transporte ida e volta",
-                "Guia turístico",
-                "Tempo livre na praia",
-                "Paradas para fotos"
-            ],
-            "nao_inclui": [
-                "Alimentação",
-                "Atividades aquáticas",
-                "Cadeiras e guarda-sol",
-                "Despesas pessoais"
-            ]
-        },
-        {
-            "id": "forte-dos-reis-magos",
-            "nome": "Forte dos Reis Magos",
-            "slug": "forte-dos-reis-magos",
-            "descricao_curta": "Visita ao histórico Forte dos Reis Magos, marco da fundação de Natal",
-            "descricao_completa": "O Forte dos Reis Magos é um dos principais monumentos históricos do Rio Grande do Norte e marco da fundação de Natal em 1599. Construído em formato de estrela, o forte oferece uma viagem no tempo com suas muralhas, canhões e exposições sobre a história colonial. O passeio inclui visita guiada ao forte, explicações históricas e uma vista privilegiada do mar e da cidade.",
-            "duracao": "3 horas",
-            "categoria": [
-                "Cultural"
-            ],
-            "destaque": false,
-            "ativo": true,
-            "tipo_passeio": "Tour guiado",
-            "min_pessoas": "1",
-            "observacoes": "Recomendamos usar calçados confortáveis. O forte tem escadas e áreas abertas.",
-            "politica_criancas": "Crianças de 0 a 5 anos: gratuito (no colo)\r\nCrianças de 6 a 10 anos: 50% do valor do adulto\r\nCrianças de 11 a 12 anos: 70% do valor do adulto\r\nA partir de 13 anos: valor integral\r\nNota: Passeio histórico educativo. Crianças devem estar acompanhadas e cuidado ao subir escadas do forte.",
-            "posicao": 1,
-            "data_atualizacao": "2025-11-23",
-            "data_criacao": "2025-11-19",
-            "imagem_capa": "uploads\/passeios\/forte-dos-reis-magos\/capa.jpg",
-            "galeria": [],
-            "horarios": [
-                "09:00",
-                "15:00"
-            ],
-            "inclui": [
-                "Transporte ida e volta",
-                "Guia histórico",
-                "Entrada no forte",
-                "Visita guiada completa"
-            ],
-            "nao_inclui": [
-                "Alimentação",
-                "Bebidas",
-                "Despesas pessoais"
-            ]
-        },
-        {
-            "id": "barra-do-cunhau",
-            "nome": "Barra do Cunhaú",
-            "slug": "barra-do-cunha",
-            "descricao_curta": "Passeio completo pela Barra do Cunhaú com praia, mergulho e aventura",
-            "descricao_completa": "A Barra do Cunhaú é um destino completo que combina praia paradisíaca, mergulho em águas cristalinas e aventura. O passeio inclui tempo na praia, mergulho com snorkel para observar a vida marinha, passeio de barco e atividades de aventura. É um dos destinos mais completos do litoral sul, perfeito para quem quer experimentar tudo em um só dia.",
-            "duracao": "8 horas",
-            "categoria": [
-                "Praia",
-                "Aventura",
-                "Mergulhos",
-                "Destaque"
-            ],
-            "destaque": true,
-            "ativo": false,
-            "tipo_passeio": "Aventura",
-            "min_pessoas": "1",
-            "observacoes": "Levar roupa de banho, protetor solar, toalha e equipamento de mergulho (ou alugar no local). Saber nadar é recomendado.",
-            "politica_criancas": "Crianças de 0 a 3 anos: gratuito (no colo, não pode mergulhar)\r\nCrianças de 4 a 7 anos: 50% do valor (com colete, acompanhadas pelos pais)\r\nCrianças de 8 a 10 anos: 65% do valor\r\nCrianças de 11 a 12 anos: 80% do valor\r\nA partir de 13 anos: valor integral\r\nNota: Crianças menores de 8 anos devem estar sempre acompanhadas por um responsável adulto durante atividades aquáticas.",
-            "data_atualizacao": "2025-11-19",
-            "data_criacao": "2025-11-19",
-            "imagem_capa": "uploads\/passeios\/barra-do-cunhau\/capa.jpg",
-            "galeria": [],
-            "horarios": [
-                "07:00"
-            ],
-            "inclui": [
-                "Transporte ida e volta",
-                "Passeio de barco",
-                "Equipamento de snorkel",
-                "Guia especializado",
-                "Colete salva-vidas"
-            ],
-            "nao_inclui": [
-                "Alimentação",
-                "Bebidas",
-                "Fotos e vídeos subaquáticos",
-                "Atividades extras"
-            ]
-        },
-        {
-            "id": "passeio_691e666a7166c",
-            "nome": "Litoral Sul - teste",
-            "slug": "litoral-sul-teste",
-            "descricao_curta": "Passeio nas praias mais bonitas do litoral sul",
-            "descricao_completa": "Os Parrachos de Maracajaú são formações de corais que criam verdadeiras piscinas naturais no meio do mar, a cerca de 7km da costa. Com águas cristalinas e calmas, é o lugar perfeito para mergulhar com snorkel e observar a rica vida marinha. Você verá peixes coloridos, corais e, com sorte, tartarugas marinhas. O passeio inclui transporte até a praia, travessia de barco até os parrachos e todo o equipamento necessário.",
-            "duracao": "5 horas",
-            "categoria": [
-                "Praia",
-                "Aventura",
-                "Mergulho"
-            ],
-            "destaque": true,
-            "ativo": true,
-            "tipo_passeio": "Tour guiado",
-            "min_pessoas": "1",
-            "observacoes": "Não esqueça o protetor solar",
-            "politica_criancas": "0 e 1 ano: gratuito (no colo)\r\n2 e 3 anos: R$ 115,00\r\n4 a 8 anos: R$ 160,00",
-            "posicao": 999,
-            "data_atualizacao": "2025-11-23",
-            "data_criacao": "2025-11-20",
-            "imagem_capa": "uploads\/passeios\/litoral-sul-teste\/69233c267ca20.jpg",
+            "tipo_passeio": "Passeio regular",
+            "min_pessoas": "6",
+            "observacoes": "Passeio so é possivel ser realizado em máre baixa;\r\n\r\nEm dia de maré cedo o passeio poderá sair antes do café da manhã do hotel;\r\n\r\nNão esqueça de levar roupa de banho e o filtro solar;\r\n\r\nPara buscar fora da área hoteleira de Natal e cobrado o valor do deslocamento;\r\n\r\nO tipo de transporte pode variar de acordo com o numero de pessoas indo ao pesseio.\r\n\r\nAtenção: Os restaurantes e estabelecimentos não permitem a entrada de alimentos e bebidas",
+            "politica_criancas": "Crianças abaixo de 02 anos não podem embarcar\r\n\r\nCrianças de 02 a 11 anos (direito a assento e mergulho) 50% de desconto. \r\n\r\nSomente no transporte Crianças ate 02 anos (colo) e gratuíta.",
+            "posicao": 2,
+            "data_atualizacao": "2025-12-27",
+            "data_criacao": "2025-11-28",
+            "imagem_capa": "uploads\/passeios\/perobas-com-mergulho-em-rio-do-fogo\/692a28197dc2e.jpg",
             "galeria": [
                 {
-                    "url": "uploads\/passeios\/litoral-sul-teste\/69233c3b143db.jpg",
-                    "alt": "Foto do passeio Litoral Sul - teste",
+                    "url": "uploads\/passeios\/perobas-um-para-so-de-guas-cristalinas-pertinho-de-voc\/6945a08d93831.jpeg",
+                    "alt": "Foto do passeio 🌊 Perobas – Um paraíso de águas cristalinas pertinho de você!",
                     "ordem": 1
                 },
                 {
-                    "url": "uploads\/passeios\/litoral-sul-teste\/69233c3b14660.jpg",
-                    "alt": "Foto do passeio Litoral Sul - teste",
+                    "url": "uploads\/passeios\/perobas-um-para-so-de-guas-cristalinas-pertinho-de-voc\/6945a08d9bb71.jpeg",
+                    "alt": "Foto do passeio 🌊 Perobas – Um paraíso de águas cristalinas pertinho de você!",
                     "ordem": 2
                 },
                 {
-                    "url": "uploads\/passeios\/litoral-sul-teste\/69233c3b17f40.jpeg",
-                    "alt": "Foto do passeio Litoral Sul - teste",
+                    "url": "uploads\/passeios\/perobas-um-para-so-de-guas-cristalinas-pertinho-de-voc\/6945a08da4df3.jpeg",
+                    "alt": "Foto do passeio 🌊 Perobas – Um paraíso de águas cristalinas pertinho de você!",
                     "ordem": 3
                 },
                 {
-                    "url": "uploads\/passeios\/litoral-sul-teste\/69233c3b181fa.jpg",
-                    "alt": "Foto do passeio Litoral Sul - teste",
+                    "url": "uploads\/passeios\/perobas-um-para-so-de-guas-cristalinas-pertinho-de-voc\/6945a08dacd17.jpeg",
+                    "alt": "Foto do passeio 🌊 Perobas – Um paraíso de águas cristalinas pertinho de você!",
                     "ordem": 4
                 },
                 {
-                    "url": "uploads\/passeios\/litoral-sul-teste\/69233c3b1844b.jpg",
-                    "alt": "Foto do passeio Litoral Sul - teste",
+                    "url": "uploads\/passeios\/perobas-um-para-so-de-guas-cristalinas-pertinho-de-voc\/6945a08db3af0.jpeg",
+                    "alt": "Foto do passeio 🌊 Perobas – Um paraíso de águas cristalinas pertinho de você!",
+                    "ordem": 5
+                }
+            ],
+            "horarios": [
+                "De acordo com maré"
+            ],
+            "inclui": [
+                "Transporte ida e volta",
+                "Guia de turismo Embratur",
+                "Veículo climatizado",
+                "Ticket lancha ida e volta a área de mergulho",
+                "Taxa ambiental",
+                "Snorkel e mascára"
+            ],
+            "nao_inclui": [
+                "Alimentação",
+                "Serviço de Fotos subaquaticas",
+                "Passeio de Quadriciclo",
+                "Qualquer gasto extra não citado no roteiro"
+            ]
+        },
+        {
+            "id": "passeio_692a3efbd3c77",
+            "nome": "🏁 Passeio de Quadriciclo – Aventura pelas Lagoas",
+            "slug": "passeio-de-quadriciclo-aventura-pelas-lagoas",
+            "descricao_curta": "Sinta a adrenalina sobre quatro rodas! Um passeio guiado em comboio de quadriciclos, cruzando trilhas, estradas e paisagens incríveis até as lagoas mais famosas da região de Alcaçuz. Diversão, emoção e paradas para banho em um roteiro perfeito para quem ama aventura!",
+            "descricao_completa": "Uma experiência cheia de emoção, realizada em comboio de quadriciclos, sempre acompanhada por instrutor nativo, garantindo segurança e diversão durante todo o percurso pela região de Alcaçuz e acesso às principais lagoas locais.\r\n\r\nA trilha tem duração média de 2h30, com paradas estratégicas para banho e descanso nas lagoas que fazem parte do trajeto.\r\n\r\nPontos que podem ser visitados durante o passeio:\r\n\r\nLagoa de Alcaçuz\r\n\r\nLagoa Amarela\r\n\r\nLagoa da Juventude\r\n\r\nO roteiro pode sofrer pequenas variações conforme condições do dia, garantindo sempre a melhor experiência possível para os participantes.",
+            "duracao": "2,5 horas",
+            "categoria": [
+                "Aventura",
+                "Radical",
+                "Quadriciclo"
+            ],
+            "destaque": false,
+            "ativo": true,
+            "tipo_passeio": "Passeio regular",
+            "min_pessoas": "1",
+            "observacoes": "Este passeio você paga o valor por máquina que comporta até 2 pessoas, você mesmo que pilota o quadriciclo.\r\n\r\n- Condutores acima de 18 anos com Habilitação. (CNH)\r\n\r\n- No máximo 2 pessoas por máquina (somando o peso máximo de 180kg por máquina) ;\r\n\r\n\r\n- Não ingerir bebidas alcoólicas.\r\n\r\n- Gestantes não podem realizar o passeio . \r\n\r\nVista roupas leves, roupas de banho, oculos escuros e leve protetor solar.",
+            "politica_criancas": "- Garupa acima de 8 anos;",
+            "posicao": 7,
+            "data_atualizacao": "2025-12-19",
+            "data_criacao": "2025-11-29",
+            "imagem_capa": "uploads\/passeios\/passeio-de-quadriciclo-aventura-pelas-lagoas\/692a3efbd41ea.jpg",
+            "galeria": [],
+            "horarios": [
+                "manhã e tarde"
+            ],
+            "inclui": [
+                "Pegamos e deixamos nos hotéis localizados no litoral urbano de Natal (Ponta negra, Praia do Forte, Artistas, Areia Preta, Via Costeira).",
+                "Transporte categoria turismo com ar condicionado. O veiculo utilizado depende da quantidade de pessoas reservadas para o dia, podendo ser em van, micro ônibus ou ônibus.",
+                "Quadriciclo com capacidade para até 2 pessoas;",
+                "Instrutor acompanhando todo percurso;"
+            ],
+            "nao_inclui": [
+                "Alimentos, bebidas",
+                "Serviço de fotos, videos e\/ou drone",
+                "e outros passeios\/serviços opcionais."
+            ]
+        },
+        {
+            "id": "passeio_692a43f37bd49",
+            "nome": "🚙 Rota dos Nativos 4×4 – Aventura Raiz pelo Litoral do RN",
+            "slug": "rota-dos-nativos-4-4-aventura-raiz-pelo-litoral-do-rn",
+            "descricao_curta": "Viva um dia de pura aventura a bordo de veículos 4×4, cruzando praias, dunas e lagoas escondidas do litoral sul potiguar. A Rota dos Nativos une emoção off-road, paisagens cinematográficas e paradas para banho em águas cristalinas — o passeio perfeito para quem quer sair do comum e sentir o RN de um jeito diferente!",
+            "descricao_completa": "O passeio é realizado em veículos 4x4 conduzidos por motoristas nativos, proporcionando acesso a trilhas exclusivas, dunas e regiões de natureza preservada do litoral sul. O percurso pode sofrer variações conforme clima e logística do dia, mas sempre mantém o foco em aventura, contato com a natureza e experiências autênticas.\r\n\r\nDurante o trajeto, podem ser incluídas paradas em:\r\n\r\nCentro Barreira do Inferno – parada para fotos e contextualização histórica.\r\n\r\nMaior Cajueiro do Mundo – visita ao famoso cartão-postal de Pirangi.\r\n\r\nLagoas da região de Alcaçuz – como a Lagoa de Alcaçuz, Lagoa do Carcará e Lagoa do Arroz (ou Lagoa da Juventude), com paradas para banho.\r\n\r\nTrechos de dunas e off-road – aventura em meio às paisagens naturais da região, com possibilidade de atividades opcionais como skibunda ou sandboard.\r\n\r\nPraias do litoral sul – parada para descanso, banho de mar e almoço (não incluso).\r\n\r\nPôr do sol nas dunas de Búzios – encerramento especial com uma das vistas mais bonitas da região.\r\n\r\nO passeio costuma ter duração de dia inteiro, combinando emoção, relaxamento e muita beleza em um único roteiro.",
+            "duracao": "10 horas",
+            "categoria": [
+                "Praia",
+                "Aventura",
+                "Radical",
+                "Família",
+                "Crianças",
+                "Destaque",
+                "Famoso",
+                "Privativo"
+            ],
+            "destaque": true,
+            "ativo": true,
+            "tipo_passeio": "Passeio regular",
+            "min_pessoas": "1",
+            "observacoes": "Vista roupas leves, roupas de banho, oculos escuros e leve protetor solar;\r\n\r\nPara buscar fora da área hoteleira de Natal e cobrado o valor do deslocamento;\r\n\r\nAtenção: Os restaurantes e estabelecimentos não permitem a entrada de alimentos e bebidas;",
+            "politica_criancas": "Não há descontos nem idade minima!",
+            "posicao": 2,
+            "data_atualizacao": "2025-12-27",
+            "data_criacao": "2025-11-29",
+            "imagem_capa": "uploads\/passeios\/rota-dos-nativos-4-4-aventura-raiz-pelo-litoral-do-rn\/692a47041af32.png",
+            "galeria": [
+                {
+                    "url": "uploads\/passeios\/rota-dos-nativos-4-4-aventura-raiz-pelo-litoral-do-rn\/6945a0c9dfe9e.jpeg",
+                    "alt": "Foto do passeio 🚙 Rota dos Nativos 4×4 – Aventura Raiz pelo Litoral do RN",
+                    "ordem": 1
+                },
+                {
+                    "url": "uploads\/passeios\/rota-dos-nativos-4-4-aventura-raiz-pelo-litoral-do-rn\/6945a0c9e746e.jpeg",
+                    "alt": "Foto do passeio 🚙 Rota dos Nativos 4×4 – Aventura Raiz pelo Litoral do RN",
+                    "ordem": 2
+                },
+                {
+                    "url": "uploads\/passeios\/rota-dos-nativos-4-4-aventura-raiz-pelo-litoral-do-rn\/6945a0c9eff12.jpeg",
+                    "alt": "Foto do passeio 🚙 Rota dos Nativos 4×4 – Aventura Raiz pelo Litoral do RN",
+                    "ordem": 3
+                },
+                {
+                    "url": "uploads\/passeios\/rota-dos-nativos-4-4-aventura-raiz-pelo-litoral-do-rn\/6945a0ca02580.jpeg",
+                    "alt": "Foto do passeio 🚙 Rota dos Nativos 4×4 – Aventura Raiz pelo Litoral do RN",
+                    "ordem": 4
+                },
+                {
+                    "url": "uploads\/passeios\/rota-dos-nativos-4-4-aventura-raiz-pelo-litoral-do-rn\/6945a0ca06ebe.jpeg",
+                    "alt": "Foto do passeio 🚙 Rota dos Nativos 4×4 – Aventura Raiz pelo Litoral do RN",
                     "ordem": 5
                 },
                 {
-                    "url": "uploads\/passeios\/litoral-sul-teste\/69233c3b18672.jpg",
-                    "alt": "Foto do passeio Litoral Sul - teste",
+                    "url": "uploads\/passeios\/rota-dos-nativos-4-4-aventura-raiz-pelo-litoral-do-rn\/6945a0ca0e291.jpeg",
+                    "alt": "Foto do passeio 🚙 Rota dos Nativos 4×4 – Aventura Raiz pelo Litoral do RN",
                     "ordem": 6
-                },
-                {
-                    "url": "uploads\/passeios\/litoral-sul-teste\/69233c3b188d5.jpg",
-                    "alt": "Foto do passeio Litoral Sul - teste",
-                    "ordem": 7
-                },
-                {
-                    "url": "uploads\/passeios\/litoral-sul-teste\/69233c3b18b0b.webp",
-                    "alt": "Foto do passeio Litoral Sul - teste",
-                    "ordem": 8
-                },
-                {
-                    "url": "uploads\/passeios\/litoral-sul-teste\/69233c3b18d30.jpeg",
-                    "alt": "Foto do passeio Litoral Sul - teste",
-                    "ordem": 9
                 }
             ],
             "horarios": [
-                "08:00"
+                "Acombinar"
+            ],
+            "inclui": [
+                "Pegamos e deixamos nos hotéis localizados no litoral urbano de Natal (Ponta negra, Praia do Forte, Artistas, Areia Preta, Via Costeira).",
+                "Transporte 4x4 com capacidade para até 6 pessoas;",
+                "Guia de Turismo com CADASTUR;"
+            ],
+            "nao_inclui": [
+                "Alimentos, bebidas e outros passeios opcionais.",
+                "Taxa day use Lagoa de Alcaçuz",
+                "Entrada do cajueiro"
+            ]
+        },
+        {
+            "id": "passeio_692a5410933b3",
+            "nome": "🐠 Maracajaú – O Caribe do RN",
+            "slug": "maracaja-o-caribe-do-rn",
+            "descricao_curta": "Viva um dos passeios mais famosos do Rio Grande do Norte! Em Maracajaú você mergulha em piscinas naturais de águas cristalinas, repletas de peixinhos coloridos, em um cenário perfeito para flutuação, snorkel e fotos inesquecíveis. Um verdadeiro banho de mar em águas de tom caribenho!",
+            "descricao_completa": "Localizada a cerca de 60 km de Natal, Maracajaú é conhecida pelos seus impressionantes parrachos, que se formam durante a maré baixa e revelam um dos locais mais procurados para mergulho com snorkel do RN.\r\n\r\nO roteiro pode variar conforme a maré e a operação do dia, mas o passeio contempla:\r\n\r\nDeslocamento até Maracajaú – chegada à vila e organização para o embarque.\r\n\r\nTravessia até os Parrachos – percurso feito em lancha ou catamarã até as piscinas naturais.\r\n\r\nMergulho nas Piscinas Naturais – tempo para flutuação e snorkel em águas claras, com observação de peixes coloridos e recifes.\r\n\r\nAtrações Opcionais – possibilidade de contratação de fotos submarinas para registrar a experiência.\r\n\r\nTempo Livre em Maracajaú – retorno à praia para relaxar, usar a estrutura local ou almoçar (não incluso).\r\n\r\nRetorno para Natal – encerramento do passeio após um dia leve e inesquecível no litoral norte.\r\n\r\n⚠️ Por depender diretamente da maré, o horário do mergulho e o tempo exato de permanência nos parrachos podem variar a cada dia.",
+            "duracao": "8 horas",
+            "categoria": [
+                "Praia",
+                "Mergulhos",
+                "Aventura",
+                "Família",
+                "Crianças",
+                "Famoso",
+                "Quadriciclo"
+            ],
+            "destaque": false,
+            "ativo": true,
+            "tipo_passeio": "Passeio regular",
+            "min_pessoas": "6",
+            "observacoes": "Passeio so é possivel ser realizado em máre baixa;\r\n\r\nEm dia de maré cedo o passeio poderá sair antes do café da manhã do hotel;\r\n\r\nNão esqueça de levar roupa de banho e o filtro solar;\r\n\r\nPara buscar fora da área hoteleira de Natal e cobrado o valor do deslocamento;\r\n\r\nO tipo de transporte pode variar de acordo com o numero de pessoas indo ao pesseio.\r\n\r\nAtenção: Os restaurantes e estabelecimentos não permitem a entrada de alimentos e bebidas",
+            "politica_criancas": "Crianças abaixo de 02 anos não podem embarcar\r\n\r\nCrianças de 02 a 11 anos (direito a assento e mergulho) 40% de desconto.\r\n\r\nSomente no transporte Crianças ate 02 anos (colo) e gratuíta.",
+            "posicao": 5,
+            "data_atualizacao": "2025-12-27",
+            "data_criacao": "2025-11-29",
+            "imagem_capa": "uploads\/passeios\/maracaja-o-caribe-do-rn\/692a541093763.jpg",
+            "galeria": [],
+            "horarios": [
+                "depende da maré"
             ],
             "inclui": [
                 "Transporte ida e volta",
-                "Ar condicionado",
-                "Bagagem de mão",
-                "lancha",
-                "bote",
-                "barco"
+                "Veículo climatizado",
+                "Guia de turismo Embratur",
+                "Ticket lancha ou catamarã ida e volta a área de mergulho",
+                "Taxa ambiental",
+                "Snorkel e mascára"
             ],
             "nao_inclui": [
                 "Alimentação",
-                "Quadriciclo",
-                "Tirolesa"
+                "Serviço de Fotos subaquaticas",
+                "Passeios de Quadriciclo; buggy;  mergulho de cilindro; dayuses",
+                "Qualquer gasto extra não citado no roteiro"
+            ]
+        },
+        {
+            "id": "passeio_692a6e4e7c6cd",
+            "nome": "🌟 Passeio de Buggy – Litoral Norte",
+            "slug": "passeio-de-buggy-litoral-norte",
+            "descricao_curta": "Mais que um passeio — uma experiência para a vida toda.\r\nAventure-se pelas dunas de Genipabu, atravesse praias paradisíacas e mergulhe em lagoas cristalinas em um dos roteiros mais completos e emocionantes de Natal.",
+            "descricao_completa": "Praia da Redinha (primeira parada, cerca de 20 km de Ponta Negra).\r\n\r\nDunas de Genipabu — cenários de dunas + lagoa + mar, um dos cartões-postais mais famosos do litoral norte.\r\n\r\nTravessia de balsa pelo rio (dependendo do trecho) para acessar praias mais remotas.\r\n\r\nPraias \/ balneários como Barra do Rio e Graçandu, com possibilidade de banho em águas mais calmas.\r\n\r\nAs dunas e lagoas de Pitangui — onde há parada para banho e lazer.\r\n\r\nDunas douradas \/ dunas cênicas (muitas vezes usadas em filmagens).\r\n\r\nJacumã — com lagoa onde há possibilidade de atividades aquáticas opcionais (tipo “aerobunda”, “ski-bunda”, “kamikaze”, etc.).\r\n\r\nPorto Mirim — praia onde geralmente há parada para almoço e banho de mar. \r\n\r\nNo total, o passeio costuma abranger algo como 8 praias, 3 lagoas e 4 parques de dunas, oferecendo uma experiência completa de litoral + dunas + lagoas + mar",
+            "duracao": "8 horas",
+            "categoria": [
+                "Praia",
+                "Aventura",
+                "Radical",
+                "Família",
+                "Crianças",
+                "Famoso",
+                "Buggy"
+            ],
+            "destaque": true,
+            "ativo": true,
+            "tipo_passeio": "Passeio regular",
+            "min_pessoas": "1",
+            "observacoes": "Passeio sera compartilhado em um veiculo buggy que transporta até 4 pessoas por buggy + motorista credenciado.\r\n\r\nNão esqueça de levar roupa de banho e o filtro solar;\r\n\r\nPara buscar fora da área hoteleira de Natal e cobrado o valor do deslocamento;",
+            "politica_criancas": "Não ha politica de descontos para crianças; \r\n\r\nNão ha idade minima para execusão do passeio;",
+            "posicao": 4,
+            "data_atualizacao": "2025-12-19",
+            "data_criacao": "2025-11-29",
+            "imagem_capa": "uploads\/passeios\/passeio-de-buggy-litoral-norte\/692a6e4e7d070.jpg",
+            "galeria": [
+                {
+                    "url": "uploads\/passeios\/passeio-de-buggy-litoral-norte\/6945a102bcb60.jpeg",
+                    "alt": "Foto do passeio 🌟 Passeio de Buggy – Litoral Norte",
+                    "ordem": 1
+                },
+                {
+                    "url": "uploads\/passeios\/passeio-de-buggy-litoral-norte\/6945a102cd642.jpeg",
+                    "alt": "Foto do passeio 🌟 Passeio de Buggy – Litoral Norte",
+                    "ordem": 2
+                }
+            ],
+            "horarios": [
+                "a combinar"
+            ],
+            "inclui": [
+                "Saída e retorno para o seu hotel — com pick-up\/entrega no hotel (se estiver na zona hoteleira de Natal)",
+                "Buggy  e piloto credenciado e regularizado"
+            ],
+            "nao_inclui": [
+                "Alimentação, bebidas e serviços opcionais como brincadeiras aquáticas (aerobunda, ski-bunda, kamikaze, etc.)",
+                "Taxa da balsa ou ambiental, entrada das dunas\/lagoas;",
+                "Entradas para atrações adicionais (como o aquário\/zoológico da Redinha, se for incluir visita)."
+            ]
+        },
+        {
+            "id": "passeio_69504b3361d82",
+            "nome": "🌅 Litoral Norte – Genipabu Sunset Experience",
+            "slug": "litoral-norte-genipabu-sunset-experience",
+            "descricao_curta": "Uma experiência leve, diferente e inesquecível.\r\nUm passeio completo com diversão, aventura, gastronomia e praia tranquila, finalizando a tarde com buggy nas dunas de Genipabu e um entardecer especial na praia.",
+            "descricao_completa": "🔹 Clube Pargos – Porto Mirim\r\n\r\nO passeio inicia com deslocamento direto ao Clube Pargos, um espaço de lazer cercado por natureza, ideal para começar o dia com diversão e adrenalina.\r\nO local conta com atrações como esquibunda (aerobunda), tirolesa e kamikaze, além de piscinas e áreas de convivência.\r\n\r\n🔹 Praia de Porto Mirim – Restaurante Miramar\r\n\r\nEm seguida, o passeio segue para a Praia de Porto Mirim, conhecida por suas águas calmas e tranquilas, perfeitas para banho e relaxamento.\r\nA parada acontece no Restaurante Miramar, onde a principal atração é o buffet opcional, com forte destaque para os frutos do mar, além de acompanhamentos, massas, churrasco e sobremesas.\r\nO buffet pode ser aproveitado tanto como petisco quanto como refeição completa, de acordo com o perfil de cada visitante.\r\n\r\n🔹 Genipabu – Buggy + entardecer na praia.\r\n\r\nNa sequência, o passeio segue para Genipabu, onde já está incluso o passeio de buggy pelas famosas dunas da região.\r\nO passeio tem duração aproximada de 1 hora, percorrendo as dunas de Genipabu, com destaque para o visual da Lagoa de Genipabu, em um trajeto cheio de paisagens impressionantes.\r\nApós o passeio de buggy, o grupo segue para o Bar 21, um dos pontos mais conhecidos de Genipabu, onde acontece o encerramento do passeio.\r\nNesse momento, os visitantes apreciam o sunset, com vista privilegiada para as dunas de Genipabu, o mar e a Praia de Genipabu, fechando o dia com um visual espetacular.",
+            "duracao": "10",
+            "categoria": [
+                "Praia",
+                "Aventura",
+                "Radical",
+                "Família",
+                "Crianças",
+                "Destaque",
+                "Buggy"
+            ],
+            "destaque": true,
+            "ativo": true,
+            "tipo_passeio": "Serviço regular",
+            "min_pessoas": "6",
+            "observacoes": "O passeio nas dunas e compartilhado em buggy com 4 pessoas.\r\n\r\nNão esqueça de levar roupa de banho e o filtro solar;\r\n\r\nPara buscar fora da área hoteleira de Natal e cobrado o valor do deslocamento;\r\n\r\nO tipo de transporte pode variar de acordo com o numero de pessoas indo ao pesseio.\r\n\r\nAtenção: Os restaurantes e estabelecimentos não permitem a entrada de alimentos e bebidas",
+            "politica_criancas": "Consultar",
+            "posicao": 1,
+            "data_atualizacao": "2026-01-18",
+            "data_criacao": "2025-12-27",
+            "imagem_capa": "uploads\/passeios\/litoral-norte-genipabu-sunset-experience\/69504b336279e.jpg",
+            "galeria": [
+                {
+                    "url": "uploads\/passeios\/litoral-norte-genipabu-sunset-experience\/69504d553890c.jpg",
+                    "alt": "Foto do passeio 🌅 Litoral Norte – Genipabu Sunset Experience",
+                    "ordem": 1
+                },
+                {
+                    "url": "uploads\/passeios\/litoral-norte-genipabu-sunset-experience\/69504d55aaec7.jpg",
+                    "alt": "Foto do passeio 🌅 Litoral Norte – Genipabu Sunset Experience",
+                    "ordem": 2
+                },
+                {
+                    "url": "uploads\/passeios\/litoral-norte-genipabu-sunset-experience\/69504d55b23bf.jpg",
+                    "alt": "Foto do passeio 🌅 Litoral Norte – Genipabu Sunset Experience",
+                    "ordem": 3
+                },
+                {
+                    "url": "uploads\/passeios\/litoral-norte-genipabu-sunset-experience\/696cfbeb58d35.jpg",
+                    "alt": "Foto do passeio 🌅 Litoral Norte – Genipabu Sunset Experience",
+                    "ordem": 4
+                },
+                {
+                    "url": "uploads\/passeios\/litoral-norte-genipabu-sunset-experience\/696cfbeb6b86e.jpg",
+                    "alt": "Foto do passeio 🌅 Litoral Norte – Genipabu Sunset Experience",
+                    "ordem": 5
+                }
+            ],
+            "horarios": [
+                "A combinar"
+            ],
+            "inclui": [
+                "Transporte ida e volta",
+                "Carro climatizado",
+                "Guia de turismo Embratur",
+                "Passeio de buggy nas dunas de Genipabu"
+            ],
+            "nao_inclui": [
+                "Alimentação e bebidas",
+                "Buffet no restaurante miramar",
+                "Atividades e brinquedos no clube Pargos",
+                "Qualquer gasto extra ee natureza pessoal nao citado no roteiro"
+            ]
+        },
+        {
+            "id": "passeio_697c340734419",
+            "nome": "Transfer Aeroporto de Natal - Serviço Regular",
+            "slug": "transfer-aeroporto-de-natal-servi-o-regular",
+            "descricao_curta": "O transfer aeroporto → Natal é a forma mais segura e prática de chegar ao seu hotel.\r\nTrabalhamos com serviço regular compartilhado, com valor fixo por pessoa e reserva antecipada, evitando imprevistos e negociações no aeroporto.",
+            "descricao_completa": "VALOR POR PESSOA R$ 45,00\r\n\r\nO transfer aeroporto → Natal é a forma mais segura e prática de chegar ao seu hotel.\r\nTrabalhamos com serviço regular compartilhado, com valor fixo por pessoa e reserva antecipada, evitando imprevistos e negociações no aeroporto.\r\n\r\nO Aeroporto internacional Aloisio alves (Natal) localizado no municipio de São Gonçalo do Amarante, distânte 40 km da zona hoteleira, ate os hoteis localizados dentro do municipio NATAL-RN.",
+            "duracao": "45 minutos",
+            "categoria": [
+                "Família",
+                "Crianças",
+                "Destaque",
+                "Famoso",
+                "Privativo"
+            ],
+            "destaque": true,
+            "ativo": true,
+            "tipo_passeio": "Passeio regular",
+            "min_pessoas": "1",
+            "observacoes": "Tempo de espera: aguardamos até 30 minutos após o desembarque completo do voo. Após esse período, o serviço estará sujeito à reorganização da saída.\r\n\r\nBagagem: o serviço contempla 1 mala por passageiro, além de 1 bolsa de mão ou item pessoal. Bagagens adicionais devem ser informadas no momento da reserva.",
+            "politica_criancas": "Crianças: o desconto de 50% é válido para crianças de 2 a 11 anos, desde que estejam acompanhadas de dois adultos pagantes.\r\nEm casos de apenas um adulto acompanhante, a criança paga o valor integral do serviço.",
+            "posicao": 1,
+            "valor": "R$ 45,00 por pessoaa",
+            "data_atualizacao": "2026-01-31",
+            "data_criacao": "2026-01-30",
+            "imagem_capa": "uploads\/passeios\/transfer-aeroporto-de-natal-servi-o-regular\/697c40e62ae78.png",
+            "galeria": [
+                {
+                    "url": "uploads\/passeios\/transfer-aeroporto-de-natal-servi-o-regular\/697c3d219470c.png",
+                    "alt": "Foto do passeio Transfer Aeroporto de Natal - Serviço Regular",
+                    "ordem": 1
+                },
+                {
+                    "url": "uploads\/passeios\/transfer-aeroporto-de-natal-servi-o-regular\/697c3d2296b0c.png",
+                    "alt": "Foto do passeio Transfer Aeroporto de Natal - Serviço Regular",
+                    "ordem": 2
+                },
+                {
+                    "url": "uploads\/passeios\/transfer-aeroporto-de-natal-servi-o-regular\/697c3d2380f99.png",
+                    "alt": "Foto do passeio Transfer Aeroporto de Natal - Serviço Regular",
+                    "ordem": 3
+                },
+                {
+                    "url": "uploads\/passeios\/transfer-aeroporto-de-natal-servi-o-regular\/697c3d2488c7c.png",
+                    "alt": "Foto do passeio Transfer Aeroporto de Natal - Serviço Regular",
+                    "ordem": 4
+                }
+            ],
+            "horarios": [
+                "Programada"
+            ],
+            "inclui": [
+                "Transfer regular compartilhado",
+                "Saída programada conforme os voos",
+                "Veiculo confortável e climatizado",
+                "Motorista experiente e credenciado",
+                "Acompanhamento do voo em tempo real",
+                "Recepção no Aeroporto com placa personalizada",
+                "Atendimento e suporte via whatsApp"
+            ],
+            "nao_inclui": [
+                "Alimentação, bebidas  ou despesas pessoais",
+                "Paradas fora do trajeto previamente combinado",
+                "Serviços não mencionados na descrição",
+                "Tempo de espera além do periodo informado"
+            ],
+            "depoimentos": [
+                {
+                    "texto": "Cheguei no aeroporto e o motorista já estava me aguardando. Foi rápido seguro e confortável. Recomendo esse Transfer!",
+                    "autor": "Denes",
+                    "data": "31\/01\/2026",
+                    "estrelas": 5
+                },
+                {
+                    "texto": "Experiencia muito boa. Agendei com ele por Whatsapp e quando cheguei ao aeroporto ele já estava lá me aguardando.",
+                    "autor": "Marilia",
+                    "data": "31\/01\/2026",
+                    "estrelas": 5
+                }
             ]
         }
     ]

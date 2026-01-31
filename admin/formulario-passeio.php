@@ -25,7 +25,9 @@ $passeio = [
     'min_pessoas' => '1',
     'observacoes' => '',
     'politica_criancas' => '',
-    'posicao' => '999'
+    'posicao' => '999',
+    'valor' => '',
+    'depoimentos' => []
 ];
 
 if ($modoEdicao) {
@@ -498,6 +500,12 @@ if ($modoEdicao) {
                 </div>
 
                 <div class="form-group">
+                    <label for="valor">Valor do Passeio</label>
+                    <input type="text" id="valor" name="valor" value="<?= htmlspecialchars($passeio['valor'] ?? '') ?>" placeholder="Ex: R$ 150 por pessoa | A partir de R$ 120 | Consulte-nos">
+                    <p class="help-text">Texto exibido acima do botão de Agendamento. Pode ser valor fixo, faixa ou texto livre.</p>
+                </div>
+
+                <div class="form-group">
                     <label>Horários de Saída</label>
                     <div id="horarios-list" class="dynamic-list">
                         <?php 
@@ -552,6 +560,47 @@ if ($modoEdicao) {
                 </div>
 
                 <div class="form-group">
+                    <label>Depoimentos do Passeio</label>
+                    <p class="help-text">Depoimentos específicos deste passeio. Aparecem após a galeria de fotos na página.</p>
+                    <div id="depoimentos-list" class="dynamic-list">
+                        <?php 
+                        $depoimentos = $passeio['depoimentos'] ?? [];
+                        if (empty($depoimentos)) {
+                            $depoimentos = [['texto' => '', 'autor' => '', 'data' => date('d/m/Y'), 'estrelas' => '5']];
+                        }
+                        foreach ($depoimentos as $index => $dep): 
+                        ?>
+                            <div class="depoimento-item dynamic-item" style="flex-direction: column; gap: 12px; padding: 20px; border: 2px solid #e0e0e0; border-radius: 8px; margin-bottom: 15px;">
+                                <div class="form-group" style="margin-bottom: 0;">
+                                    <label for="dep_autor_<?= $index ?>">Nome do autor</label>
+                                    <input type="text" id="dep_autor_<?= $index ?>" name="depoimentos_autor[]" value="<?= htmlspecialchars($dep['autor'] ?? '') ?>" placeholder="Ex: Maria Silva" autocomplete="off">
+                                </div>
+                                <div class="form-row depoimento-fields">
+                                    <div class="form-group" style="flex: 0 0 140px;">
+                                        <label>Data</label>
+                                        <input type="text" name="depoimentos_data[]" value="<?= htmlspecialchars($dep['data'] ?? date('d/m/Y')) ?>" placeholder="dd/mm/aaaa">
+                                    </div>
+                                    <div class="form-group" style="flex: 0 0 100px;">
+                                        <label>Estrelas</label>
+                                        <select name="depoimentos_estrelas[]">
+                                            <?php for ($e = 1; $e <= 5; $e++): ?>
+                                                <option value="<?= $e ?>" <?= (($dep['estrelas'] ?? 5) == $e) ? 'selected' : '' ?>><?= $e ?> ★</option>
+                                            <?php endfor; ?>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group" style="margin-bottom: 0;">
+                                    <label>Depoimento</label>
+                                    <textarea name="depoimentos_texto[]" rows="3" placeholder="Texto do depoimento..."><?= htmlspecialchars($dep['texto'] ?? '') ?></textarea>
+                                </div>
+                                <button type="button" class="btn-remove" onclick="this.closest('.depoimento-item').remove()">Remover depoimento</button>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                    <button type="button" class="btn-add" onclick="adicionarDepoimento()">+ Adicionar Depoimento</button>
+                </div>
+
+                <div class="form-group">
                     <label for="observacoes">Observações Importantes</label>
                     <textarea id="observacoes" name="observacoes"><?= htmlspecialchars($passeio['observacoes']) ?></textarea>
                 </div>
@@ -599,6 +648,42 @@ if ($modoEdicao) {
             div.innerHTML = `
                 <input type="text" name="nao_inclui[]" placeholder="O que NÃO está incluído">
                 <button type="button" class="btn-remove" onclick="this.parentElement.remove()">Remover</button>
+            `;
+            container.appendChild(div);
+        }
+
+        function adicionarDepoimento() {
+            const container = document.getElementById('depoimentos-list');
+            const hoje = new Date().toLocaleDateString('pt-BR');
+            const div = document.createElement('div');
+            div.className = 'depoimento-item dynamic-item';
+            div.style.cssText = 'flex-direction: column; gap: 12px; padding: 20px; border: 2px solid #e0e0e0; border-radius: 8px; margin-bottom: 15px;';
+            div.innerHTML = `
+                <div class="form-group" style="margin-bottom: 0;">
+                    <label>Nome do autor</label>
+                    <input type="text" name="depoimentos_autor[]" placeholder="Ex: Maria Silva" autocomplete="off">
+                </div>
+                <div class="form-row">
+                    <div class="form-group" style="flex: 0 0 140px;">
+                        <label>Data</label>
+                        <input type="text" name="depoimentos_data[]" value="${hoje}" placeholder="dd/mm/aaaa">
+                    </div>
+                    <div class="form-group" style="flex: 0 0 100px;">
+                        <label>Estrelas</label>
+                        <select name="depoimentos_estrelas[]">
+                            <option value="1">1 ★</option>
+                            <option value="2">2 ★</option>
+                            <option value="3">3 ★</option>
+                            <option value="4">4 ★</option>
+                            <option value="5" selected>5 ★</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group" style="margin-bottom: 0;">
+                    <label>Depoimento</label>
+                    <textarea name="depoimentos_texto[]" rows="3" placeholder="Texto do depoimento..."></textarea>
+                </div>
+                <button type="button" class="btn-remove" onclick="this.closest('.depoimento-item').remove()">Remover depoimento</button>
             `;
             container.appendChild(div);
         }

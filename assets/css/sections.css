@@ -29,13 +29,20 @@ h2 {
   color: white;
   box-shadow: inset 0px -20px 20px 5px #f1e3ca;
   transition: box-shadow 0.3s ease;
-  background-image: url('/assets/img/Genipabu.png');
-  background-size: cover;
-  background-position: center top;
-  background-repeat: no-repeat;
-  background-attachment: scroll;
+  background: #000;
   position: relative;
   overflow: hidden;
+}
+
+/* Imagem do hero como <img> para permitir srcset/WebP e melhorar LCP */
+.hero .hero-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  z-index: 0;
 }
 
 /* Overlay sutil para melhorar legibilidade do texto (opcional - ajuste a opacidade se necessário) */
@@ -46,7 +53,7 @@ h2 {
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: 0;
+  z-index: 1;
   pointer-events: none;
 }
 
@@ -62,7 +69,7 @@ h2 {
   align-items: flex-start;
   width: 100%;
   position: relative;
-  z-index: 1;
+  z-index: 2;
   height: 500px;
   padding: 30px 20px;
 }
@@ -790,6 +797,11 @@ h2 {
 
 .testimonial-rating .star.empty {
   color: #e0e0e0;
+}
+
+/* Depoimentos na página do passeio - mesmo scroll/letreiros da home */
+.testimonials-passeio .testimonials-scroll-wrapper {
+  /* Herda estilos da home - overflow hidden para o scroll */
 }
 
 /* Media Queries para Responsividade - Testimonials */
@@ -1695,6 +1707,34 @@ h2 {
   font-size: 1rem;
   color: #58371b;
   line-height: 1.6;
+  margin-bottom: 15px;
+}
+
+.instagram-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 15px;
+  padding: 8px 16px;
+  background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+  color: white;
+  text-decoration: none;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(188, 24, 136, 0.3);
+}
+
+.instagram-link:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(188, 24, 136, 0.4);
+  color: white;
+}
+
+.instagram-link svg {
+  fill: white;
+  color: white;
 }
 
 .features-grid {
@@ -2670,7 +2710,8 @@ body.icon-theme-secondary svg * {
 
 .servicos-subtitle {
   font-size: 1rem;
-  color: #e08e2b;
+  /* Contraste AA no fundo claro */
+  color: #6b4528;
   text-transform: uppercase;
   letter-spacing: 2px;
   font-weight: 600;
@@ -2868,6 +2909,129 @@ body.icon-theme-secondary svg * {
   line-height: 1.8;
   color: #58371b;
   margin-bottom: 20px;
+}
+
+/* Menu de Navegação de Serviços */
+.servicos-nav-menu {
+  position: relative;
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 15px;
+  padding: 20px 0;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.servicos-nav-menu .container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.servicos-nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.servicos-nav-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 15px 25px;
+  background: rgba(88, 55, 27, 0.05);
+  border-radius: 12px;
+  text-decoration: none;
+  color: #58371b;
+  transition: all 0.3s ease;
+  min-width: 140px;
+  border: 2px solid transparent;
+  cursor: pointer;
+}
+
+.servicos-nav-link:hover {
+  background: rgba(224, 142, 43, 0.15);
+  border-color: rgba(224, 142, 43, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.servicos-nav-link.active {
+  background: rgba(224, 142, 43, 0.2);
+  border-color: #e08e2b;
+  color: #58371b;
+  font-weight: 600;
+}
+
+.servicos-nav-icon {
+  font-size: 2rem;
+  margin-bottom: 8px;
+  display: block;
+  line-height: 1;
+}
+
+.servicos-nav-text {
+  font-size: 0.9rem;
+  text-align: center;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+/* Scroll suave para as seções */
+.servico-detalhado {
+  scroll-margin-top: 0px;
+}
+
+/* Responsive - Menu de Navegação */
+@media (max-width: 768px) {
+  .servicos-nav-menu {
+    padding: 15px 0;
+  }
+
+  .servicos-nav {
+    gap: 10px;
+  }
+
+  .servicos-nav-link {
+    padding: 12px 15px;
+    min-width: 110px;
+  }
+
+  .servicos-nav-icon {
+    font-size: 1.5rem;
+    margin-bottom: 5px;
+  }
+
+  .servicos-nav-text {
+    font-size: 0.8rem;
+  }
+
+  .servico-detalhado {
+    scroll-margin-top: 0px;
+  }
+}
+
+@media (max-width: 480px) {
+  .servicos-nav {
+    gap: 8px;
+  }
+
+  .servicos-nav-link {
+    padding: 10px 12px;
+    min-width: 90px;
+  }
+
+  .servicos-nav-icon {
+    font-size: 1.3rem;
+  }
+
+  .servicos-nav-text {
+    font-size: 0.75rem;
+  }
 }
 
 .servicos-detalhados {

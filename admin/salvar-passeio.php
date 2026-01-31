@@ -91,6 +91,7 @@ $passeio = [
     'observacoes' => trim($_POST['observacoes']),
     'politica_criancas' => trim($_POST['politica_criancas'] ?? ''),
     'posicao' => isset($_POST['posicao']) ? (int)$_POST['posicao'] : 999,
+    'valor' => trim($_POST['valor'] ?? ''),
     'data_atualizacao' => date('Y-m-d')
 ];
 
@@ -206,6 +207,26 @@ $passeio['galeria'] = $galeria;
 $passeio['horarios'] = array_filter(array_map('trim', $_POST['horarios'] ?? []));
 $passeio['inclui'] = array_filter(array_map('trim', $_POST['inclui'] ?? []));
 $passeio['nao_inclui'] = array_filter(array_map('trim', $_POST['nao_inclui'] ?? []));
+
+// Processar depoimentos do passeio (arrays separados - mais confiável com multipart/form-data)
+$autores = array_values($_POST['depoimentos_autor'] ?? []);
+$textos = array_values($_POST['depoimentos_texto'] ?? []);
+$datas = array_values($_POST['depoimentos_data'] ?? []);
+$estrelasArr = array_values($_POST['depoimentos_estrelas'] ?? []);
+$depoimentos = [];
+$qtd = max(count($textos), count($autores), count($datas));
+for ($i = 0; $i < $qtd; $i++) {
+    $texto = trim((string)($textos[$i] ?? ''));
+    if ($texto !== '') {
+        $depoimentos[] = [
+            'texto' => $texto,
+            'autor' => trim((string)($autores[$i] ?? '')),
+            'data' => trim((string)($datas[$i] ?? date('d/m/Y'))),
+            'estrelas' => min(5, max(1, (int)($estrelasArr[$i] ?? 5)))
+        ];
+    }
+}
+$passeio['depoimentos'] = $depoimentos;
 
 // Atualizar ou adicionar passeio
 if ($modoEdicao) {
